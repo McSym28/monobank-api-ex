@@ -23,12 +23,12 @@ defmodule MonobankAPI.MixProject do
     [
       {:oapi_generator,
        git: "../../../open-api-generator",
-       branch: "header_params",
+       branch: "behaviour_impl",
        only: ~w(test dev)a,
        runtime: false,
        override: true},
-      {:open_api_generator_ex,
-       git: "../../../open-api-generator-ex", only: ~w(test dev)a, runtime: false}
+      {:open_api_client_ex,
+       git: "../../../open-api-client-ex", only: ~w(test dev)a, runtime: false}
     ]
   end
 end
