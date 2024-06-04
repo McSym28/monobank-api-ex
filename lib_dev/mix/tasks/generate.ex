@@ -96,8 +96,7 @@ defmodule Mix.Tasks.Generate do
     {"/api/merchant/qr/details", "get", "qrId", "query"},
     {"/api/merchant/invoice/status", "get", "invoiceId", "query"},
     {"/api/merchant/invoice/fiscal-checks", "get", "invoiceId", "query"},
-    {"/api/merchant/invoice/payment-info", "get", "invoiceId", "query"},
-    {quote(do: _), quote(do: _), "X-Token", "header"}
+    {"/api/merchant/invoice/payment-info", "get", "invoiceId", "query"}
   ]
 
   @requirements ["app.start"]
