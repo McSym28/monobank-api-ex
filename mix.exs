@@ -17,20 +17,23 @@ defmodule MonobankAPI.MixProject do
     ]
   end
 
-  defp elixirc_paths(:dev), do: ["lib_dev" | elixirc_paths(:prod)]
+  defp elixirc_paths(:dev),
+    do: ["lib_dev", "deps/open_api_client_ex/lib_dev" | elixirc_paths(:prod)]
+
   defp elixirc_paths(_), do: ["lib"]
 
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :public_key]
+      extra_applications: [:jason, :httpoison]
     ]
   end
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:open_api_client_ex, git: "../../../open-api-client-ex"},
+      {:open_api_client_ex,
+       git: "../../../open-api-client-ex", tag: "48850fc73ce363ea8e42857eacfa507b33432471"},
       {:jason, "~> 1.4", optional: true, only: [:dev, :test]},
       {:httpoison, "~> 2.2", optional: true, only: [:dev, :test]},
       {:oapi_generator,

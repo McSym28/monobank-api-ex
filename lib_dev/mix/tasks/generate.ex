@@ -2,9 +2,7 @@ defmodule Mix.Tasks.Generate do
   @moduledoc "Generates library's modules"
   use Mix.Task
 
-  @webpage_filename "./lib_dev/mix/tasks/webpage.html"
-  @spec_filename "./lib_dev/mix/tasks/spec.json"
-  @spec_valid_filename "./lib_dev/mix/tasks/spec_valid.json"
+  @temp_spec_filename_length 16
 
   @operation_changes [
     {"/api/merchant/details", "get", %{"tags" => ["merchants"], "operationId" => "getDetails"}},
@@ -107,30 +105,43 @@ defmodule Mix.Tasks.Generate do
     with {:ok, body} <- http_request("https://api.monobank.ua/docs/acquiring.html"),
          {:ok, document} <- parse_document(body),
          {:ok, spec} <- find_spec(document) do
+      spec_filepath =
+        @temp_spec_filename_length
+        |> :crypto.strong_rand_bytes()
+        |> Base.url_encode64(padding: false)
+        |> then(&Enum.join([&1, "json"], "."))
+        |> then(&Path.join(System.tmp_dir!(), &1))
+
+      if File.exists?(spec_filepath) do
+        File.rm!(spec_filepath)
+      end
+
       spec
       |> traverse_spec([])
       |> Jason.encode!(pretty: true)
-      |> then(&File.write(@spec_valid_filename, &1))
+      |> then(&File.write!(spec_filepath, &1))
+
+      File.rm_rf!("lib/acquiring/*")
+      File.rm_rf!("test/acquiring/*")
+
+      Mix.Task.run("api.gen", ["acquiring", spec_filepath])
+
+      File.rm!(spec_filepath)
     end
   end
 
   defp http_request(url) do
-    if File.exists?(@webpage_filename) do
-      File.read(@webpage_filename)
-    else
-      case HTTPoison.get(url) do
-        {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          File.write(@webpage_filename, body)
-          {:ok, body}
+    case HTTPoison.get(url) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        {:ok, body}
 
-        {:ok, %HTTPoison.Response{status_code: status_code} = response} ->
-          IO.warn("Unexpected HTTP status code #{status_code}: `#{inspect(response)}`")
-          :error
+      {:ok, %HTTPoison.Response{status_code: status_code} = response} ->
+        IO.warn("Unexpected HTTP status code #{status_code}: `#{inspect(response)}`")
+        :error
 
-        {error, error} ->
-          IO.warn("Received HTTP response error: `#{inspect(error)}`")
-          :error
-      end
+      {error, error} ->
+        IO.warn("Received HTTP response error: `#{inspect(error)}`")
+        :error
     end
   end
 
@@ -146,36 +157,31 @@ defmodule Mix.Tasks.Generate do
   end
 
   defp find_spec(document) do
-    if File.exists?(@spec_filename) do
-      @spec_filename |> File.read!() |> Jason.decode()
-    else
-      document
-      |> Floki.find("script")
-      |> Enum.reduce_while(:error, fn {_, _, script_body}, :error ->
-        ~r/\{(?:[^}{]+|(?R))*+\}/
-        |> Regex.scan(Enum.join(script_body))
-        |> Enum.reduce_while(:error, fn [parens_object], :error ->
-          parens_object
-          |> Jason.decode()
-          |> case do
-            {:ok, %{"spec" => %{"data" => spec}}} -> {:halt, {:ok, spec}}
-            _ -> {:cont, :error}
-          end
-        end)
+    document
+    |> Floki.find("script")
+    |> Enum.reduce_while(:error, fn {_, _, script_body}, :error ->
+      ~r/\{(?:[^}{]+|(?R))*+\}/
+      |> Regex.scan(Enum.join(script_body))
+      |> Enum.reduce_while(:error, fn [parens_object], :error ->
+        parens_object
+        |> Jason.decode()
         |> case do
-          {:ok, _} = result -> {:halt, result}
-          :error -> {:cont, :error}
+          {:ok, %{"spec" => %{"data" => spec}}} -> {:halt, {:ok, spec}}
+          _ -> {:cont, :error}
         end
       end)
       |> case do
-        {:ok, spec} = result ->
-          spec |> Jason.encode!(pretty: true) |> then(&File.write(@spec_filename, &1))
-          result
-
-        :error ->
-          IO.warn("Unable to find OAS spec")
-          :error
+        {:ok, _} = result -> {:halt, result}
+        :error -> {:cont, :error}
       end
+    end)
+    |> case do
+      {:ok, spec} ->
+        {:ok, spec}
+
+      :error ->
+        IO.warn("Unable to find OAS spec")
+        :error
     end
   end
 
