@@ -2,6 +2,8 @@ defmodule Mix.Tasks.Generate do
   @moduledoc "Generates library's modules"
   use Mix.Task
 
+  @acquiring_url "https://api.monobank.ua/docs/acquiring.html"
+
   @temp_spec_filename_length 16
 
   @operation_changes [
@@ -102,7 +104,9 @@ defmodule Mix.Tasks.Generate do
   def run(_) do
     HTTPoison.start()
 
-    with {:ok, body} <- http_request("https://api.monobank.ua/docs/acquiring.html"),
+    tmp_dir = System.tmp_dir!()
+
+    with {:ok, body} <- http_request(@acquiring_url),
          {:ok, document} <- parse_document(body),
          {:ok, spec} <- find_spec(document) do
       spec_filepath =
@@ -110,7 +114,7 @@ defmodule Mix.Tasks.Generate do
         |> :crypto.strong_rand_bytes()
         |> Base.url_encode64(padding: false)
         |> then(&Enum.join([&1, "json"], "."))
-        |> then(&Path.join(System.tmp_dir!(), &1))
+        |> then(&Path.join(tmp_dir, &1))
 
       if File.exists?(spec_filepath) do
         File.rm!(spec_filepath)
@@ -283,12 +287,12 @@ defmodule Mix.Tasks.Generate do
     {key, traverse_spec(map, path)}
   end
 
-  defp do_traverse_spec(map, path) when is_map(map) do
-    Map.new(map, fn {key, value} -> traverse_spec({key, value}, [key | path]) end)
-  end
-
   defp do_traverse_spec({key, list}, path) when is_list(list) do
     {key, traverse_spec(list, path)}
+  end
+
+  defp do_traverse_spec(map, path) when is_map(map) do
+    Map.new(map, fn {key, value} -> traverse_spec({key, value}, [key | path]) end)
   end
 
   defp do_traverse_spec(list, path) when is_list(list) do
