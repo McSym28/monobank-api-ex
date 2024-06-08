@@ -262,7 +262,7 @@ defmodule Mix.Tasks.Generate do
        when schema_type != "object" and is_boolean(required) do
     value
     |> Map.delete("required")
-    |> do_traverse_spec(path)
+    |> traverse_spec(path)
   end
 
   defp traverse_spec(
@@ -272,7 +272,17 @@ defmodule Mix.Tasks.Generate do
        when schema_type != "object" and is_boolean(required) do
     value
     |> Map.delete("required")
-    |> do_traverse_spec(path)
+    |> traverse_spec(path)
+  end
+
+  defp traverse_spec(
+         %{"type" => schema_type, "required" => required} = value,
+         [_name, "schemas", "components"] = path
+       )
+       when schema_type != "object" and is_boolean(required) do
+    value
+    |> Map.delete("required")
+    |> traverse_spec(path)
   end
 
   # Remove query parameters from path URLs
