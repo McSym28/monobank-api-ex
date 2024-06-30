@@ -4,6 +4,7 @@ if Mix.env() == :dev do
     use Mix.Task
 
     @acquiring_url "https://api.monobank.ua/docs/acquiring.html"
+    @acquiring_fixture_path "test/fixtures/acquiring.json"
 
     @temp_spec_filename_length 16
 
@@ -121,12 +122,12 @@ if Mix.env() == :dev do
           File.rm!(spec_filepath)
         end
 
-        File.write!("test/fixtures/mono.json", Jason.encode!(spec, pretty: true))
-
         spec
         |> traverse_spec([])
         |> Jason.encode!(pretty: true)
-        |> then(&File.write!(spec_filepath, &1))
+        |> then(&File.write!(@acquiring_fixture_path, &1))
+
+        File.copy!(@acquiring_fixture_path, spec_filepath)
 
         "lib/acquiring/**/*.ex"
         |> Path.wildcard()

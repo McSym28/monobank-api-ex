@@ -26,16 +26,18 @@ defmodule MonobankAPI.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:open_api_client_ex,
-       git: "../../../open-api-client-ex", ref: "5eeb3c00f7f8f779cede16fb10fca9c784d14ea0"},
+      {:open_api_client_ex, opts_for_open_api_client_ex(Mix.env())},
       {:jason, "~> 1.4", optional: true, only: [:dev, :test]},
       {:httpoison, "~> 2.2", optional: true, only: [:dev, :test]},
-      {:oapi_generator,
-       git: "../../../open-api-generator", branch: "behaviour_impl", only: [:dev, :test]},
       {:mox, "~> 1.1", only: [:dev, :test]},
       {:floki, "~> 0.36", only: [:dev, :test]},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.18", only: :test}
     ]
   end
+
+  defp opts_for_open_api_client_ex(:dev), do: [{:env, :dev} | opts_for_open_api_client_ex(:prod)]
+
+  defp opts_for_open_api_client_ex(_env),
+    do: [git: "../../../open-api-client-ex", ref: "5eeb3c00f7f8f779cede16fb10fca9c784d14ea0"]
 end
