@@ -8,7 +8,6 @@ defmodule MonobankAPI.MixProject do
       elixir: "~> 1.16",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      elixirc_paths: elixirc_paths(Mix.env()),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
@@ -16,11 +15,6 @@ defmodule MonobankAPI.MixProject do
       ]
     ]
   end
-
-  defp elixirc_paths(:dev),
-    do: ["lib_dev", "deps/open_api_client_ex/lib_dev" | elixirc_paths(:prod)]
-
-  defp elixirc_paths(_), do: ["lib"]
 
   # Run "mix help compile.app" to learn about applications.
   def application do
