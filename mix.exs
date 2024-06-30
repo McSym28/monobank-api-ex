@@ -33,7 +33,7 @@ defmodule MonobankAPI.MixProject do
   defp deps do
     [
       {:open_api_client_ex,
-       git: "../../../open-api-client-ex", tag: "48850fc73ce363ea8e42857eacfa507b33432471"},
+       git: "../../../open-api-client-ex", ref: "5eeb3c00f7f8f779cede16fb10fca9c784d14ea0"},
       {:jason, "~> 1.4", optional: true, only: [:dev, :test]},
       {:httpoison, "~> 2.2", optional: true, only: [:dev, :test]},
       {:oapi_generator,
