@@ -128,8 +128,15 @@ if Mix.env() == :dev do
         |> Jason.encode!(pretty: true)
         |> then(&File.write!(spec_filepath, &1))
 
-        File.rm_rf!("lib/acquiring/*")
-        File.rm_rf!("test/acquiring/*")
+        "lib/acquiring/**/*.ex"
+        |> Path.wildcard()
+        |> Enum.reject(fn file -> file == "lib/acquiring/webhook.ex" end)
+        |> Enum.each(fn file -> File.rm!(file) end)
+
+        "test/acquiring/**/*.exs"
+        |> Path.wildcard()
+        |> Enum.reject(fn file -> file == "test/acquiring/webhook_test.exs" end)
+        |> Enum.each(fn file -> File.rm!(file) end)
 
         Mix.Task.run("api.gen", ["acquiring", spec_filepath])
 
