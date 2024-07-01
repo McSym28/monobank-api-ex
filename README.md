@@ -1,21 +1,20 @@
 # MonobankAPI
 
-**TODO: Add description**
+_Monobank API client for Elixir._
 
-## Installation
+---
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `monobank_api_ex` to your list of dependencies in `mix.exs`:
+Generated from OpenAPI specs using [open-api-client-ex](https://github.com/McSym28/open-api-client-ex).
+At this point only [Acquiring](https://api.monobank.ua/docs/acquiring.html) API is supported.
 
-```elixir
-def deps do
-  [
-    {:monobank_api_ex, "~> 0.1.0"}
-  ]
-end
-```
+## Supported API versions
+| **monobank-api-ex** | [Acquiring](https://api.monobank.ua/docs/acquiring.html) |
+| :-------------- | :---- |
+| 0.0.1 (current) | v2406 |
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/monobank_api_ex>.
-
+## TODOs
+- [ ] Add documentation
+- [ ] Configure GitHub Workflow
+- [ ] Wait for [open-api-client-ex](https://github.com/McSym28/open-api-client-ex)'s release and use [hex.pm's version](https://hex.pm/)
+- [ ] Publish package to [hex.pm](https://hex.pm/)
+- [ ] Publish documentation to [hexdocs.pm](https://hexdocs.pm/)
