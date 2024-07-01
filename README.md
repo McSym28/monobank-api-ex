@@ -1,6 +1,6 @@
 # MonobankAPI
 
-_Monobank API client for Elixir._
+_[monobank API](https://api.monobank.ua/) client for Elixir._
 
 ---
 
@@ -8,7 +8,7 @@ Generated from OpenAPI specs using [open-api-client-ex](https://github.com/McSym
 At this point only [Acquiring](https://api.monobank.ua/docs/acquiring.html) API is supported.
 
 ## Supported API versions
-| **monobank-api-ex** | [Acquiring](https://api.monobank.ua/docs/acquiring.html) |
+| `monobank-api-ex` | [Acquiring](https://api.monobank.ua/docs/acquiring.html) |
 | :-------------- | :---- |
 | 0.0.1 (current) | v2406 |
 
