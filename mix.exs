@@ -19,7 +19,7 @@ defmodule MonobankAPI.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:jason, :httpoison]
+      extra_applications: [:logger, :jason, :httpoison]
     ]
   end
 
