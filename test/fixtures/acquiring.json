@@ -3292,7 +3292,7 @@
             "required": true,
             "schema": {
               "example": 1649329978,
-              "format": "int64",
+              "format": "timestamp-s",
               "type": "integer"
             }
           },
@@ -3302,7 +3302,7 @@
             "name": "to",
             "schema": {
               "example": 1649329978,
-              "format": "int64",
+              "format": "timestamp-s",
               "type": "integer"
             }
           }

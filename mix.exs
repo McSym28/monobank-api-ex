@@ -36,8 +36,9 @@ defmodule MonobankAPI.MixProject do
     ]
   end
 
-  defp opts_for_open_api_client_ex(:dev), do: [{:env, :dev} | opts_for_open_api_client_ex(:prod)]
+  defp opts_for_open_api_client_ex(env) when env in ~w(dev test)a,
+    do: [{:env, :dev} | opts_for_open_api_client_ex(:prod)]
 
   defp opts_for_open_api_client_ex(_env),
-    do: [git: "../../../open-api-client-ex", ref: "5e2297ddceb707a960e8b5a40cd9364d691f82c0"]
+    do: [git: "../../../open-api-client-ex", ref: "ba5bfd7bfc3bc21e3466544c0ce39cc7df925f56"]
 end

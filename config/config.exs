@@ -13,6 +13,8 @@ config :logger, :console, format: "$time [$level] $message\n"
 config :open_api_client_ex,
   "$base": [
     client_pipeline: OpenAPIClient.BasicHTTPoisonPipeline,
+    typed_decoder: MonobankAPI.Client.TypedDecoder,
+    typed_encoder: MonobankAPI.Client.TypedEncoder,
     decoders: [
       {"application/json", {Jason, :decode, []}}
     ],

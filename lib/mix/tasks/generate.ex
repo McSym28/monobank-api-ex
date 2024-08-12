@@ -260,10 +260,27 @@ if Mix.env() == :dev do
            )
            when parameter_not_required?(value) do
         value
-        |> do_traverse_spec(path)
         |> Map.put("required", true)
+        |> traverse_spec(path)
       end
     end)
+
+    # Change `from`/`to` parameters' format to treat them as `DateTime`'s
+    defp traverse_spec(
+           %{
+             "name" => timestamp_property,
+             "in" => "query",
+             "schema" => %{"type" => "integer"} = schema
+           } = value,
+           [[_index], "parameters", "get", "/api/merchant/statement", "paths"] = path
+         )
+         when timestamp_property in ~w(from to) and
+                (not is_map_key(schema, "format") or
+                   :erlang.map_get("format", schema) != "timestamp-s") do
+      value
+      |> put_in(["schema", "format"], "timestamp-s")
+      |> traverse_spec(path)
+    end
 
     # Fix invalid required attributes (not strictly necessary)
     defp traverse_spec(

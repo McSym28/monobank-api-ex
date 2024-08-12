@@ -671,9 +671,9 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                   }
                 ]
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(1,
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
                  token: "string",
-                 to: 1,
+                 to: ~U[1970-01-01 00:00:01Z],
                  base_url: "https://example.com"
                )
     end
@@ -704,9 +704,9 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_code: "BAD_REQUEST",
                 err_text: "empty 'invoiceId'"
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(1,
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
                  token: "string",
-                 to: 1,
+                 to: ~U[1970-01-01 00:00:01Z],
                  base_url: "https://example.com"
                )
     end
@@ -737,9 +737,9 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_code: "FORBIDDEN",
                 err_text: "forbidden"
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(1,
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
                  token: "string",
-                 to: 1,
+                 to: ~U[1970-01-01 00:00:01Z],
                  base_url: "https://example.com"
                )
     end
@@ -773,9 +773,9 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_code: "METHOD_NOT_ALLOWED",
                 err_text: "Method not allowed"
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(1,
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
                  token: "string",
-                 to: 1,
+                 to: ~U[1970-01-01 00:00:01Z],
                  base_url: "https://example.com"
                )
     end
@@ -806,9 +806,9 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_code: "TMR",
                 err_text: "too many requests"
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(1,
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
                  token: "string",
-                 to: 1,
+                 to: ~U[1970-01-01 00:00:01Z],
                  base_url: "https://example.com"
                )
     end
@@ -842,9 +842,9 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_code: "INTERNAL_ERROR",
                 err_text: "internal server error"
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(1,
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
                  token: "string",
-                 to: 1,
+                 to: ~U[1970-01-01 00:00:01Z],
                  base_url: "https://example.com"
                )
     end

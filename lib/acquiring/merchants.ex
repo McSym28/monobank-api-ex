@@ -189,8 +189,8 @@ defmodule MonobankAPI.Acquiring.Merchants do
     * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
 
   """
-  @spec list_statements(integer, [
-          {:to, integer}
+  @spec list_statements(DateTime.t(), [
+          {:to, DateTime.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:client_pipeline, OpenAPIClient.Client.pipeline()}
@@ -207,13 +207,38 @@ defmodule MonobankAPI.Acquiring.Merchants do
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
+    typed_encoder =
+      OpenAPIClient.Utils.get_config(
+        :acquiring,
+        :typed_encoder,
+        OpenAPIClient.Client.TypedEncoder
+      )
+
+    {:ok, from} =
+      typed_encoder.encode(
+        from,
+        {:integer, "timestamp-s"},
+        [{:parameter, :query, "from"}, {"/api/merchant/statement", :get}],
+        typed_encoder
+      )
+
     token =
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     query_params =
       opts
       |> Keyword.take([:to])
-      |> Enum.map(fn {:to, value} -> {"to", value} end)
+      |> Enum.map(fn {:to, value} ->
+        {:ok, value_new} =
+          typed_encoder.encode(
+            value,
+            {:integer, "timestamp-s"},
+            [{:parameter, :query, "to"}, [{"/api/merchant/statement", :get}]],
+            typed_encoder
+          )
+
+        {"to", value_new}
+      end)
       |> Map.new()
       |> Map.merge(%{"from" => from})
 
