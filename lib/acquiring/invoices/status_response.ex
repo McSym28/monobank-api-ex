@@ -56,14 +56,14 @@ defmodule MonobankAPI.Acquiring.Invoices.StatusResponse do
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      amount: {"amount", :integer},
+      amount: {"amount", {:integer, :int64}},
       cancel_list: {"cancelList", [{MonobankAPI.Acquiring.Invoices.CancelListItem, :t}]},
-      ccy: {"ccy", :integer},
+      ccy: {"ccy", {:integer, :int32}},
       created_date: {"createdDate", {:string, :date_time}},
       destination: {"destination", {:string, :generic}},
       err_code: {"errCode", {:string, :generic}},
       failure_reason: {"failureReason", {:string, :generic}},
-      final_amount: {"finalAmount", :integer},
+      final_amount: {"finalAmount", {:integer, :int64}},
       invoice_id: {"invoiceId", {:string, :generic}},
       modified_date: {"modifiedDate", {:string, :date_time}},
       payment_info:

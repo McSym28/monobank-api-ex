@@ -5,7 +5,7 @@ defmodule MonobankAPI.Acquiring.Invoices.FinalizeResponse do
 
   @behaviour OpenAPIClient.Schema
 
-  @type t :: %__MODULE__{status: String.t()}
+  @type t :: %__MODULE__{status: :success | String.t()}
   @type types :: :t
 
   @enforce_keys [:status]
@@ -15,6 +15,6 @@ defmodule MonobankAPI.Acquiring.Invoices.FinalizeResponse do
   @impl OpenAPIClient.Schema
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
-    [status: {"status", {:const, "success"}}]
+    [status: {"status", {:enum, [{:success, "success"}, :not_strict]}}]
   end
 end

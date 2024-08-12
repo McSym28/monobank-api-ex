@@ -21,8 +21,8 @@ defmodule MonobankAPI.Acquiring.QR.DetailsResponse do
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      amount: {"amount", :integer},
-      ccy: {"ccy", :integer},
+      amount: {"amount", {:integer, :int64}},
+      ccy: {"ccy", {:integer, :int32}},
       invoice_id: {"invoiceId", {:string, :generic}},
       short_qr_id: {"shortQrId", {:string, :generic}}
     ]

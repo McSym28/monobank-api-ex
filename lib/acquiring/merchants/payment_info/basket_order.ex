@@ -50,8 +50,8 @@ defmodule MonobankAPI.Acquiring.Merchants.PaymentInfo.BasketOrder do
       header: {"header", {:string, :generic}},
       icon: {"icon", {:string, :generic}},
       name: {"name", {:string, :generic}},
-      qty: {"qty", :number},
-      sum: {"sum", :integer},
+      qty: {"qty", {:number, :float}},
+      sum: {"sum", {:integer, :int64}},
       tax: {"tax", [:integer]},
       uktzed: {"uktzed", {:string, :generic}},
       unit: {"unit", {:string, :generic}}

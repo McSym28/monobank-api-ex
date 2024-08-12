@@ -34,9 +34,9 @@ defmodule MonobankAPI.Acquiring.Invoices.CancelListItem do
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      amount: {"amount", :integer},
+      amount: {"amount", {:integer, :int64}},
       approval_code: {"approvalCode", {:string, :generic}},
-      ccy: {"ccy", :integer},
+      ccy: {"ccy", {:integer, :int32}},
       created_date: {"createdDate", {:string, :date_time}},
       ext_ref: {"extRef", {:string, :generic}},
       modified_date: {"modifiedDate", {:string, :date_time}},

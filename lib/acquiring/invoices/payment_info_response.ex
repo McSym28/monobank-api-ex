@@ -58,15 +58,15 @@ defmodule MonobankAPI.Acquiring.Invoices.PaymentInfoResponse do
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      amount: {"amount", :integer},
+      amount: {"amount", {:integer, :int64}},
       approval_code: {"approvalCode", {:string, :generic}},
       cancel_list: {"cancelList", [{MonobankAPI.Acquiring.Invoices.CancelListItem, :t}]},
-      ccy: {"ccy", :integer},
+      ccy: {"ccy", {:integer, :int32}},
       country: {"country", {:string, :generic}},
       created_date: {"createdDate", {:string, :date_time}},
       domestic_card: {"domesticCard", :boolean},
-      fee: {"fee", :integer},
-      final_amount: {"finalAmount", :integer},
+      fee: {"fee", {:integer, :int64}},
+      final_amount: {"finalAmount", {:integer, :int64}},
       masked_pan: {"maskedPan", {:string, :generic}},
       payment_method:
         {"paymentMethod",

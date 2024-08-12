@@ -31,8 +31,8 @@ defmodule MonobankAPI.Acquiring.Invoices.FiscalizationItem do
       footer: {"footer", {:string, :generic}},
       header: {"header", {:string, :generic}},
       name: {"name", {:string, :generic}},
-      qty: {"qty", :number},
-      sum: {"sum", :integer},
+      qty: {"qty", {:number, :float}},
+      sum: {"sum", {:integer, :int64}},
       tax: {"tax", [:integer]},
       uktzed: {"uktzed", {:string, :generic}}
     ]

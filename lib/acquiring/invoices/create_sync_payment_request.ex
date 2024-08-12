@@ -24,12 +24,12 @@ defmodule MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest do
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      amount: {"amount", :integer},
+      amount: {"amount", {:integer, :int64}},
       apple_pay:
         {"applePay", {MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.ApplePay, :t}},
       card_data:
         {"cardData", {MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.CardData, :t}},
-      ccy: {"ccy", :integer},
+      ccy: {"ccy", {:integer, :int32}},
       google_pay:
         {"googlePay", {MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.GooglePay, :t}},
       merchant_paym_info:

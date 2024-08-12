@@ -42,9 +42,9 @@ defmodule MonobankAPI.Acquiring.Invoices.CreateRequest do
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      agent_fee_percent: {"agentFeePercent", :number},
-      amount: {"amount", :integer},
-      ccy: {"ccy", :integer},
+      agent_fee_percent: {"agentFeePercent", {:number, :float}},
+      amount: {"amount", {:integer, :int64}},
+      ccy: {"ccy", {:integer, :int32}},
       code: {"code", {:string, :generic}},
       merchant_paym_info: {"merchantPaymInfo", {MonobankAPI.Acquiring.Merchants.PaymentInfo, :t}},
       payment_type: {"paymentType", {:enum, [{:debit, "debit"}, {:hold, "hold"}, :not_strict]}},
@@ -53,7 +53,7 @@ defmodule MonobankAPI.Acquiring.Invoices.CreateRequest do
       save_card_data:
         {"saveCardData", {MonobankAPI.Acquiring.Invoices.CreateRequest.SaveCardData, :t}},
       tips_employee_id: {"tipsEmployeeId", {:string, :generic}},
-      validity: {"validity", :integer},
+      validity: {"validity", {:integer, :int64}},
       web_hook_url: {"webHookUrl", {:string, :generic}}
     ]
   end

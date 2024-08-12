@@ -32,9 +32,9 @@ defmodule MonobankAPI.Acquiring.Wallets.CreatePaymentRequest do
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      amount: {"amount", :integer},
+      amount: {"amount", {:integer, :int64}},
       card_token: {"cardToken", {:string, :generic}},
-      ccy: {"ccy", :integer},
+      ccy: {"ccy", {:integer, :int32}},
       initiation_kind:
         {"initiationKind", {:enum, [{:client, "client"}, {:merchant, "merchant"}, :not_strict]}},
       merchant_paym_info: {"merchantPaymInfo", {MonobankAPI.Acquiring.Merchants.PaymentInfo, :t}},

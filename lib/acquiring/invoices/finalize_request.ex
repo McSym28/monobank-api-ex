@@ -20,7 +20,7 @@ defmodule MonobankAPI.Acquiring.Invoices.FinalizeRequest do
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      amount: {"amount", :integer},
+      amount: {"amount", {:integer, :int64}},
       invoice_id: {"invoiceId", {:string, :generic}},
       items: {"items", [{MonobankAPI.Acquiring.Invoices.FiscalizationItem, :t}]}
     ]

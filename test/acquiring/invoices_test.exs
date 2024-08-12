@@ -1413,7 +1413,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
          }}
       end)
 
-      assert {:ok, %MonobankAPI.Acquiring.Invoices.FinalizeResponse{status: "success"}} ==
+      assert {:ok, %MonobankAPI.Acquiring.Invoices.FinalizeResponse{status: :success}} ==
                MonobankAPI.Acquiring.Invoices.finalize(
                  %MonobankAPI.Acquiring.Invoices.FinalizeRequest{
                    amount: 4200,

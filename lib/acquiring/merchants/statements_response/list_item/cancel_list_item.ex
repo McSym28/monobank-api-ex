@@ -23,9 +23,9 @@ defmodule MonobankAPI.Acquiring.Merchants.StatementsResponse.ListItem.CancelList
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      amount: {"amount", :integer},
+      amount: {"amount", {:integer, :int64}},
       approval_code: {"approvalCode", {:string, :generic}},
-      ccy: {"ccy", :integer},
+      ccy: {"ccy", {:integer, :int32}},
       date: {"date", {:string, :date_time}},
       masked_pan: {"maskedPan", {:string, :generic}},
       rrn: {"rrn", {:string, :generic}}

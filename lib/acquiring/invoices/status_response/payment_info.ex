@@ -40,11 +40,11 @@ defmodule MonobankAPI.Acquiring.Invoices.StatusResponse.PaymentInfo do
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      agent_fee: {"agentFee", :integer},
+      agent_fee: {"agentFee", {:integer, :int64}},
       approval_code: {"approvalCode", {:string, :generic}},
       bank: {"bank", {:string, :generic}},
       country: {"country", {:string, :generic}},
-      fee: {"fee", :integer},
+      fee: {"fee", {:integer, :int64}},
       masked_pan: {"maskedPan", {:string, :generic}},
       payment_method:
         {"paymentMethod",

@@ -47,12 +47,12 @@ defmodule MonobankAPI.Acquiring.Merchants.StatementsResponse.ListItem do
   @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
   def __fields__(:t) do
     [
-      amount: {"amount", :integer},
+      amount: {"amount", {:integer, :int64}},
       approval_code: {"approvalCode", {:string, :generic}},
       cancel_list:
         {"cancelList",
          [{MonobankAPI.Acquiring.Merchants.StatementsResponse.ListItem.CancelListItem, :t}]},
-      ccy: {"ccy", :integer},
+      ccy: {"ccy", {:integer, :int32}},
       date: {"date", {:string, :date_time}},
       destination: {"destination", {:string, :generic}},
       invoice_id: {"invoiceId", {:string, :generic}},
@@ -66,7 +66,7 @@ defmodule MonobankAPI.Acquiring.Merchants.StatementsResponse.ListItem do
             {:full, "full"},
             :not_strict
           ]}},
-      profit_amount: {"profitAmount", :integer},
+      profit_amount: {"profitAmount", {:integer, :int64}},
       reference: {"reference", {:string, :generic}},
       rrn: {"rrn", {:string, :generic}},
       short_qr_id: {"shortQrId", {:string, :generic}},
