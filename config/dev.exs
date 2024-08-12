@@ -55,16 +55,6 @@ config :oapi_generator,
   ]
 
 config :open_api_client_ex,
-  "$base": [
-    client_pipeline: OpenAPIClient.BasicHTTPoisonPipeline,
-    httpoison: OpenAPIClient.HTTPoisonMock,
-    decoders: [
-      {"application/json", {Jason, :decode, []}}
-    ],
-    encoders: [
-      {"application/json", {Jason, :encode, []}}
-    ]
-  ],
   acquiring: [
     base_url: "https://api.monobank.ua",
     operations: [

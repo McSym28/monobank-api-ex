@@ -411,7 +411,15 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
         assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
         assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
 
         assert {:ok,
                 %{
@@ -533,7 +541,15 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
         assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
         assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
 
         assert {:ok,
                 %{
@@ -640,7 +656,15 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
         assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
         assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
 
         assert {:ok,
                 %{
@@ -747,7 +771,15 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
         assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
         assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
 
         assert {:ok,
                 %{
@@ -857,7 +889,15 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
         assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
         assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
 
         assert {:ok,
                 %{
@@ -964,7 +1004,15 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
         assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
         assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
 
         assert {:ok,
                 %{

@@ -431,7 +431,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                                       headers,
                                       _ ->
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
+
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
         assert {:ok, body_encoded} = Jason.encode(%{"a" => "b"})
 
@@ -458,7 +467,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                                       headers,
                                       _ ->
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
+
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -491,7 +509,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                                       headers,
                                       _ ->
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
+
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -524,7 +551,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                                       headers,
                                       _ ->
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
+
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -557,7 +593,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                                       headers,
                                       _ ->
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
+
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -593,7 +638,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                                       headers,
                                       _ ->
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
+
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -626,7 +680,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                                       headers,
                                       _ ->
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-        assert {_, "application/json"} = List.keyfind(headers, "content-type", 0)
+
+        assert {:ok, "application/json"} ==
+                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
+                       {:ok, {media_type, media_subtype, _parameters}} =
+                         OpenAPIClient.Client.Operation.parse_content_type_header(
+                           content_type_request
+                         ) do
+                    {:ok, "#{media_type}/#{media_subtype}"}
+                  end)
+
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
