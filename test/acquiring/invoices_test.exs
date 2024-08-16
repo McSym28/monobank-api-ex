@@ -3,11 +3,14 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   import Mox
 
   @httpoison OpenAPIClient.HTTPoisonMock
+  @client OpenAPIClient.ClientMock
 
   setup :verify_on_exit!
 
   describe "cancel/2" do
     test "[200] performs a request, encodes MonobankAPI.Acquiring.Invoices.CancelRequest from request's body and encodes MonobankAPI.Acquiring.Invoices.CancelResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
@@ -90,6 +93,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[400] performs a request, encodes MonobankAPI.Acquiring.Invoices.CancelRequest from request's body and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
@@ -167,6 +172,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[403] performs a request, encodes MonobankAPI.Acquiring.Invoices.CancelRequest from request's body and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
@@ -244,6 +251,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[404] performs a request, encodes MonobankAPI.Acquiring.Invoices.CancelRequest from request's body and encodes MonobankAPI.Acquiring.Errors.NotFound from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
@@ -321,6 +330,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[405] performs a request, encodes MonobankAPI.Acquiring.Invoices.CancelRequest from request's body and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
@@ -401,6 +412,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[429] performs a request, encodes MonobankAPI.Acquiring.Invoices.CancelRequest from request's body and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
@@ -478,6 +491,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[500] performs a request, encodes MonobankAPI.Acquiring.Invoices.CancelRequest from request's body and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
@@ -560,6 +575,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
 
   describe "create/2" do
     test "[200] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateRequest from request's body and encodes MonobankAPI.Acquiring.Invoices.CreateResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
@@ -694,6 +711,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[400] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateRequest from request's body and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
@@ -825,6 +844,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[403] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateRequest from request's body and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
@@ -956,6 +977,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[404] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateRequest from request's body and encodes MonobankAPI.Acquiring.Errors.NotFound from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
@@ -1087,6 +1110,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[405] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateRequest from request's body and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
@@ -1221,6 +1246,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[429] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateRequest from request's body and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
@@ -1352,6 +1379,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[500] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateRequest from request's body and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
@@ -1488,6 +1517,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
 
   describe "finalize/2" do
     test "[200] performs a request, encodes MonobankAPI.Acquiring.Invoices.FinalizeRequest from request's body and encodes MonobankAPI.Acquiring.Invoices.FinalizeResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
@@ -1558,6 +1589,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[400] performs a request, encodes MonobankAPI.Acquiring.Invoices.FinalizeRequest from request's body and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
@@ -1633,6 +1666,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[403] performs a request, encodes MonobankAPI.Acquiring.Invoices.FinalizeRequest from request's body and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
@@ -1708,6 +1743,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[404] performs a request, encodes MonobankAPI.Acquiring.Invoices.FinalizeRequest from request's body and encodes MonobankAPI.Acquiring.Errors.NotFound from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
@@ -1783,6 +1820,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[405] performs a request, encodes MonobankAPI.Acquiring.Invoices.FinalizeRequest from request's body and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
@@ -1861,6 +1900,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[429] performs a request, encodes MonobankAPI.Acquiring.Invoices.FinalizeRequest from request's body and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
@@ -1936,6 +1977,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[500] performs a request, encodes MonobankAPI.Acquiring.Invoices.FinalizeRequest from request's body and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
@@ -2016,6 +2059,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
 
   describe "list_fiscal_checks/2" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.Invoices.FiscalChecksResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
@@ -2070,6 +2115,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
@@ -2101,6 +2148,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
@@ -2132,6 +2181,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[404] performs a request and encodes MonobankAPI.Acquiring.Errors.NotFound from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
@@ -2163,6 +2214,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
@@ -2197,6 +2250,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
@@ -2228,6 +2283,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
@@ -2264,6 +2321,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
 
   describe "create_direct_payment/2" do
     test "[200] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Wallets.CreatePaymentResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
@@ -2409,6 +2468,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[400] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
@@ -2539,6 +2600,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[403] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
@@ -2669,6 +2732,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[405] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
@@ -2802,6 +2867,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[429] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
@@ -2932,6 +2999,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[500] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
@@ -3067,6 +3136,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
 
   describe "get_payment_info/2" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.Invoices.PaymentInfoResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
@@ -3147,6 +3218,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
@@ -3178,6 +3251,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
@@ -3209,6 +3284,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[404] performs a request and encodes MonobankAPI.Acquiring.Errors.NotFound from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
@@ -3240,6 +3317,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
@@ -3274,6 +3353,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
@@ -3305,6 +3386,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
@@ -3341,6 +3424,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
 
   describe "remove/2" do
     test "[200] performs a request, encodes MonobankAPI.Acquiring.Invoices.RemoveRequest from request's body and encodes map from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
@@ -3377,6 +3462,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[400] performs a request, encodes MonobankAPI.Acquiring.Invoices.RemoveRequest from request's body and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
@@ -3419,6 +3506,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[403] performs a request, encodes MonobankAPI.Acquiring.Invoices.RemoveRequest from request's body and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
@@ -3461,6 +3550,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[404] performs a request, encodes MonobankAPI.Acquiring.Invoices.RemoveRequest from request's body and encodes MonobankAPI.Acquiring.Errors.NotFound from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
@@ -3503,6 +3594,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[405] performs a request, encodes MonobankAPI.Acquiring.Invoices.RemoveRequest from request's body and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
@@ -3548,6 +3641,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[429] performs a request, encodes MonobankAPI.Acquiring.Invoices.RemoveRequest from request's body and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
@@ -3590,6 +3685,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[500] performs a request, encodes MonobankAPI.Acquiring.Invoices.RemoveRequest from request's body and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
@@ -3637,6 +3734,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
 
   describe "get_status/2" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.Invoices.StatusResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
@@ -3754,6 +3853,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
@@ -3785,6 +3886,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
@@ -3816,6 +3919,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[404] performs a request and encodes MonobankAPI.Acquiring.Errors.NotFound from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
@@ -3847,6 +3952,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
@@ -3881,6 +3988,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
@@ -3912,6 +4021,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
@@ -3948,6 +4059,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
 
   describe "create_sync_payment/2" do
     test "[200] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Invoices.StatusResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
@@ -4148,6 +4261,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[400] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
@@ -4262,6 +4377,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[403] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
@@ -4376,6 +4493,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[404] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.NotFound from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
@@ -4490,6 +4609,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[405] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
@@ -4607,6 +4728,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[429] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
@@ -4721,6 +4844,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
 
     test "[500] performs a request, encodes MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,

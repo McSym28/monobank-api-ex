@@ -39,6 +39,8 @@ defmodule MonobankAPI.Acquiring.Wallets do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def create_payment(body, opts \\ []) do
+    initial_args = [body: body]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
     cms = Keyword.get_lazy(opts, :cms, fn -> Application.get_env(:monobank_api_ex, :cms) end)
@@ -52,6 +54,7 @@ defmodule MonobankAPI.Acquiring.Wallets do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Cms" => cms, "X-Cms-Version" => cms_version, "X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -72,11 +75,12 @@ defmodule MonobankAPI.Acquiring.Wallets do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :create_payment, body: body},
+      __args__: initial_args,
+      __call__: {__MODULE__, :create_payment},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -107,6 +111,8 @@ defmodule MonobankAPI.Acquiring.Wallets do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def delete_card(card_token, opts \\ []) do
+    initial_args = [card_token: card_token]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -115,6 +121,7 @@ defmodule MonobankAPI.Acquiring.Wallets do
 
     query_params = %{"cardToken" => card_token}
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -132,11 +139,12 @@ defmodule MonobankAPI.Acquiring.Wallets do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :delete_card, card_token: card_token},
+      __args__: initial_args,
+      __call__: {__MODULE__, :delete_card},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -167,6 +175,8 @@ defmodule MonobankAPI.Acquiring.Wallets do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def get(wallet_id, opts \\ []) do
+    initial_args = [wallet_id: wallet_id]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -175,6 +185,7 @@ defmodule MonobankAPI.Acquiring.Wallets do
 
     query_params = %{"walletId" => wallet_id}
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -192,10 +203,11 @@ defmodule MonobankAPI.Acquiring.Wallets do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :get, wallet_id: wallet_id},
+      __args__: initial_args,
+      __call__: {__MODULE__, :get},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 end

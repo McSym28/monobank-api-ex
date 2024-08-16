@@ -3,11 +3,14 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
   import Mox
 
   @httpoison OpenAPIClient.HTTPoisonMock
+  @client OpenAPIClient.ClientMock
 
   setup :verify_on_exit!
 
   describe "get/2" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.Wallets.GetResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
@@ -52,6 +55,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
@@ -83,6 +88,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
@@ -114,6 +121,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
@@ -148,6 +157,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
@@ -179,6 +190,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
@@ -215,6 +228,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
 
   describe "delete_card/2" do
     test "[200] performs a request and encodes map from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
@@ -240,6 +255,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
@@ -271,6 +288,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
@@ -302,6 +321,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
@@ -336,6 +357,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
@@ -367,6 +390,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
@@ -403,6 +428,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
 
   describe "create_payment/2" do
     test "[200] performs a request, encodes MonobankAPI.Acquiring.Wallets.CreatePaymentRequest from request's body and encodes MonobankAPI.Acquiring.Wallets.CreatePaymentResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
@@ -533,6 +560,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[400] performs a request, encodes MonobankAPI.Acquiring.Wallets.CreatePaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
@@ -648,6 +677,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[403] performs a request, encodes MonobankAPI.Acquiring.Wallets.CreatePaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
@@ -763,6 +794,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[405] performs a request, encodes MonobankAPI.Acquiring.Wallets.CreatePaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
@@ -881,6 +914,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[429] performs a request, encodes MonobankAPI.Acquiring.Wallets.CreatePaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
@@ -996,6 +1031,8 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
     end
 
     test "[500] performs a request, encodes MonobankAPI.Acquiring.Wallets.CreatePaymentRequest from request's body and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,

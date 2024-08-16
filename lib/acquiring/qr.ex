@@ -36,6 +36,8 @@ defmodule MonobankAPI.Acquiring.QR do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def get_details(qr_id, opts \\ []) do
+    initial_args = [qr_id: qr_id]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -44,6 +46,7 @@ defmodule MonobankAPI.Acquiring.QR do
 
     query_params = %{"qrId" => qr_id}
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -62,11 +65,12 @@ defmodule MonobankAPI.Acquiring.QR do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :get_details, qr_id: qr_id},
+      __args__: initial_args,
+      __call__: {__MODULE__, :get_details},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -100,6 +104,7 @@ defmodule MonobankAPI.Acquiring.QR do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -116,11 +121,11 @@ defmodule MonobankAPI.Acquiring.QR do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :list, []},
+      __call__: {__MODULE__, :list},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -152,6 +157,8 @@ defmodule MonobankAPI.Acquiring.QR do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def reset_amount(body, opts \\ []) do
+    initial_args = [body: body]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -159,6 +166,7 @@ defmodule MonobankAPI.Acquiring.QR do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -178,10 +186,11 @@ defmodule MonobankAPI.Acquiring.QR do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :reset_amount, body: body},
+      __args__: initial_args,
+      __call__: {__MODULE__, :reset_amount},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 end

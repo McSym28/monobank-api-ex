@@ -36,6 +36,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def cancel(body, opts \\ []) do
+    initial_args = [body: body]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -43,6 +45,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -62,11 +65,12 @@ defmodule MonobankAPI.Acquiring.Invoices do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :cancel, body: body},
+      __args__: initial_args,
+      __call__: {__MODULE__, :cancel},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -104,6 +108,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def create(body, opts \\ []) do
+    initial_args = [body: body]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
     cms = Keyword.get_lazy(opts, :cms, fn -> Application.get_env(:monobank_api_ex, :cms) end)
@@ -117,6 +123,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Cms" => cms, "X-Cms-Version" => cms_version, "X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -136,11 +143,12 @@ defmodule MonobankAPI.Acquiring.Invoices do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :create, body: body},
+      __args__: initial_args,
+      __call__: {__MODULE__, :create},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -177,6 +185,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def create_direct_payment(body, opts \\ []) do
+    initial_args = [body: body]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
     cms = Keyword.get_lazy(opts, :cms, fn -> Application.get_env(:monobank_api_ex, :cms) end)
@@ -190,6 +200,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Cms" => cms, "X-Cms-Version" => cms_version, "X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -210,11 +221,12 @@ defmodule MonobankAPI.Acquiring.Invoices do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :create_direct_payment, body: body},
+      __args__: initial_args,
+      __call__: {__MODULE__, :create_direct_payment},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -252,6 +264,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def create_sync_payment(body, opts \\ []) do
+    initial_args = [body: body]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
     cms = Keyword.get_lazy(opts, :cms, fn -> Application.get_env(:monobank_api_ex, :cms) end)
@@ -265,6 +279,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Cms" => cms, "X-Cms-Version" => cms_version, "X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -286,11 +301,12 @@ defmodule MonobankAPI.Acquiring.Invoices do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :create_sync_payment, body: body},
+      __args__: initial_args,
+      __call__: {__MODULE__, :create_sync_payment},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -322,6 +338,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def finalize(body, opts \\ []) do
+    initial_args = [body: body]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -329,6 +347,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -348,11 +367,12 @@ defmodule MonobankAPI.Acquiring.Invoices do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :finalize, body: body},
+      __args__: initial_args,
+      __call__: {__MODULE__, :finalize},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -390,6 +410,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def get_payment_info(invoice_id, opts \\ []) do
+    initial_args = [invoice_id: invoice_id]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -398,6 +420,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
 
     query_params = %{"invoiceId" => invoice_id}
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -416,11 +439,12 @@ defmodule MonobankAPI.Acquiring.Invoices do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :get_payment_info, invoice_id: invoice_id},
+      __args__: initial_args,
+      __call__: {__MODULE__, :get_payment_info},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -454,6 +478,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def get_status(invoice_id, opts \\ []) do
+    initial_args = [invoice_id: invoice_id]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -462,6 +488,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
 
     query_params = %{"invoiceId" => invoice_id}
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -480,11 +507,12 @@ defmodule MonobankAPI.Acquiring.Invoices do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :get_status, invoice_id: invoice_id},
+      __args__: initial_args,
+      __call__: {__MODULE__, :get_status},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -518,6 +546,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def list_fiscal_checks(invoice_id, opts \\ []) do
+    initial_args = [invoice_id: invoice_id]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -526,6 +556,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
 
     query_params = %{"invoiceId" => invoice_id}
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -544,11 +575,12 @@ defmodule MonobankAPI.Acquiring.Invoices do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :list_fiscal_checks, invoice_id: invoice_id},
+      __args__: initial_args,
+      __call__: {__MODULE__, :list_fiscal_checks},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -582,6 +614,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def remove(body, opts \\ []) do
+    initial_args = [body: body]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -589,6 +623,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -608,10 +643,11 @@ defmodule MonobankAPI.Acquiring.Invoices do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :remove, body: body},
+      __args__: initial_args,
+      __call__: {__MODULE__, :remove},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 end

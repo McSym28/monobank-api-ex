@@ -3,11 +3,14 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   import Mox
 
   @httpoison OpenAPIClient.HTTPoisonMock
+  @client OpenAPIClient.ClientMock
 
   setup :verify_on_exit!
 
   describe "get_details/1" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.Merchants.DetailsResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/details",
                                       _,
@@ -43,6 +46,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/details",
                                       _,
@@ -73,6 +78,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/details",
                                       _,
@@ -103,6 +110,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/details",
                                       _,
@@ -136,6 +145,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/details",
                                       _,
@@ -166,6 +177,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/details",
                                       _,
@@ -201,6 +214,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
 
   describe "list_employees/1" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.Merchants.Employees.ListResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/employee/list",
                                       _,
@@ -244,6 +259,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/employee/list",
                                       _,
@@ -274,6 +291,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/employee/list",
                                       _,
@@ -304,6 +323,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/employee/list",
                                       _,
@@ -337,6 +358,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/employee/list",
                                       _,
@@ -367,6 +390,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/employee/list",
                                       _,
@@ -402,6 +427,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
 
   describe "get_pubkey/1" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.Merchants.PubkeyResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/pubkey",
                                       _,
@@ -435,6 +462,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/pubkey",
                                       _,
@@ -465,6 +494,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/pubkey",
                                       _,
@@ -495,6 +526,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/pubkey",
                                       _,
@@ -528,6 +561,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/pubkey",
                                       _,
@@ -558,6 +593,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/pubkey",
                                       _,
@@ -593,13 +630,15 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
 
   describe "list_statements/2" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.Merchants.StatementsResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/statement",
                                       _,
                                       headers,
                                       options ->
-        assert {_, 1} = List.keyfind(options[:params], "from", 0)
-        assert {_, 1} = List.keyfind(options[:params], "to", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "from", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "to", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -671,21 +710,23 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                   }
                 ]
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
                  token: "string",
-                 to: ~U[1970-01-01 00:00:01Z],
+                 to: ~U[2024-02-01 01:23:45Z],
                  base_url: "https://example.com"
                )
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/statement",
                                       _,
                                       headers,
                                       options ->
-        assert {_, 1} = List.keyfind(options[:params], "from", 0)
-        assert {_, 1} = List.keyfind(options[:params], "to", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "from", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "to", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -704,21 +745,23 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_code: "BAD_REQUEST",
                 err_text: "empty 'invoiceId'"
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
                  token: "string",
-                 to: ~U[1970-01-01 00:00:01Z],
+                 to: ~U[2024-02-01 01:23:45Z],
                  base_url: "https://example.com"
                )
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/statement",
                                       _,
                                       headers,
                                       options ->
-        assert {_, 1} = List.keyfind(options[:params], "from", 0)
-        assert {_, 1} = List.keyfind(options[:params], "to", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "from", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "to", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -737,21 +780,23 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_code: "FORBIDDEN",
                 err_text: "forbidden"
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
                  token: "string",
-                 to: ~U[1970-01-01 00:00:01Z],
+                 to: ~U[2024-02-01 01:23:45Z],
                  base_url: "https://example.com"
                )
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/statement",
                                       _,
                                       headers,
                                       options ->
-        assert {_, 1} = List.keyfind(options[:params], "from", 0)
-        assert {_, 1} = List.keyfind(options[:params], "to", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "from", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "to", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -773,21 +818,23 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_code: "METHOD_NOT_ALLOWED",
                 err_text: "Method not allowed"
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
                  token: "string",
-                 to: ~U[1970-01-01 00:00:01Z],
+                 to: ~U[2024-02-01 01:23:45Z],
                  base_url: "https://example.com"
                )
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/statement",
                                       _,
                                       headers,
                                       options ->
-        assert {_, 1} = List.keyfind(options[:params], "from", 0)
-        assert {_, 1} = List.keyfind(options[:params], "to", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "from", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "to", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -806,21 +853,23 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_code: "TMR",
                 err_text: "too many requests"
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
                  token: "string",
-                 to: ~U[1970-01-01 00:00:01Z],
+                 to: ~U[2024-02-01 01:23:45Z],
                  base_url: "https://example.com"
                )
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/statement",
                                       _,
                                       headers,
                                       options ->
-        assert {_, 1} = List.keyfind(options[:params], "from", 0)
-        assert {_, 1} = List.keyfind(options[:params], "to", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "from", 0)
+        assert {_, 1_706_750_625} = List.keyfind(options[:params], "to", 0)
         assert {_, "string"} = List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -842,9 +891,9 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_code: "INTERNAL_ERROR",
                 err_text: "internal server error"
               }} ==
-               MonobankAPI.Acquiring.Merchants.list_statements(~U[1970-01-01 00:00:01Z],
+               MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
                  token: "string",
-                 to: ~U[1970-01-01 00:00:01Z],
+                 to: ~U[2024-02-01 01:23:45Z],
                  base_url: "https://example.com"
                )
     end
@@ -852,6 +901,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
 
   describe "list_submerchants/1" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.Merchants.Submerchants.ListResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/submerchant/list",
                                       _,
@@ -895,6 +946,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/submerchant/list",
                                       _,
@@ -925,6 +978,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/submerchant/list",
                                       _,
@@ -955,6 +1010,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/submerchant/list",
                                       _,
@@ -988,6 +1045,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/submerchant/list",
                                       _,
@@ -1018,6 +1077,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/submerchant/list",
                                       _,

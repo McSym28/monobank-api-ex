@@ -36,6 +36,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -52,11 +53,11 @@ defmodule MonobankAPI.Acquiring.Merchants do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :get_details, []},
+      __call__: {__MODULE__, :get_details},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -92,6 +93,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -108,11 +110,11 @@ defmodule MonobankAPI.Acquiring.Merchants do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :get_pubkey, []},
+      __call__: {__MODULE__, :get_pubkey},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -150,6 +152,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -167,11 +170,11 @@ defmodule MonobankAPI.Acquiring.Merchants do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :list_employees, []},
+      __call__: {__MODULE__, :list_employees},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -204,6 +207,8 @@ defmodule MonobankAPI.Acquiring.Merchants do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Client.Error.t()}
   def list_statements(from, opts \\ []) do
+    initial_args = [from: from]
+
     client_pipeline = Keyword.get(opts, :client_pipeline)
     base_url = opts[:base_url] || @base_url
 
@@ -243,6 +248,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
       |> Map.merge(%{"from" => from})
 
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -260,11 +266,12 @@ defmodule MonobankAPI.Acquiring.Merchants do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :list_statements, from: from},
+      __args__: initial_args,
+      __call__: {__MODULE__, :list_statements},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -300,6 +307,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
       Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
 
     headers = %{"X-Token" => token}
+    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
 
     %OpenAPIClient.Client.Operation{
       request_base_url: base_url,
@@ -317,10 +325,10 @@ defmodule MonobankAPI.Acquiring.Merchants do
       ]
     }
     |> OpenAPIClient.Client.Operation.put_private(
-      __info__: {__MODULE__, :list_submerchants, []},
+      __call__: {__MODULE__, :list_submerchants},
       __opts__: opts,
       __profile__: :acquiring
     )
-    |> OpenAPIClient.Client.perform(client_pipeline)
+    |> client.perform(client_pipeline)
   end
 end

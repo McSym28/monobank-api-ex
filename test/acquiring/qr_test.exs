@@ -3,11 +3,14 @@ defmodule MonobankAPI.Acquiring.QRTest do
   import Mox
 
   @httpoison OpenAPIClient.HTTPoisonMock
+  @client OpenAPIClient.ClientMock
 
   setup :verify_on_exit!
 
   describe "get_details/2" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.QR.DetailsResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
@@ -46,6 +49,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
@@ -77,6 +82,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
@@ -108,6 +115,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[404] performs a request and encodes MonobankAPI.Acquiring.Errors.NotFound from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
@@ -139,6 +148,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
@@ -173,6 +184,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
@@ -204,6 +217,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
@@ -240,6 +255,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
 
   describe "list/1" do
     test "[200] performs a request and encodes MonobankAPI.Acquiring.QR.ListResponse from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
@@ -282,6 +299,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
@@ -309,6 +328,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
@@ -336,6 +357,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
@@ -366,6 +389,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
@@ -393,6 +418,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
@@ -425,6 +452,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
 
   describe "reset_amount/2" do
     test "[200] performs a request, encodes MonobankAPI.Acquiring.QR.ResetAmountRequest from request's body and encodes map from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
@@ -461,6 +490,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[400] performs a request, encodes MonobankAPI.Acquiring.QR.ResetAmountRequest from request's body and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
@@ -503,6 +534,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[403] performs a request, encodes MonobankAPI.Acquiring.QR.ResetAmountRequest from request's body and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
@@ -545,6 +578,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[404] performs a request, encodes MonobankAPI.Acquiring.QR.ResetAmountRequest from request's body and encodes MonobankAPI.Acquiring.Errors.NotFound from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
@@ -587,6 +622,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[405] performs a request, encodes MonobankAPI.Acquiring.QR.ResetAmountRequest from request's body and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
@@ -632,6 +669,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[429] performs a request, encodes MonobankAPI.Acquiring.QR.ResetAmountRequest from request's body and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
@@ -674,6 +713,8 @@ defmodule MonobankAPI.Acquiring.QRTest do
     end
 
     test "[500] performs a request, encodes MonobankAPI.Acquiring.QR.ResetAmountRequest from request's body and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
