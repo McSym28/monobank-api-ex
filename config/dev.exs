@@ -56,7 +56,7 @@ config :oapi_generator,
 
 config :open_api_client_ex,
   "$base": [
-    example_generator: MonobankAPI.Generator.ExampleGenerator
+    test_renderer: MonobankAPI.Generator.TestRenderer
   ],
   acquiring: [
     base_url: "https://api.monobank.ua",
