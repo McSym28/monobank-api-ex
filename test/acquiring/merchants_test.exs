@@ -8,7 +8,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   setup :verify_on_exit!
 
   describe "get_details/1" do
-    test "[200] performs a request and encodes MonobankAPI.Acquiring.Merchants.DetailsResponse from response's body" do
+    test "[200] performs a request and encodes DetailsResponse from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -45,7 +45,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -77,7 +77,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -109,7 +109,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -144,7 +144,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -176,7 +176,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -213,7 +213,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   end
 
   describe "list_employees/1" do
-    test "[200] performs a request and encodes MonobankAPI.Acquiring.Merchants.Employees.ListResponse from response's body" do
+    test "[200] performs a request and encodes Employees.ListResponse from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -258,7 +258,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -290,7 +290,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -322,7 +322,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -357,7 +357,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -389,7 +389,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -426,7 +426,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   end
 
   describe "get_pubkey/1" do
-    test "[200] performs a request and encodes MonobankAPI.Acquiring.Merchants.PubkeyResponse from response's body" do
+    test "[200] performs a request and encodes PubkeyResponse from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -461,7 +461,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -493,7 +493,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -525,7 +525,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -560,7 +560,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -592,7 +592,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -629,7 +629,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   end
 
   describe "list_statements/2" do
-    test "[200] performs a request and encodes MonobankAPI.Acquiring.Merchants.StatementsResponse from response's body" do
+    test "[200] performs a request and encodes StatementsResponse from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -717,7 +717,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -752,7 +752,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -787,7 +787,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -825,7 +825,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -860,7 +860,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -900,7 +900,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   end
 
   describe "list_submerchants/1" do
-    test "[200] performs a request and encodes MonobankAPI.Acquiring.Merchants.Submerchants.ListResponse from response's body" do
+    test "[200] performs a request and encodes Submerchants.ListResponse from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -945,7 +945,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[400] performs a request and encodes MonobankAPI.Acquiring.Errors.BadRequest from response's body" do
+    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -977,7 +977,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[403] performs a request and encodes MonobankAPI.Acquiring.Errors.Forbidden from response's body" do
+    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -1009,7 +1009,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[405] performs a request and encodes MonobankAPI.Acquiring.Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -1044,7 +1044,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[429] performs a request and encodes MonobankAPI.Acquiring.Errors.TooManyRequests from response's body" do
+    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
@@ -1076,7 +1076,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                )
     end
 
-    test "[500] performs a request and encodes MonobankAPI.Acquiring.Errors.InternalServer from response's body" do
+    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
       expect(@client, :perform, &OpenAPIClient.Client.perform/2)
 
       expect(@httpoison, :request, fn :get,
