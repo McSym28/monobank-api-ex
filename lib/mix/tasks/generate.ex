@@ -6,8 +6,6 @@ if Mix.env() == :dev do
     @acquiring_url "https://api.monobank.ua/docs/acquiring.html"
     @acquiring_fixture_path "test/fixtures/acquiring.json"
 
-    @temp_spec_filename_length 16
-
     @operation_changes [
       {"/api/merchant/details", "get", %{"tags" => ["merchants"], "operationId" => "getDetails"}},
       {"/api/merchant/pubkey", "get", %{"tags" => ["merchants"], "operationId" => "getPubkey"}},
@@ -106,28 +104,13 @@ if Mix.env() == :dev do
     def run(_) do
       HTTPoison.start()
 
-      tmp_dir = System.tmp_dir!()
-
       with {:ok, body} <- http_request(@acquiring_url),
            {:ok, document} <- parse_document(body),
            {:ok, spec} <- find_spec(document) do
-        spec_filepath =
-          @temp_spec_filename_length
-          |> :crypto.strong_rand_bytes()
-          |> Base.url_encode64(padding: false)
-          |> then(&Enum.join([&1, "json"], "."))
-          |> then(&Path.join(tmp_dir, &1))
-
-        if File.exists?(spec_filepath) do
-          File.rm!(spec_filepath)
-        end
-
         spec
         |> traverse_spec([])
         |> Jason.encode!(pretty: true)
         |> then(&File.write!(@acquiring_fixture_path, &1))
-
-        File.copy!(@acquiring_fixture_path, spec_filepath)
 
         "lib/acquiring/**/*.ex"
         |> Path.wildcard()
@@ -139,9 +122,7 @@ if Mix.env() == :dev do
         |> Enum.reject(fn file -> file == "test/acquiring/webhook_test.exs" end)
         |> Enum.each(fn file -> File.rm!(file) end)
 
-        Mix.Task.run("api.gen", ["acquiring", spec_filepath])
-
-        File.rm!(spec_filepath)
+        Mix.Task.run("api.gen", ["acquiring", @acquiring_fixture_path])
       end
     end
 
