@@ -114,13 +114,19 @@ if Mix.env() == :dev do
 
         "lib/acquiring/**/*.ex"
         |> Path.wildcard()
-        |> Enum.reject(fn file -> file == "lib/acquiring/webhook.ex" end)
-        |> Enum.each(fn file -> File.rm!(file) end)
+        |> Enum.reject(fn
+          "lib/acquiring/webhook.ex" -> true
+          _file -> false
+        end)
+        |> Enum.each(&File.rm!/1)
 
         "test/acquiring/**/*.exs"
         |> Path.wildcard()
-        |> Enum.reject(fn file -> file == "test/acquiring/webhook_test.exs" end)
-        |> Enum.each(fn file -> File.rm!(file) end)
+        |> Enum.reject(fn
+          "test/acquiring/webhook_test.exs" -> true
+          _file -> false
+        end)
+        |> Enum.each(&File.rm!/1)
 
         Mix.Task.run("api.gen", ["acquiring", @acquiring_fixture_path])
       end
