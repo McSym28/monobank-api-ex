@@ -129,6 +129,7 @@ if Mix.env() == :dev do
         |> Enum.each(&File.rm!/1)
 
         Mix.Task.run("api.gen", ["acquiring", @acquiring_fixture_path])
+        Mix.Task.run("format")
       end
     end
 
