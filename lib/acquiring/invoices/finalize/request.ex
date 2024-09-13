@@ -1,0 +1,28 @@
+defmodule MonobankAPI.Acquiring.Invoices.Finalize.Request do
+  @moduledoc """
+  Provides struct and type for a Invoices.Finalize.Request
+  """
+
+  @behaviour OpenAPIClient.Schema
+
+  @type t :: %__MODULE__{
+          amount: integer | nil,
+          invoice_id: String.t(),
+          items: [MonobankAPI.Acquiring.Invoices.FiscalizationItem.t()] | nil
+        }
+  @type types :: :t
+
+  @enforce_keys [:invoice_id]
+  defstruct [:amount, :invoice_id, :items]
+
+  @doc false
+  @impl OpenAPIClient.Schema
+  @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.field_type())
+  def __fields__(:t) do
+    [
+      amount: {"amount", {:integer, :int64}},
+      invoice_id: {"invoiceId", {:string, :generic}},
+      items: {"items", [{MonobankAPI.Acquiring.Invoices.FiscalizationItem, :t}]}
+    ]
+  end
+end

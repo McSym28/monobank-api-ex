@@ -27,7 +27,7 @@ defmodule MonobankAPI.Acquiring.QR do
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.QR.DetailsResponse.t()}
+          {:ok, MonobankAPI.Acquiring.QR.Details.Response.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -53,7 +53,7 @@ defmodule MonobankAPI.Acquiring.QR do
             fn -> Application.get_env(:monobank_api_ex, :token) end}}
         ],
         response_types: [
-          {200, [{"application/json", {MonobankAPI.Acquiring.QR.DetailsResponse, :t}}]},
+          {200, [{"application/json", {MonobankAPI.Acquiring.QR.Details.Response, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
@@ -86,7 +86,7 @@ defmodule MonobankAPI.Acquiring.QR do
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.QR.ListResponse.t()}
+          {:ok, MonobankAPI.Acquiring.QR.List.Response.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -110,7 +110,7 @@ defmodule MonobankAPI.Acquiring.QR do
             fn -> Application.get_env(:monobank_api_ex, :token) end}}
         ],
         response_types: [
-          {200, [{"application/json", {MonobankAPI.Acquiring.QR.ListResponse, :t}}]},
+          {200, [{"application/json", {MonobankAPI.Acquiring.QR.List.Response, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
@@ -141,7 +141,7 @@ defmodule MonobankAPI.Acquiring.QR do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
-  @spec reset_amount(MonobankAPI.Acquiring.QR.ResetAmountRequest.t(), [
+  @spec reset_amount(MonobankAPI.Acquiring.QR.ResetAmount.Request.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
@@ -170,7 +170,7 @@ defmodule MonobankAPI.Acquiring.QR do
            {"X-Token", {:string, :generic},
             fn -> Application.get_env(:monobank_api_ex, :token) end}}
         ],
-        request_types: [{"application/json", {MonobankAPI.Acquiring.QR.ResetAmountRequest, :t}}],
+        request_types: [{"application/json", {MonobankAPI.Acquiring.QR.ResetAmount.Request, :t}}],
         response_types: [
           {200, [{"application/json", :map}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},

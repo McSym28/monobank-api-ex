@@ -8,7 +8,7 @@ defmodule MonobankAPI.Acquiring.QRTest do
   setup :verify_on_exit!
 
   describe "get_details/2" do
-    test "[200] performs a request and decodes DetailsResponse from response's body" do
+    test "[200] performs a request and decodes Details.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -36,7 +36,7 @@ defmodule MonobankAPI.Acquiring.QRTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.QR.DetailsResponse{
+              %MonobankAPI.Acquiring.QR.Details.Response{
                 amount: 4200,
                 ccy: 980,
                 invoice_id: "4EwIUTA12JIZ",
@@ -254,7 +254,7 @@ defmodule MonobankAPI.Acquiring.QRTest do
   end
 
   describe "list/1" do
-    test "[200] performs a request and decodes ListResponse from response's body" do
+    test "[200] performs a request and decodes List.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -285,9 +285,9 @@ defmodule MonobankAPI.Acquiring.QRTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.QR.ListResponse{
+              %MonobankAPI.Acquiring.QR.List.Response{
                 list: [
-                  %MonobankAPI.Acquiring.QR.ListResponse.Item{
+                  %MonobankAPI.Acquiring.QR.List.Response.Item{
                     amount_type: :client,
                     page_url: "https://pay.mbnk.biz/XJ_DiM4rTd5V",
                     qr_id: "XJ_DiM4rTd5V",
@@ -451,7 +451,7 @@ defmodule MonobankAPI.Acquiring.QRTest do
   end
 
   describe "reset_amount/2" do
-    test "[200] performs a request, encodes ResetAmountRequest from request's body and decodes map from response's body" do
+    test "[200] performs a request, encodes ResetAmount.Request from request's body and decodes map from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -474,13 +474,13 @@ defmodule MonobankAPI.Acquiring.QRTest do
 
       assert {:ok, %{"a" => "b"}} ==
                MonobankAPI.Acquiring.QR.reset_amount(
-                 %MonobankAPI.Acquiring.QR.ResetAmountRequest{qr_id: "XJ_DiM4rTd5V"},
+                 %MonobankAPI.Acquiring.QR.ResetAmount.Request{qr_id: "XJ_DiM4rTd5V"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[400] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.BadRequest from response's body" do
+    test "[400] performs a request, encodes ResetAmount.Request from request's body and decodes Errors.BadRequest from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -509,13 +509,13 @@ defmodule MonobankAPI.Acquiring.QRTest do
                 err_text: "empty 'invoiceId'"
               }} ==
                MonobankAPI.Acquiring.QR.reset_amount(
-                 %MonobankAPI.Acquiring.QR.ResetAmountRequest{qr_id: "XJ_DiM4rTd5V"},
+                 %MonobankAPI.Acquiring.QR.ResetAmount.Request{qr_id: "XJ_DiM4rTd5V"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[403] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.Forbidden from response's body" do
+    test "[403] performs a request, encodes ResetAmount.Request from request's body and decodes Errors.Forbidden from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -544,13 +544,13 @@ defmodule MonobankAPI.Acquiring.QRTest do
                 err_text: "forbidden"
               }} ==
                MonobankAPI.Acquiring.QR.reset_amount(
-                 %MonobankAPI.Acquiring.QR.ResetAmountRequest{qr_id: "XJ_DiM4rTd5V"},
+                 %MonobankAPI.Acquiring.QR.ResetAmount.Request{qr_id: "XJ_DiM4rTd5V"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[404] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.NotFound from response's body" do
+    test "[404] performs a request, encodes ResetAmount.Request from request's body and decodes Errors.NotFound from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -579,13 +579,13 @@ defmodule MonobankAPI.Acquiring.QRTest do
                 err_text: "invalid 'qrId'"
               }} ==
                MonobankAPI.Acquiring.QR.reset_amount(
-                 %MonobankAPI.Acquiring.QR.ResetAmountRequest{qr_id: "XJ_DiM4rTd5V"},
+                 %MonobankAPI.Acquiring.QR.ResetAmount.Request{qr_id: "XJ_DiM4rTd5V"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[405] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request, encodes ResetAmount.Request from request's body and decodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -617,13 +617,13 @@ defmodule MonobankAPI.Acquiring.QRTest do
                 err_text: "Method not allowed"
               }} ==
                MonobankAPI.Acquiring.QR.reset_amount(
-                 %MonobankAPI.Acquiring.QR.ResetAmountRequest{qr_id: "XJ_DiM4rTd5V"},
+                 %MonobankAPI.Acquiring.QR.ResetAmount.Request{qr_id: "XJ_DiM4rTd5V"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[429] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+    test "[429] performs a request, encodes ResetAmount.Request from request's body and decodes Errors.TooManyRequests from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -652,13 +652,13 @@ defmodule MonobankAPI.Acquiring.QRTest do
                 err_text: "too many requests"
               }} ==
                MonobankAPI.Acquiring.QR.reset_amount(
-                 %MonobankAPI.Acquiring.QR.ResetAmountRequest{qr_id: "XJ_DiM4rTd5V"},
+                 %MonobankAPI.Acquiring.QR.ResetAmount.Request{qr_id: "XJ_DiM4rTd5V"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[500] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.InternalServer from response's body" do
+    test "[500] performs a request, encodes ResetAmount.Request from request's body and decodes Errors.InternalServer from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -690,7 +690,7 @@ defmodule MonobankAPI.Acquiring.QRTest do
                 err_text: "internal server error"
               }} ==
                MonobankAPI.Acquiring.QR.reset_amount(
-                 %MonobankAPI.Acquiring.QR.ResetAmountRequest{qr_id: "XJ_DiM4rTd5V"},
+                 %MonobankAPI.Acquiring.QR.ResetAmount.Request{qr_id: "XJ_DiM4rTd5V"},
                  token: "string",
                  base_url: "https://example.com"
                )

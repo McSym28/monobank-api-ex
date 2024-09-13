@@ -22,12 +22,12 @@ defmodule MonobankAPI.Acquiring.Wallets do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
-  @spec add_recipient_card(MonobankAPI.Acquiring.Wallets.AddRecipientCardRequest.t(), [
+  @spec add_recipient_card(MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.Wallets.AddRecipientCardResponse.t()}
+          {:ok, MonobankAPI.Acquiring.Wallets.AddRecipientCard.Response.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -51,11 +51,11 @@ defmodule MonobankAPI.Acquiring.Wallets do
             fn -> Application.get_env(:monobank_api_ex, :token) end}}
         ],
         request_types: [
-          {"application/json", {MonobankAPI.Acquiring.Wallets.AddRecipientCardRequest, :t}}
+          {"application/json", {MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request, :t}}
         ],
         response_types: [
           {200,
-           [{"application/json", {MonobankAPI.Acquiring.Wallets.AddRecipientCardResponse, :t}}]},
+           [{"application/json", {MonobankAPI.Acquiring.Wallets.AddRecipientCard.Response, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
@@ -90,14 +90,14 @@ defmodule MonobankAPI.Acquiring.Wallets do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
-  @spec create_payment(MonobankAPI.Acquiring.Wallets.CreatePaymentRequest.t(), [
+  @spec create_payment(MonobankAPI.Acquiring.Wallets.CreatePayment.Request.t(), [
           {:cms, String.t()}
           | {:cms_version, String.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.Wallets.CreatePaymentResponse.t()}
+          {:ok, MonobankAPI.Acquiring.Wallets.CreatePayment.Response.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -126,11 +126,11 @@ defmodule MonobankAPI.Acquiring.Wallets do
             fn -> Application.get_env(:monobank_api_ex, :token) end}}
         ],
         request_types: [
-          {"application/json", {MonobankAPI.Acquiring.Wallets.CreatePaymentRequest, :t}}
+          {"application/json", {MonobankAPI.Acquiring.Wallets.CreatePayment.Request, :t}}
         ],
         response_types: [
           {200,
-           [{"application/json", {MonobankAPI.Acquiring.Wallets.CreatePaymentResponse, :t}}]},
+           [{"application/json", {MonobankAPI.Acquiring.Wallets.CreatePayment.Response, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
@@ -227,7 +227,7 @@ defmodule MonobankAPI.Acquiring.Wallets do
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.Wallets.GetResponse.t()}
+          {:ok, MonobankAPI.Acquiring.Wallets.Get.Response.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -252,7 +252,7 @@ defmodule MonobankAPI.Acquiring.Wallets do
             fn -> Application.get_env(:monobank_api_ex, :token) end}}
         ],
         response_types: [
-          {200, [{"application/json", {MonobankAPI.Acquiring.Wallets.GetResponse, :t}}]},
+          {200, [{"application/json", {MonobankAPI.Acquiring.Wallets.Get.Response, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},

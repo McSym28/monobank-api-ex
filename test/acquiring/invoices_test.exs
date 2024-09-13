@@ -8,7 +8,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   setup :verify_on_exit!
 
   describe "cancel/2" do
-    test "[200] performs a request, encodes CancelRequest from request's body and decodes CancelResponse from response's body" do
+    test "[200] performs a request, encodes Cancel.Request from request's body and decodes Cancel.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -55,13 +55,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Invoices.CancelResponse{
+              %MonobankAPI.Acquiring.Invoices.Cancel.Response{
                 created_date: ~U[2024-01-02 01:23:45Z],
                 modified_date: ~U[2024-01-02 01:23:45Z],
                 status: :failure
               }} ==
                MonobankAPI.Acquiring.Invoices.cancel(
-                 %MonobankAPI.Acquiring.Invoices.CancelRequest{
+                 %MonobankAPI.Acquiring.Invoices.Cancel.Request{
                    amount: 5000,
                    ext_ref: "635ace02599849e981b2cd7a65f417fe",
                    invoice_id: "p2_9ZgpZVsl3",
@@ -84,7 +84,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request, encodes CancelRequest from request's body and decodes Errors.BadRequest from response's body" do
+    test "[400] performs a request, encodes Cancel.Request from request's body and decodes Errors.BadRequest from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -132,7 +132,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "empty 'invoiceId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.cancel(
-                 %MonobankAPI.Acquiring.Invoices.CancelRequest{
+                 %MonobankAPI.Acquiring.Invoices.Cancel.Request{
                    amount: 5000,
                    ext_ref: "635ace02599849e981b2cd7a65f417fe",
                    invoice_id: "p2_9ZgpZVsl3",
@@ -155,7 +155,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request, encodes CancelRequest from request's body and decodes Errors.Forbidden from response's body" do
+    test "[403] performs a request, encodes Cancel.Request from request's body and decodes Errors.Forbidden from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -203,7 +203,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "forbidden"
               }} ==
                MonobankAPI.Acquiring.Invoices.cancel(
-                 %MonobankAPI.Acquiring.Invoices.CancelRequest{
+                 %MonobankAPI.Acquiring.Invoices.Cancel.Request{
                    amount: 5000,
                    ext_ref: "635ace02599849e981b2cd7a65f417fe",
                    invoice_id: "p2_9ZgpZVsl3",
@@ -226,7 +226,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[404] performs a request, encodes CancelRequest from request's body and decodes Errors.NotFound from response's body" do
+    test "[404] performs a request, encodes Cancel.Request from request's body and decodes Errors.NotFound from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -274,7 +274,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "invalid 'qrId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.cancel(
-                 %MonobankAPI.Acquiring.Invoices.CancelRequest{
+                 %MonobankAPI.Acquiring.Invoices.Cancel.Request{
                    amount: 5000,
                    ext_ref: "635ace02599849e981b2cd7a65f417fe",
                    invoice_id: "p2_9ZgpZVsl3",
@@ -297,7 +297,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request, encodes CancelRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request, encodes Cancel.Request from request's body and decodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -348,7 +348,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "Method not allowed"
               }} ==
                MonobankAPI.Acquiring.Invoices.cancel(
-                 %MonobankAPI.Acquiring.Invoices.CancelRequest{
+                 %MonobankAPI.Acquiring.Invoices.Cancel.Request{
                    amount: 5000,
                    ext_ref: "635ace02599849e981b2cd7a65f417fe",
                    invoice_id: "p2_9ZgpZVsl3",
@@ -371,7 +371,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request, encodes CancelRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+    test "[429] performs a request, encodes Cancel.Request from request's body and decodes Errors.TooManyRequests from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -419,7 +419,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "too many requests"
               }} ==
                MonobankAPI.Acquiring.Invoices.cancel(
-                 %MonobankAPI.Acquiring.Invoices.CancelRequest{
+                 %MonobankAPI.Acquiring.Invoices.Cancel.Request{
                    amount: 5000,
                    ext_ref: "635ace02599849e981b2cd7a65f417fe",
                    invoice_id: "p2_9ZgpZVsl3",
@@ -442,7 +442,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request, encodes CancelRequest from request's body and decodes Errors.InternalServer from response's body" do
+    test "[500] performs a request, encodes Cancel.Request from request's body and decodes Errors.InternalServer from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -493,7 +493,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "internal server error"
               }} ==
                MonobankAPI.Acquiring.Invoices.cancel(
-                 %MonobankAPI.Acquiring.Invoices.CancelRequest{
+                 %MonobankAPI.Acquiring.Invoices.Cancel.Request{
                    amount: 5000,
                    ext_ref: "635ace02599849e981b2cd7a65f417fe",
                    invoice_id: "p2_9ZgpZVsl3",
@@ -518,7 +518,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "create/2" do
-    test "[200] performs a request, encodes CreateRequest from request's body and decodes CreateResponse from response's body" do
+    test "[200] performs a request, encodes Create.Request from request's body and decodes Create.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -589,12 +589,12 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Invoices.CreateResponse{
+              %MonobankAPI.Acquiring.Invoices.Create.Response{
                 invoice_id: "p2_9ZgpZVsl3",
                 page_url: "https://pay.mbnk.biz/p2_9ZgpZVsl3"
               }} ==
                MonobankAPI.Acquiring.Invoices.create(
-                 %MonobankAPI.Acquiring.Invoices.CreateRequest{
+                 %MonobankAPI.Acquiring.Invoices.Create.Request{
                    agent_fee_percent: 1.42,
                    amount: 4200,
                    ccy: 980,
@@ -630,7 +630,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    qr_id: "XJ_DiM4rTd5V",
                    redirect_url: "https://example.com/your/website/result/page",
-                   save_card_data: %MonobankAPI.Acquiring.Invoices.CreateRequest.SaveCardData{
+                   save_card_data: %MonobankAPI.Acquiring.Invoices.Create.Request.SaveCardData{
                      save_card: true,
                      wallet_id: "69f780d841a0434aa535b08821f4822c"
                    },
@@ -646,7 +646,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request, encodes CreateRequest from request's body and decodes Errors.BadRequest from response's body" do
+    test "[400] performs a request, encodes Create.Request from request's body and decodes Errors.BadRequest from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -719,7 +719,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "empty 'invoiceId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.create(
-                 %MonobankAPI.Acquiring.Invoices.CreateRequest{
+                 %MonobankAPI.Acquiring.Invoices.Create.Request{
                    agent_fee_percent: 1.42,
                    amount: 4200,
                    ccy: 980,
@@ -755,7 +755,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    qr_id: "XJ_DiM4rTd5V",
                    redirect_url: "https://example.com/your/website/result/page",
-                   save_card_data: %MonobankAPI.Acquiring.Invoices.CreateRequest.SaveCardData{
+                   save_card_data: %MonobankAPI.Acquiring.Invoices.Create.Request.SaveCardData{
                      save_card: true,
                      wallet_id: "69f780d841a0434aa535b08821f4822c"
                    },
@@ -771,7 +771,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request, encodes CreateRequest from request's body and decodes Errors.Forbidden from response's body" do
+    test "[403] performs a request, encodes Create.Request from request's body and decodes Errors.Forbidden from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -844,7 +844,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "forbidden"
               }} ==
                MonobankAPI.Acquiring.Invoices.create(
-                 %MonobankAPI.Acquiring.Invoices.CreateRequest{
+                 %MonobankAPI.Acquiring.Invoices.Create.Request{
                    agent_fee_percent: 1.42,
                    amount: 4200,
                    ccy: 980,
@@ -880,7 +880,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    qr_id: "XJ_DiM4rTd5V",
                    redirect_url: "https://example.com/your/website/result/page",
-                   save_card_data: %MonobankAPI.Acquiring.Invoices.CreateRequest.SaveCardData{
+                   save_card_data: %MonobankAPI.Acquiring.Invoices.Create.Request.SaveCardData{
                      save_card: true,
                      wallet_id: "69f780d841a0434aa535b08821f4822c"
                    },
@@ -896,7 +896,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[404] performs a request, encodes CreateRequest from request's body and decodes Errors.NotFound from response's body" do
+    test "[404] performs a request, encodes Create.Request from request's body and decodes Errors.NotFound from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -969,7 +969,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "invalid 'qrId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.create(
-                 %MonobankAPI.Acquiring.Invoices.CreateRequest{
+                 %MonobankAPI.Acquiring.Invoices.Create.Request{
                    agent_fee_percent: 1.42,
                    amount: 4200,
                    ccy: 980,
@@ -1005,7 +1005,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    qr_id: "XJ_DiM4rTd5V",
                    redirect_url: "https://example.com/your/website/result/page",
-                   save_card_data: %MonobankAPI.Acquiring.Invoices.CreateRequest.SaveCardData{
+                   save_card_data: %MonobankAPI.Acquiring.Invoices.Create.Request.SaveCardData{
                      save_card: true,
                      wallet_id: "69f780d841a0434aa535b08821f4822c"
                    },
@@ -1021,7 +1021,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request, encodes CreateRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request, encodes Create.Request from request's body and decodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1097,7 +1097,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "Method not allowed"
               }} ==
                MonobankAPI.Acquiring.Invoices.create(
-                 %MonobankAPI.Acquiring.Invoices.CreateRequest{
+                 %MonobankAPI.Acquiring.Invoices.Create.Request{
                    agent_fee_percent: 1.42,
                    amount: 4200,
                    ccy: 980,
@@ -1133,7 +1133,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    qr_id: "XJ_DiM4rTd5V",
                    redirect_url: "https://example.com/your/website/result/page",
-                   save_card_data: %MonobankAPI.Acquiring.Invoices.CreateRequest.SaveCardData{
+                   save_card_data: %MonobankAPI.Acquiring.Invoices.Create.Request.SaveCardData{
                      save_card: true,
                      wallet_id: "69f780d841a0434aa535b08821f4822c"
                    },
@@ -1149,7 +1149,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request, encodes CreateRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+    test "[429] performs a request, encodes Create.Request from request's body and decodes Errors.TooManyRequests from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1222,7 +1222,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "too many requests"
               }} ==
                MonobankAPI.Acquiring.Invoices.create(
-                 %MonobankAPI.Acquiring.Invoices.CreateRequest{
+                 %MonobankAPI.Acquiring.Invoices.Create.Request{
                    agent_fee_percent: 1.42,
                    amount: 4200,
                    ccy: 980,
@@ -1258,7 +1258,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    qr_id: "XJ_DiM4rTd5V",
                    redirect_url: "https://example.com/your/website/result/page",
-                   save_card_data: %MonobankAPI.Acquiring.Invoices.CreateRequest.SaveCardData{
+                   save_card_data: %MonobankAPI.Acquiring.Invoices.Create.Request.SaveCardData{
                      save_card: true,
                      wallet_id: "69f780d841a0434aa535b08821f4822c"
                    },
@@ -1274,7 +1274,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request, encodes CreateRequest from request's body and decodes Errors.InternalServer from response's body" do
+    test "[500] performs a request, encodes Create.Request from request's body and decodes Errors.InternalServer from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1350,7 +1350,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "internal server error"
               }} ==
                MonobankAPI.Acquiring.Invoices.create(
-                 %MonobankAPI.Acquiring.Invoices.CreateRequest{
+                 %MonobankAPI.Acquiring.Invoices.Create.Request{
                    agent_fee_percent: 1.42,
                    amount: 4200,
                    ccy: 980,
@@ -1386,7 +1386,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    qr_id: "XJ_DiM4rTd5V",
                    redirect_url: "https://example.com/your/website/result/page",
-                   save_card_data: %MonobankAPI.Acquiring.Invoices.CreateRequest.SaveCardData{
+                   save_card_data: %MonobankAPI.Acquiring.Invoices.Create.Request.SaveCardData{
                      save_card: true,
                      wallet_id: "69f780d841a0434aa535b08821f4822c"
                    },
@@ -1404,7 +1404,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "finalize/2" do
-    test "[200] performs a request, encodes FinalizeRequest from request's body and decodes FinalizeResponse from response's body" do
+    test "[200] performs a request, encodes Finalize.Request from request's body and decodes Finalize.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1444,9 +1444,9 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
          }}
       end)
 
-      assert {:ok, %MonobankAPI.Acquiring.Invoices.FinalizeResponse{status: :success}} ==
+      assert {:ok, %MonobankAPI.Acquiring.Invoices.Finalize.Response{status: :success}} ==
                MonobankAPI.Acquiring.Invoices.finalize(
-                 %MonobankAPI.Acquiring.Invoices.FinalizeRequest{
+                 %MonobankAPI.Acquiring.Invoices.Finalize.Request{
                    amount: 4200,
                    invoice_id: "p2_9ZgpZVsl3",
                    items: [
@@ -1468,7 +1468,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request, encodes FinalizeRequest from request's body and decodes Errors.BadRequest from response's body" do
+    test "[400] performs a request, encodes Finalize.Request from request's body and decodes Errors.BadRequest from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1515,7 +1515,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "empty 'invoiceId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.finalize(
-                 %MonobankAPI.Acquiring.Invoices.FinalizeRequest{
+                 %MonobankAPI.Acquiring.Invoices.Finalize.Request{
                    amount: 4200,
                    invoice_id: "p2_9ZgpZVsl3",
                    items: [
@@ -1537,7 +1537,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request, encodes FinalizeRequest from request's body and decodes Errors.Forbidden from response's body" do
+    test "[403] performs a request, encodes Finalize.Request from request's body and decodes Errors.Forbidden from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1584,7 +1584,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "forbidden"
               }} ==
                MonobankAPI.Acquiring.Invoices.finalize(
-                 %MonobankAPI.Acquiring.Invoices.FinalizeRequest{
+                 %MonobankAPI.Acquiring.Invoices.Finalize.Request{
                    amount: 4200,
                    invoice_id: "p2_9ZgpZVsl3",
                    items: [
@@ -1606,7 +1606,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[404] performs a request, encodes FinalizeRequest from request's body and decodes Errors.NotFound from response's body" do
+    test "[404] performs a request, encodes Finalize.Request from request's body and decodes Errors.NotFound from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1653,7 +1653,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "invalid 'qrId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.finalize(
-                 %MonobankAPI.Acquiring.Invoices.FinalizeRequest{
+                 %MonobankAPI.Acquiring.Invoices.Finalize.Request{
                    amount: 4200,
                    invoice_id: "p2_9ZgpZVsl3",
                    items: [
@@ -1675,7 +1675,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request, encodes FinalizeRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request, encodes Finalize.Request from request's body and decodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1725,7 +1725,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "Method not allowed"
               }} ==
                MonobankAPI.Acquiring.Invoices.finalize(
-                 %MonobankAPI.Acquiring.Invoices.FinalizeRequest{
+                 %MonobankAPI.Acquiring.Invoices.Finalize.Request{
                    amount: 4200,
                    invoice_id: "p2_9ZgpZVsl3",
                    items: [
@@ -1747,7 +1747,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request, encodes FinalizeRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+    test "[429] performs a request, encodes Finalize.Request from request's body and decodes Errors.TooManyRequests from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1794,7 +1794,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "too many requests"
               }} ==
                MonobankAPI.Acquiring.Invoices.finalize(
-                 %MonobankAPI.Acquiring.Invoices.FinalizeRequest{
+                 %MonobankAPI.Acquiring.Invoices.Finalize.Request{
                    amount: 4200,
                    invoice_id: "p2_9ZgpZVsl3",
                    items: [
@@ -1816,7 +1816,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request, encodes FinalizeRequest from request's body and decodes Errors.InternalServer from response's body" do
+    test "[500] performs a request, encodes Finalize.Request from request's body and decodes Errors.InternalServer from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1866,7 +1866,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "internal server error"
               }} ==
                MonobankAPI.Acquiring.Invoices.finalize(
-                 %MonobankAPI.Acquiring.Invoices.FinalizeRequest{
+                 %MonobankAPI.Acquiring.Invoices.Finalize.Request{
                    amount: 4200,
                    invoice_id: "p2_9ZgpZVsl3",
                    items: [
@@ -1890,7 +1890,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "list_fiscal_checks/2" do
-    test "[200] performs a request and decodes FiscalChecksResponse from response's body" do
+    test "[200] performs a request and decodes ListFiscalChecks.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -1926,9 +1926,9 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Invoices.FiscalChecksResponse{
+              %MonobankAPI.Acquiring.Invoices.ListFiscalChecks.Response{
                 checks: [
-                  %MonobankAPI.Acquiring.Invoices.FiscalChecksResponse.Check{
+                  %MonobankAPI.Acquiring.Invoices.ListFiscalChecks.Response.Checks{
                     file:
                       "CJFVBERi0xLj4QKJaqrrK0KMSAw123I4G9ia3go38PAovQ43JlYXRvciAoQXBhY2hl5IEZPUCBWZXJzaW9uIfDIuMykKL...",
                     fiscalization_source: :monopay,
@@ -2152,7 +2152,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "create_direct_payment/2" do
-    test "[200] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Wallets.CreatePaymentResponse from response's body" do
+    test "[200] performs a request, encodes CreateDirectPayment.Request from request's body and decodes Wallets.CreatePayment.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -2226,7 +2226,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Wallets.CreatePaymentResponse{
+              %MonobankAPI.Acquiring.Wallets.CreatePayment.Response{
                 amount: 4200,
                 ccy: 980,
                 created_date: ~U[2024-01-02 01:23:45Z],
@@ -2237,13 +2237,14 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 tds_url: "https://example.com/tds/url"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_direct_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request{
                    amount: 4200,
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.CardData{
-                     cvv: "123",
-                     exp: "0642",
-                     pan: "4242424242424242"
-                   },
+                   card_data:
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.CardData{
+                       cvv: "123",
+                       exp: "0642",
+                       pan: "4242424242424242"
+                     },
                    ccy: 980,
                    initiation_kind: :client,
                    merchant_paym_info: %MonobankAPI.Acquiring.Merchants.PaymentInfo{
@@ -2277,7 +2278,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    save_card_data:
-                     %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.SaveCardData{
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.SaveCardData{
                        save_card: true,
                        wallet_id: "69f780d841a0434aa535b08821f4822c"
                      },
@@ -2291,7 +2292,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Errors.BadRequest from response's body" do
+    test "[400] performs a request, encodes CreateDirectPayment.Request from request's body and decodes Errors.BadRequest from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -2361,13 +2362,14 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "empty 'invoiceId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_direct_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request{
                    amount: 4200,
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.CardData{
-                     cvv: "123",
-                     exp: "0642",
-                     pan: "4242424242424242"
-                   },
+                   card_data:
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.CardData{
+                       cvv: "123",
+                       exp: "0642",
+                       pan: "4242424242424242"
+                     },
                    ccy: 980,
                    initiation_kind: :client,
                    merchant_paym_info: %MonobankAPI.Acquiring.Merchants.PaymentInfo{
@@ -2401,7 +2403,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    save_card_data:
-                     %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.SaveCardData{
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.SaveCardData{
                        save_card: true,
                        wallet_id: "69f780d841a0434aa535b08821f4822c"
                      },
@@ -2415,7 +2417,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Errors.Forbidden from response's body" do
+    test "[403] performs a request, encodes CreateDirectPayment.Request from request's body and decodes Errors.Forbidden from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -2485,13 +2487,14 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "forbidden"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_direct_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request{
                    amount: 4200,
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.CardData{
-                     cvv: "123",
-                     exp: "0642",
-                     pan: "4242424242424242"
-                   },
+                   card_data:
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.CardData{
+                       cvv: "123",
+                       exp: "0642",
+                       pan: "4242424242424242"
+                     },
                    ccy: 980,
                    initiation_kind: :client,
                    merchant_paym_info: %MonobankAPI.Acquiring.Merchants.PaymentInfo{
@@ -2525,7 +2528,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    save_card_data:
-                     %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.SaveCardData{
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.SaveCardData{
                        save_card: true,
                        wallet_id: "69f780d841a0434aa535b08821f4822c"
                      },
@@ -2539,7 +2542,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request, encodes CreateDirectPayment.Request from request's body and decodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -2612,13 +2615,14 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "Method not allowed"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_direct_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request{
                    amount: 4200,
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.CardData{
-                     cvv: "123",
-                     exp: "0642",
-                     pan: "4242424242424242"
-                   },
+                   card_data:
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.CardData{
+                       cvv: "123",
+                       exp: "0642",
+                       pan: "4242424242424242"
+                     },
                    ccy: 980,
                    initiation_kind: :client,
                    merchant_paym_info: %MonobankAPI.Acquiring.Merchants.PaymentInfo{
@@ -2652,7 +2656,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    save_card_data:
-                     %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.SaveCardData{
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.SaveCardData{
                        save_card: true,
                        wallet_id: "69f780d841a0434aa535b08821f4822c"
                      },
@@ -2666,7 +2670,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+    test "[429] performs a request, encodes CreateDirectPayment.Request from request's body and decodes Errors.TooManyRequests from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -2736,13 +2740,14 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "too many requests"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_direct_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request{
                    amount: 4200,
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.CardData{
-                     cvv: "123",
-                     exp: "0642",
-                     pan: "4242424242424242"
-                   },
+                   card_data:
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.CardData{
+                       cvv: "123",
+                       exp: "0642",
+                       pan: "4242424242424242"
+                     },
                    ccy: 980,
                    initiation_kind: :client,
                    merchant_paym_info: %MonobankAPI.Acquiring.Merchants.PaymentInfo{
@@ -2776,7 +2781,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    save_card_data:
-                     %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.SaveCardData{
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.SaveCardData{
                        save_card: true,
                        wallet_id: "69f780d841a0434aa535b08821f4822c"
                      },
@@ -2790,7 +2795,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Errors.InternalServer from response's body" do
+    test "[500] performs a request, encodes CreateDirectPayment.Request from request's body and decodes Errors.InternalServer from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -2863,13 +2868,14 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "internal server error"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_direct_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request{
                    amount: 4200,
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.CardData{
-                     cvv: "123",
-                     exp: "0642",
-                     pan: "4242424242424242"
-                   },
+                   card_data:
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.CardData{
+                       cvv: "123",
+                       exp: "0642",
+                       pan: "4242424242424242"
+                     },
                    ccy: 980,
                    initiation_kind: :client,
                    merchant_paym_info: %MonobankAPI.Acquiring.Merchants.PaymentInfo{
@@ -2903,7 +2909,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    save_card_data:
-                     %MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.SaveCardData{
+                     %MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.SaveCardData{
                        save_card: true,
                        wallet_id: "69f780d841a0434aa535b08821f4822c"
                      },
@@ -2919,7 +2925,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "get_receipts/2" do
-    test "[200] performs a request and decodes ReceiptResponse from response's body" do
+    test "[200] performs a request and decodes Receipt.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -2946,7 +2952,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Invoices.ReceiptResponse{
+              %MonobankAPI.Acquiring.Invoices.Receipt.Response{
                 file:
                   "CJFVBERi0xLj4QKJaqrrK0KMSAw123I4G9ia3go38PAovQ43JlYXRvciAoQXBhY2hl5IEZPUCBWZXJzaW9uIfDIuMykKL..."
               }} ==
@@ -3175,7 +3181,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "remove/2" do
-    test "[200] performs a request, encodes RemoveRequest from request's body and decodes map from response's body" do
+    test "[200] performs a request, encodes Remove.Request from request's body and decodes map from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -3198,13 +3204,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
 
       assert {:ok, %{"a" => "b"}} ==
                MonobankAPI.Acquiring.Invoices.remove(
-                 %MonobankAPI.Acquiring.Invoices.RemoveRequest{invoice_id: "p2_9ZgpZVsl3"},
+                 %MonobankAPI.Acquiring.Invoices.Remove.Request{invoice_id: "p2_9ZgpZVsl3"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[400] performs a request, encodes RemoveRequest from request's body and decodes Errors.BadRequest from response's body" do
+    test "[400] performs a request, encodes Remove.Request from request's body and decodes Errors.BadRequest from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -3233,13 +3239,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "empty 'invoiceId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.remove(
-                 %MonobankAPI.Acquiring.Invoices.RemoveRequest{invoice_id: "p2_9ZgpZVsl3"},
+                 %MonobankAPI.Acquiring.Invoices.Remove.Request{invoice_id: "p2_9ZgpZVsl3"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[403] performs a request, encodes RemoveRequest from request's body and decodes Errors.Forbidden from response's body" do
+    test "[403] performs a request, encodes Remove.Request from request's body and decodes Errors.Forbidden from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -3268,13 +3274,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "forbidden"
               }} ==
                MonobankAPI.Acquiring.Invoices.remove(
-                 %MonobankAPI.Acquiring.Invoices.RemoveRequest{invoice_id: "p2_9ZgpZVsl3"},
+                 %MonobankAPI.Acquiring.Invoices.Remove.Request{invoice_id: "p2_9ZgpZVsl3"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[404] performs a request, encodes RemoveRequest from request's body and decodes Errors.NotFound from response's body" do
+    test "[404] performs a request, encodes Remove.Request from request's body and decodes Errors.NotFound from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -3303,13 +3309,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "invalid 'qrId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.remove(
-                 %MonobankAPI.Acquiring.Invoices.RemoveRequest{invoice_id: "p2_9ZgpZVsl3"},
+                 %MonobankAPI.Acquiring.Invoices.Remove.Request{invoice_id: "p2_9ZgpZVsl3"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[405] performs a request, encodes RemoveRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request, encodes Remove.Request from request's body and decodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -3341,13 +3347,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "Method not allowed"
               }} ==
                MonobankAPI.Acquiring.Invoices.remove(
-                 %MonobankAPI.Acquiring.Invoices.RemoveRequest{invoice_id: "p2_9ZgpZVsl3"},
+                 %MonobankAPI.Acquiring.Invoices.Remove.Request{invoice_id: "p2_9ZgpZVsl3"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[429] performs a request, encodes RemoveRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+    test "[429] performs a request, encodes Remove.Request from request's body and decodes Errors.TooManyRequests from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -3376,13 +3382,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "too many requests"
               }} ==
                MonobankAPI.Acquiring.Invoices.remove(
-                 %MonobankAPI.Acquiring.Invoices.RemoveRequest{invoice_id: "p2_9ZgpZVsl3"},
+                 %MonobankAPI.Acquiring.Invoices.Remove.Request{invoice_id: "p2_9ZgpZVsl3"},
                  token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[500] performs a request, encodes RemoveRequest from request's body and decodes Errors.InternalServer from response's body" do
+    test "[500] performs a request, encodes Remove.Request from request's body and decodes Errors.InternalServer from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -3414,7 +3420,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "internal server error"
               }} ==
                MonobankAPI.Acquiring.Invoices.remove(
-                 %MonobankAPI.Acquiring.Invoices.RemoveRequest{invoice_id: "p2_9ZgpZVsl3"},
+                 %MonobankAPI.Acquiring.Invoices.Remove.Request{invoice_id: "p2_9ZgpZVsl3"},
                  token: "string",
                  base_url: "https://example.com"
                )
@@ -3422,7 +3428,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "get_status/2" do
-    test "[200] performs a request and decodes StatusResponse from response's body" do
+    test "[200] performs a request and decodes Status.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -3488,7 +3494,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Invoices.StatusResponse{
+              %MonobankAPI.Acquiring.Invoices.Status.Response{
                 amount: 4200,
                 cancel_list: [
                   %MonobankAPI.Acquiring.Invoices.CancelListItem{
@@ -3510,7 +3516,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 final_amount: 4200,
                 invoice_id: "p2_9ZgpZVsl3",
                 modified_date: ~U[2024-01-02 01:23:45Z],
-                payment_info: %MonobankAPI.Acquiring.Invoices.StatusResponse.PaymentInfo{
+                payment_info: %MonobankAPI.Acquiring.Invoices.Status.Response.PaymentInfo{
                   agent_fee: 1,
                   approval_code: "662476",
                   bank: "Універсал Банк",
@@ -3525,11 +3531,11 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 },
                 reference: "84d0070ee4e44667b31371d8f8813947",
                 status: :created,
-                tips_info: %MonobankAPI.Acquiring.Invoices.StatusResponse.TipsInfo{
+                tips_info: %MonobankAPI.Acquiring.Invoices.Status.Response.TipsInfo{
                   amount: 4200,
                   employee_id: "string"
                 },
-                wallet_data: %MonobankAPI.Acquiring.Invoices.StatusResponse.WalletData{
+                wallet_data: %MonobankAPI.Acquiring.Invoices.Status.Response.WalletData{
                   card_token: "67XZtXdR4NpKU3",
                   status: :created,
                   wallet_id: "c1376a611e17b059aeaf96b73258da9c"
@@ -3747,7 +3753,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "create_sync_payment/2" do
-    test "[200] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes StatusResponse from response's body" do
+    test "[200] performs a request, encodes CreateSyncPayment.Request from request's body and decodes Status.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -3851,7 +3857,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Invoices.StatusResponse{
+              %MonobankAPI.Acquiring.Invoices.Status.Response{
                 amount: 4200,
                 cancel_list: [
                   %MonobankAPI.Acquiring.Invoices.CancelListItem{
@@ -3873,7 +3879,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 final_amount: 4200,
                 invoice_id: "p2_9ZgpZVsl3",
                 modified_date: ~U[2024-01-02 01:23:45Z],
-                payment_info: %MonobankAPI.Acquiring.Invoices.StatusResponse.PaymentInfo{
+                payment_info: %MonobankAPI.Acquiring.Invoices.Status.Response.PaymentInfo{
                   agent_fee: 1,
                   approval_code: "662476",
                   bank: "Універсал Банк",
@@ -3888,26 +3894,26 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 },
                 reference: "84d0070ee4e44667b31371d8f8813947",
                 status: :created,
-                tips_info: %MonobankAPI.Acquiring.Invoices.StatusResponse.TipsInfo{
+                tips_info: %MonobankAPI.Acquiring.Invoices.Status.Response.TipsInfo{
                   amount: 4200,
                   employee_id: "string"
                 },
-                wallet_data: %MonobankAPI.Acquiring.Invoices.StatusResponse.WalletData{
+                wallet_data: %MonobankAPI.Acquiring.Invoices.Status.Response.WalletData{
                   card_token: "67XZtXdR4NpKU3",
                   status: :created,
                   wallet_id: "c1376a611e17b059aeaf96b73258da9c"
                 }
               }} ==
                MonobankAPI.Acquiring.Invoices.create_sync_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request{
                    amount: 4200,
-                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.ApplePay{
+                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.ApplePay{
                      cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
                      eci_indicator: "02",
                      exp: "0642",
                      token: "4242424242424242"
                    },
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.CardData{
+                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.CardData{
                      cavv: "123",
                      cvv: "123",
                      ds_tran_id: "12",
@@ -3922,14 +3928,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      type: :dpan
                    },
                    ccy: 980,
-                   google_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.GooglePay{
-                     cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
-                     eci_indicator: "02",
-                     exp: "0642",
-                     token: "4242424242424242"
-                   },
+                   google_pay:
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.GooglePay{
+                       cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
+                       eci_indicator: "02",
+                       exp: "0642",
+                       token: "4242424242424242"
+                     },
                    merchant_paym_info:
-                     %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.MerchantPaymInfo{
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.MerchantPaymInfo{
                        destination: "Покупка щастя",
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
@@ -3941,7 +3948,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.BadRequest from response's body" do
+    test "[400] performs a request, encodes CreateSyncPayment.Request from request's body and decodes Errors.BadRequest from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -4007,15 +4014,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "empty 'invoiceId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_sync_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request{
                    amount: 4200,
-                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.ApplePay{
+                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.ApplePay{
                      cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
                      eci_indicator: "02",
                      exp: "0642",
                      token: "4242424242424242"
                    },
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.CardData{
+                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.CardData{
                      cavv: "123",
                      cvv: "123",
                      ds_tran_id: "12",
@@ -4030,14 +4037,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      type: :dpan
                    },
                    ccy: 980,
-                   google_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.GooglePay{
-                     cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
-                     eci_indicator: "02",
-                     exp: "0642",
-                     token: "4242424242424242"
-                   },
+                   google_pay:
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.GooglePay{
+                       cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
+                       eci_indicator: "02",
+                       exp: "0642",
+                       token: "4242424242424242"
+                     },
                    merchant_paym_info:
-                     %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.MerchantPaymInfo{
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.MerchantPaymInfo{
                        destination: "Покупка щастя",
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
@@ -4049,7 +4057,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.Forbidden from response's body" do
+    test "[403] performs a request, encodes CreateSyncPayment.Request from request's body and decodes Errors.Forbidden from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -4115,15 +4123,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "forbidden"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_sync_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request{
                    amount: 4200,
-                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.ApplePay{
+                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.ApplePay{
                      cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
                      eci_indicator: "02",
                      exp: "0642",
                      token: "4242424242424242"
                    },
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.CardData{
+                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.CardData{
                      cavv: "123",
                      cvv: "123",
                      ds_tran_id: "12",
@@ -4138,14 +4146,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      type: :dpan
                    },
                    ccy: 980,
-                   google_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.GooglePay{
-                     cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
-                     eci_indicator: "02",
-                     exp: "0642",
-                     token: "4242424242424242"
-                   },
+                   google_pay:
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.GooglePay{
+                       cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
+                       eci_indicator: "02",
+                       exp: "0642",
+                       token: "4242424242424242"
+                     },
                    merchant_paym_info:
-                     %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.MerchantPaymInfo{
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.MerchantPaymInfo{
                        destination: "Покупка щастя",
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
@@ -4157,7 +4166,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[404] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.NotFound from response's body" do
+    test "[404] performs a request, encodes CreateSyncPayment.Request from request's body and decodes Errors.NotFound from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -4223,15 +4232,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "invalid 'qrId'"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_sync_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request{
                    amount: 4200,
-                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.ApplePay{
+                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.ApplePay{
                      cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
                      eci_indicator: "02",
                      exp: "0642",
                      token: "4242424242424242"
                    },
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.CardData{
+                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.CardData{
                      cavv: "123",
                      cvv: "123",
                      ds_tran_id: "12",
@@ -4246,14 +4255,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      type: :dpan
                    },
                    ccy: 980,
-                   google_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.GooglePay{
-                     cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
-                     eci_indicator: "02",
-                     exp: "0642",
-                     token: "4242424242424242"
-                   },
+                   google_pay:
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.GooglePay{
+                       cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
+                       eci_indicator: "02",
+                       exp: "0642",
+                       token: "4242424242424242"
+                     },
                    merchant_paym_info:
-                     %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.MerchantPaymInfo{
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.MerchantPaymInfo{
                        destination: "Покупка щастя",
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
@@ -4265,7 +4275,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request, encodes CreateSyncPayment.Request from request's body and decodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -4334,15 +4344,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "Method not allowed"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_sync_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request{
                    amount: 4200,
-                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.ApplePay{
+                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.ApplePay{
                      cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
                      eci_indicator: "02",
                      exp: "0642",
                      token: "4242424242424242"
                    },
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.CardData{
+                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.CardData{
                      cavv: "123",
                      cvv: "123",
                      ds_tran_id: "12",
@@ -4357,14 +4367,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      type: :dpan
                    },
                    ccy: 980,
-                   google_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.GooglePay{
-                     cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
-                     eci_indicator: "02",
-                     exp: "0642",
-                     token: "4242424242424242"
-                   },
+                   google_pay:
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.GooglePay{
+                       cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
+                       eci_indicator: "02",
+                       exp: "0642",
+                       token: "4242424242424242"
+                     },
                    merchant_paym_info:
-                     %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.MerchantPaymInfo{
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.MerchantPaymInfo{
                        destination: "Покупка щастя",
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
@@ -4376,7 +4387,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+    test "[429] performs a request, encodes CreateSyncPayment.Request from request's body and decodes Errors.TooManyRequests from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -4442,15 +4453,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "too many requests"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_sync_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request{
                    amount: 4200,
-                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.ApplePay{
+                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.ApplePay{
                      cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
                      eci_indicator: "02",
                      exp: "0642",
                      token: "4242424242424242"
                    },
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.CardData{
+                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.CardData{
                      cavv: "123",
                      cvv: "123",
                      ds_tran_id: "12",
@@ -4465,14 +4476,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      type: :dpan
                    },
                    ccy: 980,
-                   google_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.GooglePay{
-                     cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
-                     eci_indicator: "02",
-                     exp: "0642",
-                     token: "4242424242424242"
-                   },
+                   google_pay:
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.GooglePay{
+                       cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
+                       eci_indicator: "02",
+                       exp: "0642",
+                       token: "4242424242424242"
+                     },
                    merchant_paym_info:
-                     %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.MerchantPaymInfo{
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.MerchantPaymInfo{
                        destination: "Покупка щастя",
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
@@ -4484,7 +4496,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.InternalServer from response's body" do
+    test "[500] performs a request, encodes CreateSyncPayment.Request from request's body and decodes Errors.InternalServer from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -4553,15 +4565,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_text: "internal server error"
               }} ==
                MonobankAPI.Acquiring.Invoices.create_sync_payment(
-                 %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest{
+                 %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request{
                    amount: 4200,
-                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.ApplePay{
+                   apple_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.ApplePay{
                      cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
                      eci_indicator: "02",
                      exp: "0642",
                      token: "4242424242424242"
                    },
-                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.CardData{
+                   card_data: %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.CardData{
                      cavv: "123",
                      cvv: "123",
                      ds_tran_id: "12",
@@ -4576,14 +4588,15 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      type: :dpan
                    },
                    ccy: 980,
-                   google_pay: %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.GooglePay{
-                     cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
-                     eci_indicator: "02",
-                     exp: "0642",
-                     token: "4242424242424242"
-                   },
+                   google_pay:
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.GooglePay{
+                       cryptogram: "AQAAAAoAR9qDi9kAAAAAgGpLpoA=",
+                       eci_indicator: "02",
+                       exp: "0642",
+                       token: "4242424242424242"
+                     },
                    merchant_paym_info:
-                     %MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.MerchantPaymInfo{
+                     %MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.MerchantPaymInfo{
                        destination: "Покупка щастя",
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }

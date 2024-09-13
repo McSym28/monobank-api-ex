@@ -8,7 +8,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   setup :verify_on_exit!
 
   describe "get_details/1" do
-    test "[200] performs a request and decodes DetailsResponse from response's body" do
+    test "[200] performs a request and decodes Details.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -34,7 +34,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Merchants.DetailsResponse{
+              %MonobankAPI.Acquiring.Merchants.Details.Response{
                 edrpou: "4242424242",
                 merchant_id: "12o4Vv7EWy",
                 merchant_name: "Your Favourite Company"
@@ -213,7 +213,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   end
 
   describe "list_employees/1" do
-    test "[200] performs a request and decodes Employees.ListResponse from response's body" do
+    test "[200] performs a request and decodes ListEmployees.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -243,9 +243,9 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Merchants.Employees.ListResponse{
+              %MonobankAPI.Acquiring.Merchants.ListEmployees.Response{
                 list: [
-                  %MonobankAPI.Acquiring.Merchants.Employees.ListResponse.Item{
+                  %MonobankAPI.Acquiring.Merchants.ListEmployees.Response.Item{
                     ext_ref: "abra_kadabra",
                     id: "3QFX7e7mZfo3R",
                     name: "Артур Дент"
@@ -426,7 +426,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   end
 
   describe "get_pubkey/1" do
-    test "[200] performs a request and decodes PubkeyResponse from response's body" do
+    test "[200] performs a request and decodes Pubkey.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -451,7 +451,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Merchants.PubkeyResponse{
+              %MonobankAPI.Acquiring.Merchants.Pubkey.Response{
                 key:
                   "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFK0UxRnBVZzczYmhGdmp2SzlrMlhJeTZtQkU1MQpib2F0RU1qU053Z1l5ZW55blpZQWh3Z3dyTGhNY0FpT25SYzNXWGNyMGRrY2NvVnFXcVBhWVQ5T3hRPT0KLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg=="
               }} ==
@@ -629,7 +629,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   end
 
   describe "list_statements/2" do
-    test "[200] performs a request and decodes StatementsResponse from response's body" do
+    test "[200] performs a request and decodes ListStatements.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -681,13 +681,13 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Merchants.StatementsResponse{
+              %MonobankAPI.Acquiring.Merchants.ListStatements.Response{
                 list: [
-                  %MonobankAPI.Acquiring.Merchants.StatementsResponse.ListItem{
+                  %MonobankAPI.Acquiring.Merchants.ListStatements.Response.ListItem{
                     amount: 4200,
                     approval_code: "662476",
                     cancel_list: [
-                      %MonobankAPI.Acquiring.Merchants.StatementsResponse.ListItem.CancelListItem{
+                      %MonobankAPI.Acquiring.Merchants.ListStatements.Response.ListItem.CancelListItem{
                         amount: 4200,
                         approval_code: "662476",
                         ccy: 980,
@@ -900,7 +900,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
   end
 
   describe "list_submerchants/1" do
-    test "[200] performs a request and decodes Submerchants.ListResponse from response's body" do
+    test "[200] performs a request and decodes ListSubmerchants.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -930,9 +930,9 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Merchants.Submerchants.ListResponse{
+              %MonobankAPI.Acquiring.Merchants.ListSubmerchants.Response{
                 list: [
-                  %MonobankAPI.Acquiring.Merchants.Submerchants.ListResponse.Item{
+                  %MonobankAPI.Acquiring.Merchants.ListSubmerchants.Response.Item{
                     code: "0a8637b3bccb42aa93fdeb791b8b58e9",
                     edrpou: "4242424242",
                     iban: "UA213996220000026007233566001"

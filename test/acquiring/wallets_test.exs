@@ -8,7 +8,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
   setup :verify_on_exit!
 
   describe "get/2" do
-    test "[200] performs a request and decodes GetResponse from response's body" do
+    test "[200] performs a request and decodes Get.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
@@ -39,9 +39,9 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Wallets.GetResponse{
+              %MonobankAPI.Acquiring.Wallets.Get.Response{
                 wallet: [
-                  %MonobankAPI.Acquiring.Wallets.GetResponse.ListItem{
+                  %MonobankAPI.Acquiring.Wallets.Get.Response.ListItem{
                     card_token: "67XZtXdR4NpKU3",
                     country: "804",
                     masked_pan: "424242******4242"
@@ -427,7 +427,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
   end
 
   describe "create_payment/2" do
-    test "[200] performs a request, encodes CreatePaymentRequest from request's body and decodes CreatePaymentResponse from response's body" do
+    test "[200] performs a request, encodes CreatePayment.Request from request's body and decodes CreatePayment.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -496,7 +496,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Wallets.CreatePaymentResponse{
+              %MonobankAPI.Acquiring.Wallets.CreatePayment.Response{
                 amount: 4200,
                 ccy: 980,
                 created_date: ~U[2024-01-02 01:23:45Z],
@@ -507,7 +507,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 tds_url: "https://example.com/tds/url"
               }} ==
                MonobankAPI.Acquiring.Wallets.create_payment(
-                 %MonobankAPI.Acquiring.Wallets.CreatePaymentRequest{
+                 %MonobankAPI.Acquiring.Wallets.CreatePayment.Request{
                    amount: 4200,
                    card_token: "67XZtXdR4NpKU3",
                    ccy: 980,
@@ -551,7 +551,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[400] performs a request, encodes CreatePaymentRequest from request's body and decodes Errors.BadRequest from response's body" do
+    test "[400] performs a request, encodes CreatePayment.Request from request's body and decodes Errors.BadRequest from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -616,7 +616,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 err_text: "empty 'invoiceId'"
               }} ==
                MonobankAPI.Acquiring.Wallets.create_payment(
-                 %MonobankAPI.Acquiring.Wallets.CreatePaymentRequest{
+                 %MonobankAPI.Acquiring.Wallets.CreatePayment.Request{
                    amount: 4200,
                    card_token: "67XZtXdR4NpKU3",
                    ccy: 980,
@@ -660,7 +660,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[403] performs a request, encodes CreatePaymentRequest from request's body and decodes Errors.Forbidden from response's body" do
+    test "[403] performs a request, encodes CreatePayment.Request from request's body and decodes Errors.Forbidden from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -725,7 +725,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 err_text: "forbidden"
               }} ==
                MonobankAPI.Acquiring.Wallets.create_payment(
-                 %MonobankAPI.Acquiring.Wallets.CreatePaymentRequest{
+                 %MonobankAPI.Acquiring.Wallets.CreatePayment.Request{
                    amount: 4200,
                    card_token: "67XZtXdR4NpKU3",
                    ccy: 980,
@@ -769,7 +769,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[405] performs a request, encodes CreatePaymentRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request, encodes CreatePayment.Request from request's body and decodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -837,7 +837,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 err_text: "Method not allowed"
               }} ==
                MonobankAPI.Acquiring.Wallets.create_payment(
-                 %MonobankAPI.Acquiring.Wallets.CreatePaymentRequest{
+                 %MonobankAPI.Acquiring.Wallets.CreatePayment.Request{
                    amount: 4200,
                    card_token: "67XZtXdR4NpKU3",
                    ccy: 980,
@@ -881,7 +881,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[429] performs a request, encodes CreatePaymentRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+    test "[429] performs a request, encodes CreatePayment.Request from request's body and decodes Errors.TooManyRequests from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -946,7 +946,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 err_text: "too many requests"
               }} ==
                MonobankAPI.Acquiring.Wallets.create_payment(
-                 %MonobankAPI.Acquiring.Wallets.CreatePaymentRequest{
+                 %MonobankAPI.Acquiring.Wallets.CreatePayment.Request{
                    amount: 4200,
                    card_token: "67XZtXdR4NpKU3",
                    ccy: 980,
@@ -990,7 +990,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[500] performs a request, encodes CreatePaymentRequest from request's body and decodes Errors.InternalServer from response's body" do
+    test "[500] performs a request, encodes CreatePayment.Request from request's body and decodes Errors.InternalServer from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1058,7 +1058,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 err_text: "internal server error"
               }} ==
                MonobankAPI.Acquiring.Wallets.create_payment(
-                 %MonobankAPI.Acquiring.Wallets.CreatePaymentRequest{
+                 %MonobankAPI.Acquiring.Wallets.CreatePayment.Request{
                    amount: 4200,
                    card_token: "67XZtXdR4NpKU3",
                    ccy: 980,
@@ -1104,7 +1104,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
   end
 
   describe "add_recipient_card/2" do
-    test "[200] performs a request, encodes AddRecipientCardRequest from request's body and decodes AddRecipientCardResponse from response's body" do
+    test "[200] performs a request, encodes AddRecipientCard.Request from request's body and decodes AddRecipientCard.Response from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1139,12 +1139,12 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Wallets.AddRecipientCardResponse{
+              %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Response{
                 card_token: "67XZtXdR4NpKU3",
                 wallet_id: "69f780d841a0434aa535b08821f4822c"
               }} ==
                MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCardRequest{
+                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
                    exp: "0642",
                    pan: "4242424242424242",
                    recipient_first_name: "Артур",
@@ -1156,7 +1156,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[400] performs a request, encodes AddRecipientCardRequest from request's body and decodes Errors.BadRequest from response's body" do
+    test "[400] performs a request, encodes AddRecipientCard.Request from request's body and decodes Errors.BadRequest from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1193,7 +1193,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 err_text: "empty 'invoiceId'"
               }} ==
                MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCardRequest{
+                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
                    exp: "0642",
                    pan: "4242424242424242",
                    recipient_first_name: "Артур",
@@ -1205,7 +1205,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[403] performs a request, encodes AddRecipientCardRequest from request's body and decodes Errors.Forbidden from response's body" do
+    test "[403] performs a request, encodes AddRecipientCard.Request from request's body and decodes Errors.Forbidden from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1242,7 +1242,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 err_text: "forbidden"
               }} ==
                MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCardRequest{
+                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
                    exp: "0642",
                    pan: "4242424242424242",
                    recipient_first_name: "Артур",
@@ -1254,7 +1254,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[405] performs a request, encodes AddRecipientCardRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+    test "[405] performs a request, encodes AddRecipientCard.Request from request's body and decodes Errors.MethodNotAllowed from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1294,7 +1294,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 err_text: "Method not allowed"
               }} ==
                MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCardRequest{
+                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
                    exp: "0642",
                    pan: "4242424242424242",
                    recipient_first_name: "Артур",
@@ -1306,7 +1306,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[429] performs a request, encodes AddRecipientCardRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+    test "[429] performs a request, encodes AddRecipientCard.Request from request's body and decodes Errors.TooManyRequests from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1343,7 +1343,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 err_text: "too many requests"
               }} ==
                MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCardRequest{
+                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
                    exp: "0642",
                    pan: "4242424242424242",
                    recipient_first_name: "Артур",
@@ -1355,7 +1355,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[500] performs a request, encodes AddRecipientCardRequest from request's body and decodes Errors.InternalServer from response's body" do
+    test "[500] performs a request, encodes AddRecipientCard.Request from request's body and decodes Errors.InternalServer from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
@@ -1395,7 +1395,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                 err_text: "internal server error"
               }} ==
                MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCardRequest{
+                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
                    exp: "0642",
                    pan: "4242424242424242",
                    recipient_first_name: "Артур",

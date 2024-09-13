@@ -21,7 +21,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.Merchants.DetailsResponse.t()}
+          {:ok, MonobankAPI.Acquiring.Merchants.Details.Response.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -45,7 +45,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
             fn -> Application.get_env(:monobank_api_ex, :token) end}}
         ],
         response_types: [
-          {200, [{"application/json", {MonobankAPI.Acquiring.Merchants.DetailsResponse, :t}}]},
+          {200, [{"application/json", {MonobankAPI.Acquiring.Merchants.Details.Response, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
@@ -79,7 +79,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.Merchants.PubkeyResponse.t()}
+          {:ok, MonobankAPI.Acquiring.Merchants.Pubkey.Response.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -103,7 +103,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
             fn -> Application.get_env(:monobank_api_ex, :token) end}}
         ],
         response_types: [
-          {200, [{"application/json", {MonobankAPI.Acquiring.Merchants.PubkeyResponse, :t}}]},
+          {200, [{"application/json", {MonobankAPI.Acquiring.Merchants.Pubkey.Response, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
@@ -139,7 +139,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.Merchants.Employees.ListResponse.t()}
+          {:ok, MonobankAPI.Acquiring.Merchants.ListEmployees.Response.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -164,7 +164,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
         ],
         response_types: [
           {200,
-           [{"application/json", {MonobankAPI.Acquiring.Merchants.Employees.ListResponse, :t}}]},
+           [{"application/json", {MonobankAPI.Acquiring.Merchants.ListEmployees.Response, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
@@ -202,7 +202,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.Merchants.StatementsResponse.t()}
+          {:ok, MonobankAPI.Acquiring.Merchants.ListStatements.Response.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -228,7 +228,8 @@ defmodule MonobankAPI.Acquiring.Merchants do
             fn -> Application.get_env(:monobank_api_ex, :token) end}}
         ],
         response_types: [
-          {200, [{"application/json", {MonobankAPI.Acquiring.Merchants.StatementsResponse, :t}}]},
+          {200,
+           [{"application/json", {MonobankAPI.Acquiring.Merchants.ListStatements.Response, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
@@ -262,7 +263,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.Merchants.Submerchants.ListResponse.t()}
+          {:ok, MonobankAPI.Acquiring.Merchants.ListSubmerchants.Response.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -287,7 +288,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
         ],
         response_types: [
           {200,
-           [{"application/json", {MonobankAPI.Acquiring.Merchants.Submerchants.ListResponse, :t}}]},
+           [{"application/json", {MonobankAPI.Acquiring.Merchants.ListSubmerchants.Response, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
