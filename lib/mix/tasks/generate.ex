@@ -117,18 +117,18 @@ if Mix.env() == :dev do
         |> Jason.encode!(pretty: true)
         |> then(&File.write!(@acquiring_fixture_path, &1))
 
-        "lib/acquiring/**/*.ex"
+        "lib/monobank_api/acquiring/**/*.ex"
         |> Path.wildcard()
         |> Enum.reject(fn
-          "lib/acquiring/webhook.ex" -> true
+          "lib/monobank_api/acquiring/webhook.ex" -> true
           _file -> false
         end)
         |> Enum.each(&File.rm!/1)
 
-        "test/acquiring/**/*.exs"
+        "test/monobank_api/acquiring/**/*.exs"
         |> Path.wildcard()
         |> Enum.reject(fn
-          "test/acquiring/webhook_test.exs" -> true
+          "test/monobank_api/acquiring/webhook_test.exs" -> true
           _file -> false
         end)
         |> Enum.each(&File.rm!/1)

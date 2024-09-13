@@ -50,7 +50,7 @@ config :oapi_generator,
     ],
     output: [
       base_module: MonobankAPI.Acquiring,
-      location: "lib/acquiring"
+      location: "lib/monobank_api/acquiring"
     ]
   ]
 
@@ -76,5 +76,5 @@ config :open_api_client_ex,
          ]
        ]}
     ],
-    test_location: "test/acquiring"
+    test_location: "test/monobank_api/acquiring"
   ]
