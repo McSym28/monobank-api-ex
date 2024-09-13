@@ -12,7 +12,7 @@ defmodule MonobankAPI.Acquiring.QR.ListResponse do
 
   @doc false
   @impl OpenAPIClient.Schema
-  @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
+  @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.field_type())
   def __fields__(:t) do
     [list: {"list", [{MonobankAPI.Acquiring.QR.ListResponse.Item, :t}]}]
   end

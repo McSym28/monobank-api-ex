@@ -3,29 +3,21 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   import Mox
 
   @httpoison OpenAPIClient.HTTPoisonMock
-  @client OpenAPIClient.ClientMock
+  @client OpenAPIClientMock
 
   setup :verify_on_exit!
 
   describe "cancel/2" do
-    test "[200] performs a request, encodes CancelRequest from request's body and encodes CancelResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request, encodes CancelRequest from request's body and decodes CancelResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -92,24 +84,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request, encodes CancelRequest from request's body and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request, encodes CancelRequest from request's body and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -171,24 +155,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request, encodes CancelRequest from request's body and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request, encodes CancelRequest from request's body and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -250,24 +226,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[404] performs a request, encodes CancelRequest from request's body and encodes Errors.NotFound from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[404] performs a request, encodes CancelRequest from request's body and decodes Errors.NotFound from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -329,24 +297,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request, encodes CancelRequest from request's body and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request, encodes CancelRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -411,24 +371,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request, encodes CancelRequest from request's body and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request, encodes CancelRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -490,24 +442,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request, encodes CancelRequest from request's body and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request, encodes CancelRequest from request's body and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/cancel",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -574,26 +518,18 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "create/2" do
-    test "[200] performs a request, encodes CreateRequest from request's body and encodes CreateResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request, encodes CreateRequest from request's body and decodes CreateResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -703,33 +639,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[400] performs a request, encodes CreateRequest from request's body and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request, encodes CreateRequest from request's body and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -836,33 +764,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[403] performs a request, encodes CreateRequest from request's body and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request, encodes CreateRequest from request's body and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -969,33 +889,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[404] performs a request, encodes CreateRequest from request's body and encodes Errors.NotFound from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[404] performs a request, encodes CreateRequest from request's body and decodes Errors.NotFound from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1102,33 +1014,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[405] performs a request, encodes CreateRequest from request's body and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request, encodes CreateRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1238,33 +1142,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[429] performs a request, encodes CreateRequest from request's body and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request, encodes CreateRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1371,33 +1267,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[500] performs a request, encodes CreateRequest from request's body and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request, encodes CreateRequest from request's body and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/create",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1507,33 +1395,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
   end
 
   describe "finalize/2" do
-    test "[200] performs a request, encodes FinalizeRequest from request's body and encodes FinalizeResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request, encodes FinalizeRequest from request's body and decodes FinalizeResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1588,24 +1468,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request, encodes FinalizeRequest from request's body and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request, encodes FinalizeRequest from request's body and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1665,24 +1537,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request, encodes FinalizeRequest from request's body and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request, encodes FinalizeRequest from request's body and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1742,24 +1606,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[404] performs a request, encodes FinalizeRequest from request's body and encodes Errors.NotFound from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[404] performs a request, encodes FinalizeRequest from request's body and decodes Errors.NotFound from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1819,24 +1675,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request, encodes FinalizeRequest from request's body and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request, encodes FinalizeRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1899,24 +1747,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request, encodes FinalizeRequest from request's body and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request, encodes FinalizeRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1976,24 +1816,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request, encodes FinalizeRequest from request's body and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request, encodes FinalizeRequest from request's body and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/finalize",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -2058,16 +1890,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "list_fiscal_checks/2" do
-    test "[200] performs a request and encodes FiscalChecksResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request and decodes FiscalChecksResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -2114,16 +1946,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "BAD_REQUEST", "errText" => "empty 'invoiceId'"})
@@ -2147,16 +1979,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "FORBIDDEN", "errText" => "forbidden"})
@@ -2180,16 +2012,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[404] performs a request and encodes Errors.NotFound from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[404] performs a request and decodes Errors.NotFound from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "NOT_FOUND", "errText" => "invalid 'qrId'"})
@@ -2213,16 +2045,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -2249,16 +2081,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "TMR", "errText" => "too many requests"})
@@ -2282,16 +2114,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/fiscal-checks",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -2320,26 +2152,18 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "create_direct_payment/2" do
-    test "[200] performs a request, encodes CreateDirectPaymentRequest from request's body and encodes Wallets.CreatePaymentResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Wallets.CreatePaymentResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -2460,33 +2284,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[400] performs a request, encodes CreateDirectPaymentRequest from request's body and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -2592,33 +2408,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[403] performs a request, encodes CreateDirectPaymentRequest from request's body and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -2724,33 +2532,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[405] performs a request, encodes CreateDirectPaymentRequest from request's body and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -2859,33 +2659,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[429] performs a request, encodes CreateDirectPaymentRequest from request's body and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -2991,33 +2783,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[500] performs a request, encodes CreateDirectPaymentRequest from request's body and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request, encodes CreateDirectPaymentRequest from request's body and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/payment-direct",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -3126,25 +2910,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
   end
 
   describe "get_payment_info/2" do
-    test "[200] performs a request and encodes PaymentInfoResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request and decodes PaymentInfoResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -3217,16 +3001,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "BAD_REQUEST", "errText" => "empty 'invoiceId'"})
@@ -3250,16 +3034,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "FORBIDDEN", "errText" => "forbidden"})
@@ -3283,16 +3067,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[404] performs a request and encodes Errors.NotFound from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[404] performs a request and decodes Errors.NotFound from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "NOT_FOUND", "errText" => "invalid 'qrId'"})
@@ -3316,16 +3100,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -3352,16 +3136,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "TMR", "errText" => "too many requests"})
@@ -3385,16 +3169,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/payment-info",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -3423,25 +3207,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "remove/2" do
-    test "[200] performs a request, encodes RemoveRequest from request's body and encodes map from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request, encodes RemoveRequest from request's body and decodes map from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"invoiceId" => "p2_9ZgpZVsl3"}} == Jason.decode(body)
         assert {:ok, body_encoded} = Jason.encode(%{"a" => "b"})
 
@@ -3461,25 +3236,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request, encodes RemoveRequest from request's body and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request, encodes RemoveRequest from request's body and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"invoiceId" => "p2_9ZgpZVsl3"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -3505,25 +3271,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request, encodes RemoveRequest from request's body and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request, encodes RemoveRequest from request's body and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"invoiceId" => "p2_9ZgpZVsl3"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -3549,25 +3306,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[404] performs a request, encodes RemoveRequest from request's body and encodes Errors.NotFound from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[404] performs a request, encodes RemoveRequest from request's body and decodes Errors.NotFound from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"invoiceId" => "p2_9ZgpZVsl3"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -3593,25 +3341,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request, encodes RemoveRequest from request's body and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request, encodes RemoveRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"invoiceId" => "p2_9ZgpZVsl3"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -3640,25 +3379,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request, encodes RemoveRequest from request's body and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request, encodes RemoveRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"invoiceId" => "p2_9ZgpZVsl3"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -3684,25 +3414,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request, encodes RemoveRequest from request's body and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request, encodes RemoveRequest from request's body and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/remove",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"invoiceId" => "p2_9ZgpZVsl3"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -3733,16 +3454,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "get_status/2" do
-    test "[200] performs a request and encodes StatusResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request and decodes StatusResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -3852,16 +3573,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "BAD_REQUEST", "errText" => "empty 'invoiceId'"})
@@ -3885,16 +3606,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "FORBIDDEN", "errText" => "forbidden"})
@@ -3918,16 +3639,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[404] performs a request and encodes Errors.NotFound from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[404] performs a request and decodes Errors.NotFound from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "NOT_FOUND", "errText" => "invalid 'qrId'"})
@@ -3951,16 +3672,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -3987,16 +3708,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "TMR", "errText" => "too many requests"})
@@ -4020,16 +3741,16 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                )
     end
 
-    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/invoice/status",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "invoiceId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -4058,26 +3779,18 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
   end
 
   describe "create_sync_payment/2" do
-    test "[200] performs a request, encodes CreateSyncPaymentRequest from request's body and encodes StatusResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes StatusResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -4253,33 +3966,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[400] performs a request, encodes CreateSyncPaymentRequest from request's body and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -4369,33 +4074,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[403] performs a request, encodes CreateSyncPaymentRequest from request's body and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -4485,33 +4182,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[404] performs a request, encodes CreateSyncPaymentRequest from request's body and encodes Errors.NotFound from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[404] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.NotFound from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -4601,33 +4290,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[405] performs a request, encodes CreateSyncPaymentRequest from request's body and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -4720,33 +4401,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[429] performs a request, encodes CreateSyncPaymentRequest from request's body and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -4836,33 +4509,25 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[500] performs a request, encodes CreateSyncPaymentRequest from request's body and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request, encodes CreateSyncPaymentRequest from request's body and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/invoice/sync-payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -4955,9 +4620,9 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                        reference: "84d0070ee4e44667b31371d8f8813947"
                      }
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end

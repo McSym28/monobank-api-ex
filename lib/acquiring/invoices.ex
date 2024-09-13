@@ -18,13 +18,14 @@ defmodule MonobankAPI.Acquiring.Invoices do
 
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec cancel(MonobankAPI.Acquiring.Invoices.CancelRequest.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.CancelResponse.t()}
           | {:error,
@@ -34,43 +35,39 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def cancel(body, opts \\ []) do
-    initial_args = [body: body]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    headers = %{"X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/invoice/cancel",
-      request_body: body,
-      request_method: :post,
-      request_headers: headers,
-      request_types: [{"application/json", {MonobankAPI.Acquiring.Invoices.CancelRequest, :t}}],
-      response_types: [
-        {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.CancelResponse, :t}}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :cancel},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/invoice/cancel",
+        method: :post,
+        request_parameter_types: [
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        request_types: [{"application/json", {MonobankAPI.Acquiring.Invoices.CancelRequest, :t}}],
+        response_types: [
+          {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.CancelResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [body: body],
+        function_call: {__MODULE__, :cancel},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -88,7 +85,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `cms_version`: ["X-Cms-Version"] Версія CMS, якщо ви розробляєте платіжний модуль для CMS. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :cms_version)`
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec create(MonobankAPI.Acquiring.Invoices.CreateRequest.t(), [
@@ -96,7 +94,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
           | {:cms_version, String.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.CreateResponse.t()}
           | {:error,
@@ -106,49 +104,44 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def create(body, opts \\ []) do
-    initial_args = [body: body]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
-    cms = Keyword.get_lazy(opts, :cms, fn -> Application.get_env(:monobank_api_ex, :cms) end)
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    cms_version =
-      Keyword.get_lazy(opts, :cms_version, fn ->
-        Application.get_env(:monobank_api_ex, :cms_version)
-      end)
-
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    headers = %{"X-Cms" => cms, "X-Cms-Version" => cms_version, "X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/invoice/create",
-      request_body: body,
-      request_method: :post,
-      request_headers: headers,
-      request_types: [{"application/json", {MonobankAPI.Acquiring.Invoices.CreateRequest, :t}}],
-      response_types: [
-        {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.CreateResponse, :t}}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :create},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/invoice/create",
+        method: :post,
+        request_parameter_types: [
+          {{:cms, :header},
+           {"X-Cms", {:string, :generic}, fn -> Application.get_env(:monobank_api_ex, :cms) end}},
+          {{:cms_version, :header},
+           {"X-Cms-Version", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :cms_version) end}},
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        request_types: [{"application/json", {MonobankAPI.Acquiring.Invoices.CreateRequest, :t}}],
+        response_types: [
+          {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.CreateResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [body: body],
+        function_call: {__MODULE__, :create},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -166,7 +159,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `cms_version`: ["X-Cms-Version"] Версія CMS, якщо ви розробляєте платіжний модуль для CMS. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :cms_version)`
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec create_direct_payment(MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.t(), [
@@ -174,7 +168,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
           | {:cms_version, String.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Wallets.CreatePaymentResponse.t()}
           | {:error,
@@ -183,50 +177,46 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.InternalServer.t()
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def create_direct_payment(body, opts \\ []) do
-    initial_args = [body: body]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
-    cms = Keyword.get_lazy(opts, :cms, fn -> Application.get_env(:monobank_api_ex, :cms) end)
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    cms_version =
-      Keyword.get_lazy(opts, :cms_version, fn ->
-        Application.get_env(:monobank_api_ex, :cms_version)
-      end)
-
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    headers = %{"X-Cms" => cms, "X-Cms-Version" => cms_version, "X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/invoice/payment-direct",
-      request_body: body,
-      request_method: :post,
-      request_headers: headers,
-      request_types: [
-        {"application/json", {MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest, :t}}
-      ],
-      response_types: [
-        {200, [{"application/json", {MonobankAPI.Acquiring.Wallets.CreatePaymentResponse, :t}}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :create_direct_payment},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/invoice/payment-direct",
+        method: :post,
+        request_parameter_types: [
+          {{:cms, :header},
+           {"X-Cms", {:string, :generic}, fn -> Application.get_env(:monobank_api_ex, :cms) end}},
+          {{:cms_version, :header},
+           {"X-Cms-Version", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :cms_version) end}},
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        request_types: [
+          {"application/json", {MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest, :t}}
+        ],
+        response_types: [
+          {200,
+           [{"application/json", {MonobankAPI.Acquiring.Wallets.CreatePaymentResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [body: body],
+        function_call: {__MODULE__, :create_direct_payment},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -244,7 +234,8 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `cms_version`: ["X-Cms-Version"] Версія CMS, якщо ви розробляєте платіжний модуль для CMS. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :cms_version)`
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec create_sync_payment(MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest.t(), [
@@ -252,7 +243,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
           | {:cms_version, String.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.StatusResponse.t()}
           | {:error,
@@ -262,51 +253,46 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def create_sync_payment(body, opts \\ []) do
-    initial_args = [body: body]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
-    cms = Keyword.get_lazy(opts, :cms, fn -> Application.get_env(:monobank_api_ex, :cms) end)
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    cms_version =
-      Keyword.get_lazy(opts, :cms_version, fn ->
-        Application.get_env(:monobank_api_ex, :cms_version)
-      end)
-
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    headers = %{"X-Cms" => cms, "X-Cms-Version" => cms_version, "X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/invoice/sync-payment",
-      request_body: body,
-      request_method: :post,
-      request_headers: headers,
-      request_types: [
-        {"application/json", {MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest, :t}}
-      ],
-      response_types: [
-        {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.StatusResponse, :t}}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :create_sync_payment},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/invoice/sync-payment",
+        method: :post,
+        request_parameter_types: [
+          {{:cms, :header},
+           {"X-Cms", {:string, :generic}, fn -> Application.get_env(:monobank_api_ex, :cms) end}},
+          {{:cms_version, :header},
+           {"X-Cms-Version", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :cms_version) end}},
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        request_types: [
+          {"application/json", {MonobankAPI.Acquiring.Invoices.CreateSyncPaymentRequest, :t}}
+        ],
+        response_types: [
+          {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.StatusResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [body: body],
+        function_call: {__MODULE__, :create_sync_payment},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -320,13 +306,14 @@ defmodule MonobankAPI.Acquiring.Invoices do
 
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec finalize(MonobankAPI.Acquiring.Invoices.FinalizeRequest.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.FinalizeResponse.t()}
           | {:error,
@@ -336,43 +323,41 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def finalize(body, opts \\ []) do
-    initial_args = [body: body]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    headers = %{"X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/invoice/finalize",
-      request_body: body,
-      request_method: :post,
-      request_headers: headers,
-      request_types: [{"application/json", {MonobankAPI.Acquiring.Invoices.FinalizeRequest, :t}}],
-      response_types: [
-        {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.FinalizeResponse, :t}}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :finalize},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/invoice/finalize",
+        method: :post,
+        request_parameter_types: [
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        request_types: [
+          {"application/json", {MonobankAPI.Acquiring.Invoices.FinalizeRequest, :t}}
+        ],
+        response_types: [
+          {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.FinalizeResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [body: body],
+        function_call: {__MODULE__, :finalize},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -392,13 +377,14 @@ defmodule MonobankAPI.Acquiring.Invoices do
 
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec get_payment_info(String.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.PaymentInfoResponse.t()}
           | {:error,
@@ -408,43 +394,39 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def get_payment_info(invoice_id, opts \\ []) do
-    initial_args = [invoice_id: invoice_id]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    query_params = %{"invoiceId" => invoice_id}
-    headers = %{"X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/invoice/payment-info",
-      request_method: :get,
-      request_headers: headers,
-      request_query_params: query_params,
-      response_types: [
-        {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.PaymentInfoResponse, :t}}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :get_payment_info},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/invoice/payment-info",
+        method: :get,
+        request_parameter_types: [
+          {{:invoice_id, :query}, {"invoiceId", {:string, :generic}}},
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        response_types: [
+          {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.PaymentInfoResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [invoice_id: invoice_id],
+        function_call: {__MODULE__, :get_payment_info},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -460,13 +442,14 @@ defmodule MonobankAPI.Acquiring.Invoices do
 
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec get_status(String.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.StatusResponse.t()}
           | {:error,
@@ -476,43 +459,39 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def get_status(invoice_id, opts \\ []) do
-    initial_args = [invoice_id: invoice_id]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    query_params = %{"invoiceId" => invoice_id}
-    headers = %{"X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/invoice/status",
-      request_method: :get,
-      request_headers: headers,
-      request_query_params: query_params,
-      response_types: [
-        {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.StatusResponse, :t}}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :get_status},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/invoice/status",
+        method: :get,
+        request_parameter_types: [
+          {{:invoice_id, :query}, {"invoiceId", {:string, :generic}}},
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        response_types: [
+          {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.StatusResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [invoice_id: invoice_id],
+        function_call: {__MODULE__, :get_status},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -528,13 +507,14 @@ defmodule MonobankAPI.Acquiring.Invoices do
 
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec list_fiscal_checks(String.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.FiscalChecksResponse.t()}
           | {:error,
@@ -544,43 +524,40 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def list_fiscal_checks(invoice_id, opts \\ []) do
-    initial_args = [invoice_id: invoice_id]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    query_params = %{"invoiceId" => invoice_id}
-    headers = %{"X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/invoice/fiscal-checks",
-      request_method: :get,
-      request_headers: headers,
-      request_query_params: query_params,
-      response_types: [
-        {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.FiscalChecksResponse, :t}}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :list_fiscal_checks},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/invoice/fiscal-checks",
+        method: :get,
+        request_parameter_types: [
+          {{:invoice_id, :query}, {"invoiceId", {:string, :generic}}},
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        response_types: [
+          {200,
+           [{"application/json", {MonobankAPI.Acquiring.Invoices.FiscalChecksResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [invoice_id: invoice_id],
+        function_call: {__MODULE__, :list_fiscal_checks},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -596,13 +573,14 @@ defmodule MonobankAPI.Acquiring.Invoices do
 
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec remove(MonobankAPI.Acquiring.Invoices.RemoveRequest.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, map}
           | {:error,
@@ -612,42 +590,38 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def remove(body, opts \\ []) do
-    initial_args = [body: body]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    headers = %{"X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/invoice/remove",
-      request_body: body,
-      request_method: :post,
-      request_headers: headers,
-      request_types: [{"application/json", {MonobankAPI.Acquiring.Invoices.RemoveRequest, :t}}],
-      response_types: [
-        {200, [{"application/json", :map}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :remove},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/invoice/remove",
+        method: :post,
+        request_parameter_types: [
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        request_types: [{"application/json", {MonobankAPI.Acquiring.Invoices.RemoveRequest, :t}}],
+        response_types: [
+          {200, [{"application/json", :map}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [body: body],
+        function_call: {__MODULE__, :remove},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 end

@@ -55,7 +55,7 @@ defmodule MonobankAPI.Acquiring.Invoices.PaymentInfoResponse do
 
   @doc false
   @impl OpenAPIClient.Schema
-  @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
+  @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.field_type())
   def __fields__(:t) do
     [
       amount: {"amount", {:integer, :int64}},

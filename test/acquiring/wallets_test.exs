@@ -3,21 +3,21 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
   import Mox
 
   @httpoison OpenAPIClient.HTTPoisonMock
-  @client OpenAPIClient.ClientMock
+  @client OpenAPIClientMock
 
   setup :verify_on_exit!
 
   describe "get/2" do
-    test "[200] performs a request and encodes GetResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request and decodes GetResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "walletId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"walletId", "string"} == List.keyfind(options[:params], "walletId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -54,16 +54,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "walletId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"walletId", "string"} == List.keyfind(options[:params], "walletId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "BAD_REQUEST", "errText" => "empty 'invoiceId'"})
@@ -87,16 +87,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "walletId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"walletId", "string"} == List.keyfind(options[:params], "walletId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "FORBIDDEN", "errText" => "forbidden"})
@@ -120,16 +120,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "walletId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"walletId", "string"} == List.keyfind(options[:params], "walletId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -156,16 +156,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "walletId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"walletId", "string"} == List.keyfind(options[:params], "walletId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "TMR", "errText" => "too many requests"})
@@ -189,16 +189,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/wallet",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "walletId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"walletId", "string"} == List.keyfind(options[:params], "walletId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -227,16 +227,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
   end
 
   describe "delete_card/2" do
-    test "[200] performs a request and encodes map from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request and decodes map from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "cardToken", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"cardToken", "string"} == List.keyfind(options[:params], "cardToken", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
         assert {:ok, body_encoded} = Jason.encode(%{"a" => "b"})
 
         {:ok,
@@ -254,16 +254,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "cardToken", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"cardToken", "string"} == List.keyfind(options[:params], "cardToken", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "BAD_REQUEST", "errText" => "empty 'invoiceId'"})
@@ -287,16 +287,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "cardToken", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"cardToken", "string"} == List.keyfind(options[:params], "cardToken", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "FORBIDDEN", "errText" => "forbidden"})
@@ -320,16 +320,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "cardToken", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"cardToken", "string"} == List.keyfind(options[:params], "cardToken", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -356,16 +356,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "cardToken", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"cardToken", "string"} == List.keyfind(options[:params], "cardToken", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "TMR", "errText" => "too many requests"})
@@ -389,16 +389,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                )
     end
 
-    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :delete,
                                       "https://example.com/api/merchant/wallet/card",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "cardToken", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"cardToken", "string"} == List.keyfind(options[:params], "cardToken", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -427,26 +427,18 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
   end
 
   describe "create_payment/2" do
-    test "[200] performs a request, encodes CreatePaymentRequest from request's body and encodes CreatePaymentResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request, encodes CreatePaymentRequest from request's body and decodes CreatePaymentResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -552,33 +544,25 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[400] performs a request, encodes CreatePaymentRequest from request's body and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request, encodes CreatePaymentRequest from request's body and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -669,33 +653,25 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[403] performs a request, encodes CreatePaymentRequest from request's body and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request, encodes CreatePaymentRequest from request's body and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -786,33 +762,25 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[405] performs a request, encodes CreatePaymentRequest from request's body and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request, encodes CreatePaymentRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -906,33 +874,25 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[429] performs a request, encodes CreatePaymentRequest from request's body and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request, encodes CreatePaymentRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1023,33 +983,25 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end
 
-    test "[500] performs a request, encodes CreatePaymentRequest from request's body and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request, encodes CreatePaymentRequest from request's body and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/wallet/payment",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-cms", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-cms-version", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
+        assert {"x-cms", "string"} == List.keyfind(headers, "x-cms", 0)
+        assert {"x-cms-version", "string"} == List.keyfind(headers, "x-cms-version", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
 
         assert {:ok,
                 %{
@@ -1143,9 +1095,9 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
-                 token: "string",
-                 cms_version: "string",
                  cms: "string",
+                 cms_version: "string",
+                 token: "string",
                  base_url: "https://example.com"
                )
     end

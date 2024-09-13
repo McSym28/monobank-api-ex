@@ -13,7 +13,7 @@ defmodule MonobankAPI.Acquiring.Errors.TooManyRequests do
 
   @doc false
   @impl OpenAPIClient.Schema
-  @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
+  @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.field_type())
   def __fields__(:t) do
     [err_code: {"errCode", {:string, :generic}}, err_text: {"errText", {:string, :generic}}]
   end

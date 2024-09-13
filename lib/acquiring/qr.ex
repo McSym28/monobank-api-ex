@@ -18,13 +18,14 @@ defmodule MonobankAPI.Acquiring.QR do
 
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec get_details(String.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.QR.DetailsResponse.t()}
           | {:error,
@@ -34,43 +35,39 @@ defmodule MonobankAPI.Acquiring.QR do
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def get_details(qr_id, opts \\ []) do
-    initial_args = [qr_id: qr_id]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    query_params = %{"qrId" => qr_id}
-    headers = %{"X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/qr/details",
-      request_method: :get,
-      request_headers: headers,
-      request_query_params: query_params,
-      response_types: [
-        {200, [{"application/json", {MonobankAPI.Acquiring.QR.DetailsResponse, :t}}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :get_details},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/qr/details",
+        method: :get,
+        request_parameter_types: [
+          {{:qr_id, :query}, {"qrId", {:string, :generic}}},
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        response_types: [
+          {200, [{"application/json", {MonobankAPI.Acquiring.QR.DetailsResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [qr_id: qr_id],
+        function_call: {__MODULE__, :get_details},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -80,13 +77,14 @@ defmodule MonobankAPI.Acquiring.QR do
 
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec list([
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.QR.ListResponse.t()}
           | {:error,
@@ -95,37 +93,37 @@ defmodule MonobankAPI.Acquiring.QR do
              | MonobankAPI.Acquiring.Errors.InternalServer.t()
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def list(opts \\ []) do
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    headers = %{"X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/qr/list",
-      request_method: :get,
-      request_headers: headers,
-      response_types: [
-        {200, [{"application/json", {MonobankAPI.Acquiring.QR.ListResponse, :t}}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __call__: {__MODULE__, :list},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/qr/list",
+        method: :get,
+        request_parameter_types: [
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        response_types: [
+          {200, [{"application/json", {MonobankAPI.Acquiring.QR.ListResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [],
+        function_call: {__MODULE__, :list},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 
   @doc """
@@ -139,13 +137,14 @@ defmodule MonobankAPI.Acquiring.QR do
 
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
-    * `client_pipeline`: Client pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(__operation__, :client_pipeline)}
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
   @spec reset_amount(MonobankAPI.Acquiring.QR.ResetAmountRequest.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
-          | {:client_pipeline, OpenAPIClient.Client.pipeline()}
+          | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
           {:ok, map}
           | {:error,
@@ -155,42 +154,38 @@ defmodule MonobankAPI.Acquiring.QR do
              | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
-             | OpenAPIClient.Client.Error.t()}
+             | OpenAPIClient.Error.t()}
   def reset_amount(body, opts \\ []) do
-    initial_args = [body: body]
-
-    client_pipeline = Keyword.get(opts, :client_pipeline)
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
 
-    token =
-      Keyword.get_lazy(opts, :token, fn -> Application.get_env(:monobank_api_ex, :token) end)
-
-    headers = %{"X-Token" => token}
-    client = OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient.Client)
-
-    %OpenAPIClient.Client.Operation{
-      request_base_url: base_url,
-      request_url: "/api/merchant/qr/reset-amount",
-      request_body: body,
-      request_method: :post,
-      request_headers: headers,
-      request_types: [{"application/json", {MonobankAPI.Acquiring.QR.ResetAmountRequest, :t}}],
-      response_types: [
-        {200, [{"application/json", :map}]},
-        {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
-        {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
-        {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
-        {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
-        {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
-        {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
-      ]
-    }
-    |> OpenAPIClient.Client.Operation.put_private(
-      __args__: initial_args,
-      __call__: {__MODULE__, :reset_amount},
-      __opts__: opts,
-      __profile__: :acquiring
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/qr/reset-amount",
+        method: :post,
+        request_parameter_types: [
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        request_types: [{"application/json", {MonobankAPI.Acquiring.QR.ResetAmountRequest, :t}}],
+        response_types: [
+          {200, [{"application/json", :map}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [body: body],
+        function_call: {__MODULE__, :reset_amount},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
     )
-    |> client.perform(client_pipeline)
   end
 end

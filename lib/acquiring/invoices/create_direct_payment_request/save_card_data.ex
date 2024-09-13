@@ -13,7 +13,7 @@ defmodule MonobankAPI.Acquiring.Invoices.CreateDirectPaymentRequest.SaveCardData
 
   @doc false
   @impl OpenAPIClient.Schema
-  @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.schema_type())
+  @spec __fields__(types()) :: keyword(OpenAPIClient.Schema.field_type())
   def __fields__(:t) do
     [save_card: {"saveCard", :boolean}, wallet_id: {"walletId", {:string, :generic}}]
   end

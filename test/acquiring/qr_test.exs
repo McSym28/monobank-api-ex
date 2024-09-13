@@ -3,21 +3,21 @@ defmodule MonobankAPI.Acquiring.QRTest do
   import Mox
 
   @httpoison OpenAPIClient.HTTPoisonMock
-  @client OpenAPIClient.ClientMock
+  @client OpenAPIClientMock
 
   setup :verify_on_exit!
 
   describe "get_details/2" do
-    test "[200] performs a request and encodes DetailsResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request and decodes DetailsResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "qrId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"qrId", "string"} == List.keyfind(options[:params], "qrId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -48,16 +48,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "qrId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"qrId", "string"} == List.keyfind(options[:params], "qrId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "BAD_REQUEST", "errText" => "empty 'invoiceId'"})
@@ -81,16 +81,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "qrId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"qrId", "string"} == List.keyfind(options[:params], "qrId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "FORBIDDEN", "errText" => "forbidden"})
@@ -114,16 +114,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[404] performs a request and encodes Errors.NotFound from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[404] performs a request and decodes Errors.NotFound from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "qrId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"qrId", "string"} == List.keyfind(options[:params], "qrId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "NOT_FOUND", "errText" => "invalid 'qrId'"})
@@ -147,16 +147,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "qrId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"qrId", "string"} == List.keyfind(options[:params], "qrId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -183,16 +183,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "qrId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"qrId", "string"} == List.keyfind(options[:params], "qrId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "TMR", "errText" => "too many requests"})
@@ -216,16 +216,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/details",
                                       _,
                                       headers,
                                       options ->
-        assert {_, "string"} = List.keyfind(options[:params], "qrId", 0)
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"qrId", "string"} == List.keyfind(options[:params], "qrId", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -254,15 +254,15 @@ defmodule MonobankAPI.Acquiring.QRTest do
   end
 
   describe "list/1" do
-    test "[200] performs a request and encodes ListResponse from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request and decodes ListResponse from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -298,15 +298,15 @@ defmodule MonobankAPI.Acquiring.QRTest do
                MonobankAPI.Acquiring.QR.list(token: "string", base_url: "https://example.com")
     end
 
-    test "[400] performs a request and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "BAD_REQUEST", "errText" => "empty 'invoiceId'"})
@@ -327,15 +327,15 @@ defmodule MonobankAPI.Acquiring.QRTest do
                MonobankAPI.Acquiring.QR.list(token: "string", base_url: "https://example.com")
     end
 
-    test "[403] performs a request and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "FORBIDDEN", "errText" => "forbidden"})
@@ -356,15 +356,15 @@ defmodule MonobankAPI.Acquiring.QRTest do
                MonobankAPI.Acquiring.QR.list(token: "string", base_url: "https://example.com")
     end
 
-    test "[405] performs a request and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -388,15 +388,15 @@ defmodule MonobankAPI.Acquiring.QRTest do
                MonobankAPI.Acquiring.QR.list(token: "string", base_url: "https://example.com")
     end
 
-    test "[429] performs a request and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{"errCode" => "TMR", "errText" => "too many requests"})
@@ -417,15 +417,15 @@ defmodule MonobankAPI.Acquiring.QRTest do
                MonobankAPI.Acquiring.QR.list(token: "string", base_url: "https://example.com")
     end
 
-    test "[500] performs a request and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
                                       "https://example.com/api/merchant/qr/list",
                                       _,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
@@ -451,25 +451,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
   end
 
   describe "reset_amount/2" do
-    test "[200] performs a request, encodes ResetAmountRequest from request's body and encodes map from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[200] performs a request, encodes ResetAmountRequest from request's body and decodes map from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
         assert {:ok, body_encoded} = Jason.encode(%{"a" => "b"})
 
@@ -489,25 +480,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[400] performs a request, encodes ResetAmountRequest from request's body and encodes Errors.BadRequest from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[400] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.BadRequest from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -533,25 +515,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[403] performs a request, encodes ResetAmountRequest from request's body and encodes Errors.Forbidden from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[403] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.Forbidden from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -577,25 +550,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[404] performs a request, encodes ResetAmountRequest from request's body and encodes Errors.NotFound from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[404] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.NotFound from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -621,25 +585,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[405] performs a request, encodes ResetAmountRequest from request's body and encodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[405] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.MethodNotAllowed from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -668,25 +623,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[429] performs a request, encodes ResetAmountRequest from request's body and encodes Errors.TooManyRequests from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[429] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.TooManyRequests from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
@@ -712,25 +658,16 @@ defmodule MonobankAPI.Acquiring.QRTest do
                )
     end
 
-    test "[500] performs a request, encodes ResetAmountRequest from request's body and encodes Errors.InternalServer from response's body" do
-      expect(@client, :perform, &OpenAPIClient.Client.perform/2)
+    test "[500] performs a request, encodes ResetAmountRequest from request's body and decodes Errors.InternalServer from response's body" do
+      expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :post,
                                       "https://example.com/api/merchant/qr/reset-amount",
                                       body,
                                       headers,
                                       _ ->
-        assert {_, "string"} = List.keyfind(headers, "x-token", 0)
-
-        assert {:ok, "application/json"} ==
-                 (with {_, content_type_request} <- List.keyfind(headers, "content-type", 0),
-                       {:ok, {media_type, media_subtype, _parameters}} =
-                         OpenAPIClient.Client.Operation.parse_content_type_header(
-                           content_type_request
-                         ) do
-                    {:ok, "#{media_type}/#{media_subtype}"}
-                  end)
-
+        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
+        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
         assert {:ok, %{"qrId" => "XJ_DiM4rTd5V"}} == Jason.decode(body)
 
         assert {:ok, body_encoded} =
