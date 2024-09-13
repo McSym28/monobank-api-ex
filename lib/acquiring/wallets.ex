@@ -6,6 +6,72 @@ defmodule MonobankAPI.Acquiring.Wallets do
   @base_url "https://api.monobank.ua"
 
   @doc """
+  Створення токену для виплат
+
+  Апі для створення токену картки, який можна буде використовувати лише для виплат. Тобто, списання коштів за цим токеном зробити буде неможливо, а зарахувати кошти -- можливо.
+
+  ## Arguments
+
+    * `body`
+
+  ## Options
+
+    * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
+    * `base_url`: Request's base URL. Default value is taken from `@base_url`
+    * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
+    * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
+
+  """
+  @spec add_recipient_card(MonobankAPI.Acquiring.Wallets.AddRecipientCardRequest.t(), [
+          {:token, String.t()}
+          | {:base_url, String.t() | URI.t()}
+          | {:pipeline, OpenAPIClient.pipeline()}
+        ]) ::
+          {:ok, MonobankAPI.Acquiring.Wallets.AddRecipientCardResponse.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
+  def add_recipient_card(body, opts \\ []) do
+    pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
+    base_url = opts[:base_url] || @base_url
+    client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
+
+    client.operation(
+      %OpenAPIClient.State{
+        request_base_url: base_url,
+        request_path: "/api/merchant/wallet/recipient-card/add",
+        method: :post,
+        request_parameter_types: [
+          {{:token, :header},
+           {"X-Token", {:string, :generic},
+            fn -> Application.get_env(:monobank_api_ex, :token) end}}
+        ],
+        request_types: [
+          {"application/json", {MonobankAPI.Acquiring.Wallets.AddRecipientCardRequest, :t}}
+        ],
+        response_types: [
+          {200,
+           [{"application/json", {MonobankAPI.Acquiring.Wallets.AddRecipientCardResponse, :t}}]},
+          {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
+          {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
+          {405, [{"application/json", {MonobankAPI.Acquiring.Errors.MethodNotAllowed, :t}}]},
+          {429, [{"application/json", {MonobankAPI.Acquiring.Errors.TooManyRequests, :t}}]},
+          {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
+        ],
+        function_args: [body: body],
+        function_call: {__MODULE__, :add_recipient_card},
+        function_opts: opts,
+        profile: :acquiring
+      },
+      pipeline
+    )
+  end
+
+  @doc """
   Оплата по токену
 
   Створення платежу за токеном картки

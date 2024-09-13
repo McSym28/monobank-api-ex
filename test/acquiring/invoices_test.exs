@@ -2918,45 +2918,23 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
     end
   end
 
-  describe "get_payment_info/2" do
-    test "[200] performs a request and decodes PaymentInfoResponse from response's body" do
+  describe "get_receipts/2" do
+    test "[200] performs a request and decodes ReceiptResponse from response's body" do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
-                                      "https://example.com/api/merchant/invoice/payment-info",
+                                      "https://example.com/api/merchant/invoice/receipt",
                                       _,
                                       headers,
                                       options ->
         assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"email", "string"} == List.keyfind(options[:params], "email", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
                  Jason.encode(%{
-                   "amount" => 4200,
-                   "approvalCode" => "662476",
-                   "cancelList" => [
-                     %{
-                       "amount" => 4200,
-                       "approvalCode" => "662476",
-                       "ccy" => 980,
-                       "createdDate" => "2024-01-02T01:23:45Z",
-                       "extRef" => "635ace02599849e981b2cd7a65f417fe",
-                       "modifiedDate" => "2024-01-02T01:23:45Z",
-                       "rrn" => "060189181768",
-                       "status" => "failure"
-                     }
-                   ],
-                   "ccy" => 980,
-                   "country" => "804",
-                   "createdDate" => "2024-01-02T01:23:45Z",
-                   "domesticCard" => true,
-                   "fee" => 420,
-                   "finalAmount" => 4200,
-                   "maskedPan" => "444403******1902",
-                   "paymentMethod" => "apple",
-                   "paymentScheme" => "bnpl_later_30",
-                   "rrn" => "060189181768",
-                   "terminal" => "MI001088"
+                   "file" =>
+                     "CJFVBERi0xLj4QKJaqrrK0KMSAw123I4G9ia3go38PAovQ43JlYXRvciAoQXBhY2hl5IEZPUCBWZXJzaW9uIfDIuMykKL..."
                  })
 
         {:ok,
@@ -2968,34 +2946,12 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       end)
 
       assert {:ok,
-              %MonobankAPI.Acquiring.Invoices.PaymentInfoResponse{
-                amount: 4200,
-                approval_code: "662476",
-                cancel_list: [
-                  %MonobankAPI.Acquiring.Invoices.CancelListItem{
-                    amount: 4200,
-                    approval_code: "662476",
-                    ccy: 980,
-                    created_date: ~U[2024-01-02 01:23:45Z],
-                    ext_ref: "635ace02599849e981b2cd7a65f417fe",
-                    modified_date: ~U[2024-01-02 01:23:45Z],
-                    rrn: "060189181768",
-                    status: :failure
-                  }
-                ],
-                ccy: 980,
-                country: "804",
-                created_date: ~U[2024-01-02 01:23:45Z],
-                domestic_card: true,
-                fee: 420,
-                final_amount: 4200,
-                masked_pan: "444403******1902",
-                payment_method: :apple,
-                payment_scheme: :bnpl_later_30,
-                rrn: "060189181768",
-                terminal: "MI001088"
+              %MonobankAPI.Acquiring.Invoices.ReceiptResponse{
+                file:
+                  "CJFVBERi0xLj4QKJaqrrK0KMSAw123I4G9ia3go38PAovQ43JlYXRvciAoQXBhY2hl5IEZPUCBWZXJzaW9uIfDIuMykKL..."
               }} ==
-               MonobankAPI.Acquiring.Invoices.get_payment_info("string",
+               MonobankAPI.Acquiring.Invoices.get_receipts("string",
+                 email: "string",
                  token: "string",
                  base_url: "https://example.com"
                )
@@ -3005,11 +2961,12 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
-                                      "https://example.com/api/merchant/invoice/payment-info",
+                                      "https://example.com/api/merchant/invoice/receipt",
                                       _,
                                       headers,
                                       options ->
         assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"email", "string"} == List.keyfind(options[:params], "email", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -3028,7 +2985,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_code: "BAD_REQUEST",
                 err_text: "empty 'invoiceId'"
               }} ==
-               MonobankAPI.Acquiring.Invoices.get_payment_info("string",
+               MonobankAPI.Acquiring.Invoices.get_receipts("string",
+                 email: "string",
                  token: "string",
                  base_url: "https://example.com"
                )
@@ -3038,11 +2996,12 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
-                                      "https://example.com/api/merchant/invoice/payment-info",
+                                      "https://example.com/api/merchant/invoice/receipt",
                                       _,
                                       headers,
                                       options ->
         assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"email", "string"} == List.keyfind(options[:params], "email", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -3061,7 +3020,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_code: "FORBIDDEN",
                 err_text: "forbidden"
               }} ==
-               MonobankAPI.Acquiring.Invoices.get_payment_info("string",
+               MonobankAPI.Acquiring.Invoices.get_receipts("string",
+                 email: "string",
                  token: "string",
                  base_url: "https://example.com"
                )
@@ -3071,11 +3031,12 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
-                                      "https://example.com/api/merchant/invoice/payment-info",
+                                      "https://example.com/api/merchant/invoice/receipt",
                                       _,
                                       headers,
                                       options ->
         assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"email", "string"} == List.keyfind(options[:params], "email", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -3094,7 +3055,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_code: "NOT_FOUND",
                 err_text: "invalid 'qrId'"
               }} ==
-               MonobankAPI.Acquiring.Invoices.get_payment_info("string",
+               MonobankAPI.Acquiring.Invoices.get_receipts("string",
+                 email: "string",
                  token: "string",
                  base_url: "https://example.com"
                )
@@ -3104,11 +3066,12 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
-                                      "https://example.com/api/merchant/invoice/payment-info",
+                                      "https://example.com/api/merchant/invoice/receipt",
                                       _,
                                       headers,
                                       options ->
         assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"email", "string"} == List.keyfind(options[:params], "email", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -3130,7 +3093,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_code: "METHOD_NOT_ALLOWED",
                 err_text: "Method not allowed"
               }} ==
-               MonobankAPI.Acquiring.Invoices.get_payment_info("string",
+               MonobankAPI.Acquiring.Invoices.get_receipts("string",
+                 email: "string",
                  token: "string",
                  base_url: "https://example.com"
                )
@@ -3140,11 +3104,12 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
-                                      "https://example.com/api/merchant/invoice/payment-info",
+                                      "https://example.com/api/merchant/invoice/receipt",
                                       _,
                                       headers,
                                       options ->
         assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"email", "string"} == List.keyfind(options[:params], "email", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -3163,7 +3128,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_code: "TMR",
                 err_text: "too many requests"
               }} ==
-               MonobankAPI.Acquiring.Invoices.get_payment_info("string",
+               MonobankAPI.Acquiring.Invoices.get_receipts("string",
+                 email: "string",
                  token: "string",
                  base_url: "https://example.com"
                )
@@ -3173,11 +3139,12 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
       expect(@client, :operation, &OpenAPIClient.operation/2)
 
       expect(@httpoison, :request, fn :get,
-                                      "https://example.com/api/merchant/invoice/payment-info",
+                                      "https://example.com/api/merchant/invoice/receipt",
                                       _,
                                       headers,
                                       options ->
         assert {"invoiceId", "string"} == List.keyfind(options[:params], "invoiceId", 0)
+        assert {"email", "string"} == List.keyfind(options[:params], "email", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
         assert {:ok, body_encoded} =
@@ -3199,7 +3166,8 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                 err_code: "INTERNAL_ERROR",
                 err_text: "internal server error"
               }} ==
-               MonobankAPI.Acquiring.Invoices.get_payment_info("string",
+               MonobankAPI.Acquiring.Invoices.get_receipts("string",
+                 email: "string",
                  token: "string",
                  base_url: "https://example.com"
                )

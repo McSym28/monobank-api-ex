@@ -49,10 +49,10 @@ if Mix.env() == :dev do
          "tags" => ["invoices"],
          "operationId" => "createDirectPayment"
        }},
-      {"/api/merchant/invoice/payment-info", "get",
+      {"/api/merchant/invoice/receipt", "get",
        %{
          "tags" => ["invoices"],
-         "operationId" => "getPaymentInfo"
+         "operationId" => "getReceipts"
        }},
       {"/api/merchant/invoice/remove", "post",
        %{
@@ -86,6 +86,11 @@ if Mix.env() == :dev do
        %{
          "tags" => ["wallets"],
          "operationId" => "createPayment"
+       }},
+      {"/api/merchant/wallet/recipient-card/add", "post",
+       %{
+         "tags" => ["wallets"],
+         "operationId" => "addRecipientCard/"
        }}
     ]
 
@@ -96,7 +101,7 @@ if Mix.env() == :dev do
       {"/api/merchant/qr/details", "get", "qrId", "query"},
       {"/api/merchant/invoice/status", "get", "invoiceId", "query"},
       {"/api/merchant/invoice/fiscal-checks", "get", "invoiceId", "query"},
-      {"/api/merchant/invoice/payment-info", "get", "invoiceId", "query"}
+      {"/api/merchant/invoice/receipt", "get", "invoiceId", "query"}
     ]
 
     @requirements ["app.start"]

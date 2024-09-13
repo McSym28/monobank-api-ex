@@ -361,13 +361,9 @@ defmodule MonobankAPI.Acquiring.Invoices do
   end
 
   @doc """
-  DEPRECATED — Розширена інформація про успішну оплату
+  Квитанція
 
-
-  **Дане апі застаріле! Слід використовувати Статус рахунку, замість цього апі** 
-
-  Дані про успішну оплату, якщо вона була здійснена
-
+  Метод для отримання та відправки квитанції на електронну пошту
 
   ## Arguments
 
@@ -375,18 +371,20 @@ defmodule MonobankAPI.Acquiring.Invoices do
 
   ## Options
 
+    * `email`: Адреса електронної пошти
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
     * `pipeline`: Operation pipeline for making a request. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)}
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
-  @spec get_payment_info(String.t(), [
-          {:token, String.t()}
+  @spec get_receipts(String.t(), [
+          {:email, String.t()}
+          | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
         ]) ::
-          {:ok, MonobankAPI.Acquiring.Invoices.PaymentInfoResponse.t()}
+          {:ok, MonobankAPI.Acquiring.Invoices.ReceiptResponse.t()}
           | {:error,
              MonobankAPI.Acquiring.Errors.BadRequest.t()
              | MonobankAPI.Acquiring.Errors.Forbidden.t()
@@ -395,7 +393,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
              | MonobankAPI.Acquiring.Errors.NotFound.t()
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Error.t()}
-  def get_payment_info(invoice_id, opts \\ []) do
+  def get_receipts(invoice_id, opts \\ []) do
     pipeline = opts[:pipeline] || OpenAPIClient.Utils.get_config(:acquiring, :operation_pipeline)
     base_url = opts[:base_url] || @base_url
     client = opts[:client] || OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)
@@ -403,16 +401,17 @@ defmodule MonobankAPI.Acquiring.Invoices do
     client.operation(
       %OpenAPIClient.State{
         request_base_url: base_url,
-        request_path: "/api/merchant/invoice/payment-info",
+        request_path: "/api/merchant/invoice/receipt",
         method: :get,
         request_parameter_types: [
           {{:invoice_id, :query}, {"invoiceId", {:string, :generic}}},
+          {{:email, :query}, {"email", {:string, :generic}}},
           {{:token, :header},
            {"X-Token", {:string, :generic},
             fn -> Application.get_env(:monobank_api_ex, :token) end}}
         ],
         response_types: [
-          {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.PaymentInfoResponse, :t}}]},
+          {200, [{"application/json", {MonobankAPI.Acquiring.Invoices.ReceiptResponse, :t}}]},
           {400, [{"application/json", {MonobankAPI.Acquiring.Errors.BadRequest, :t}}]},
           {403, [{"application/json", {MonobankAPI.Acquiring.Errors.Forbidden, :t}}]},
           {404, [{"application/json", {MonobankAPI.Acquiring.Errors.NotFound, :t}}]},
@@ -421,7 +420,7 @@ defmodule MonobankAPI.Acquiring.Invoices do
           {500, [{"application/json", {MonobankAPI.Acquiring.Errors.InternalServer, :t}}]}
         ],
         function_args: [invoice_id: invoice_id],
-        function_call: {__MODULE__, :get_payment_info},
+        function_call: {__MODULE__, :get_receipts},
         function_opts: opts,
         profile: :acquiring
       },
