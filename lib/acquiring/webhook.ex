@@ -1,4 +1,4 @@
-defmodule MonobankAPI.Webhook do
+defmodule MonobankAPI.Acquiring.Webhook do
   @type verify_result ::
           :ok
           | {:error,

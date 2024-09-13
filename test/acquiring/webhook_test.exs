@@ -1,6 +1,6 @@
-defmodule MonobankAPI.WebhookTest do
+defmodule MonobankAPI.Acquiring.WebhookTest do
   use ExUnit.Case, async: true
-  alias MonobankAPI.Webhook
+  alias MonobankAPI.Acquiring.Webhook
 
   describe "verify/3" do
     setup do
