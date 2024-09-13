@@ -1,6 +1,5 @@
 defmodule MonobankAPI.Client.TypedDecoder do
-  alias OpenAPIClient.Client.TypedDecoder
-  alias OpenAPIClient.Client.Error
+  alias OpenAPIClient.{TypedDecoder, Error}
 
   @behaviour TypedDecoder
 
