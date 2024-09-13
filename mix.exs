@@ -29,7 +29,7 @@ defmodule MonobankAPI.MixProject do
       {:open_api_client_ex, opts_for_open_api_client_ex(Mix.env())},
       {:jason, "~> 1.4", optional: true, only: [:dev, :test]},
       {:httpoison, "~> 2.2", optional: true, only: [:dev, :test]},
-      {:mox, "~> 1.1", only: [:dev, :test]},
+      {:mox, "~> 1.2", only: [:dev, :test]},
       {:floki, "~> 0.36", only: [:dev, :test]},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.18", only: :test}
@@ -40,5 +40,5 @@ defmodule MonobankAPI.MixProject do
     do: [{:env, :dev} | opts_for_open_api_client_ex(:prod)]
 
   defp opts_for_open_api_client_ex(_env),
-    do: [git: "../../../open-api-client-ex", ref: "7b5f5ff982279bd25e1a89f66c25c76feff0624f"]
+    do: [git: "../../../open-api-client-ex", ref: "1804fff0f19c01c0f46ff05ad17fdda1aa5fbea7"]
 end

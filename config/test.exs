@@ -9,5 +9,5 @@ config :monobank_api_ex,
 config :open_api_client_ex,
   "$base": [
     httpoison: OpenAPIClient.HTTPoisonMock,
-    client: OpenAPIClient.ClientMock
+    client: OpenAPIClientMock
   ]

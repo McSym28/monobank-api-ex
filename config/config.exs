@@ -12,7 +12,7 @@ config :logger, :console, format: "$time [$level] $message\n"
 
 config :open_api_client_ex,
   "$base": [
-    client_pipeline: OpenAPIClient.Client.BasicHTTPoisonPipeline,
+    operation_pipeline: OpenAPIClient.JasonHTTPoisonOperationPipeline,
     typed_decoder: MonobankAPI.Client.TypedDecoder,
     typed_encoder: MonobankAPI.Client.TypedEncoder,
     decoders: [
