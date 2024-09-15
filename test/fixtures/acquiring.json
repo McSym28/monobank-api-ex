@@ -1,5 +1,34 @@
 {
   "components": {
+    "callbacks": {
+      "PaymentStatus": {
+        "{$request.body#/webHookUrl}": {
+          "post": {
+            "description": "Дані про стан платежу",
+            "parameters": [
+              {
+                "description": "Підпис тіла запиту вебхуку по стандарту ECDSA",
+                "in": "header",
+                "name": "X-Sign",
+                "required": true,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ],
+            "requestBody": {
+              "$ref": "#/components/schemas/InvoiceStatusResponse"
+            },
+            "responses": {
+              "200": {
+                "description": "Успішна обробка запиту."
+              }
+            },
+            "summary": "Дані про стан платежу при кожній зміні статусу"
+          }
+        }
+      }
+    },
     "schemas": {
       "CancelListItem": {
         "properties": {
@@ -2114,6 +2143,11 @@
     },
     "/api/merchant/invoice/create": {
       "post": {
+        "callbacks": {
+          "onStatusUpdate": {
+            "$ref": "#/components/callbacks/PaymentStatus"
+          }
+        },
         "description": "Створення рахунку для оплати",
         "operationId": "create",
         "parameters": [
@@ -2436,6 +2470,11 @@
     },
     "/api/merchant/invoice/payment-direct": {
       "post": {
+        "callbacks": {
+          "onStatusUpdate": {
+            "$ref": "#/components/callbacks/PaymentStatus"
+          }
+        },
         "description": "Створення рахунку та його оплата за реквізитами картки. Увага, це апі буде працювати тільки за умови наявності у мерчанта активного PCI DSS сертифіката!",
         "operationId": "createDirectPayment",
         "parameters": [
@@ -3719,6 +3758,11 @@
     },
     "/api/merchant/wallet/payment": {
       "post": {
+        "callbacks": {
+          "onStatusUpdate": {
+            "$ref": "#/components/callbacks/PaymentStatus"
+          }
+        },
         "description": "Створення платежу за токеном картки",
         "operationId": "createPayment",
         "parameters": [

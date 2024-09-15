@@ -312,6 +312,67 @@ if Mix.env() == :dev do
       do_traverse_spec({url_new, value}, [url_new | rest_path])
     end
 
+    # Add callbacks
+    defp traverse_spec({"post" = method, value}, [method, url, "paths"] = path)
+         when url in [
+                "/api/merchant/invoice/create",
+                "/api/merchant/invoice/payment-direct",
+                "/api/merchant/wallet/payment"
+              ] and not is_map_key(value, "callbacks") do
+      value_new =
+        Map.put(
+          value,
+          "callbacks",
+          %{
+            "onStatusUpdate" => %{
+              "$ref" => "#/components/callbacks/PaymentStatus"
+            }
+          }
+        )
+
+      traverse_spec({method, value_new}, path)
+    end
+
+    defp traverse_spec({"components" = path_key, value}, [path_key] = path)
+         when not is_map_key(value, "callbacks") do
+      value_new =
+        Map.put(
+          value,
+          "callbacks",
+          %{
+            "PaymentStatus" => %{
+              "{$request.body#/webHookUrl}" => %{
+                "post" => %{
+                  "description" => "Дані про стан платежу",
+                  "parameters" => [
+                    %{
+                      "description" => "Підпис тіла запиту вебхуку по стандарту ECDSA",
+                      "in" => "header",
+                      "required" => true,
+                      "name" => "X-Sign",
+                      "schema" => %{
+                        "type" => "string"
+                      }
+                    }
+                  ],
+                  "requestBody" => %{
+                    "$ref" => "#/components/schemas/InvoiceStatusResponse"
+                  },
+                  "responses" => %{
+                    "200" => %{
+                      "description" => "Успішна обробка запиту."
+                    }
+                  },
+                  "summary" => "Дані про стан платежу при кожній зміні статусу"
+                }
+              }
+            }
+          }
+        )
+
+      traverse_spec({path_key, value_new}, path)
+    end
+
     defp traverse_spec(key_andor_value, path), do: do_traverse_spec(key_andor_value, path)
 
     defp do_traverse_spec({key, map}, path) when is_map(map) do
