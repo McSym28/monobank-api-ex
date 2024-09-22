@@ -8,6 +8,7 @@ defmodule MonobankAPI.MixProject do
       elixir: "~> 1.16",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      elixirc_paths: elixirc_paths(Mix.env()),
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: [
         coveralls: :test,
@@ -16,12 +17,17 @@ defmodule MonobankAPI.MixProject do
     ]
   end
 
+  # Configuration for the OTP application.
+  #
+  # Type `mix help compile.app` for more information.
+  defp elixirc_paths(:test), do: ["test/support" | elixirc_paths(:dev)]
+  defp elixirc_paths(_env), do: ["lib"]
+
   # Run "mix help compile.app" to learn about applications.
-  def application do
-    [
-      extra_applications: [:logger, :jason, :httpoison]
-    ]
-  end
+  def application, do: application(Mix.env())
+
+  defp application(:test), do: [{:mod, {MonobankAPI.Application, []}} | application(:dev)]
+  defp application(_env), do: [extra_applications: [:logger, :runtime_tools]]
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
@@ -32,7 +38,9 @@ defmodule MonobankAPI.MixProject do
       {:mox, "~> 1.2", only: [:dev, :test]},
       {:floki, "~> 0.36", only: [:dev, :test]},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.18", only: :test}
+      {:excoveralls, "~> 0.18", only: :test},
+      {:phoenix, "~> 1.7", only: :test},
+      {:bandit, "~> 1.5", only: :test}
     ]
   end
 
@@ -40,5 +48,5 @@ defmodule MonobankAPI.MixProject do
     do: [{:env, :dev} | opts_for_open_api_client_ex(:prod)]
 
   defp opts_for_open_api_client_ex(_env),
-    do: [git: "../../../open-api-client-ex", ref: "1804fff0f19c01c0f46ff05ad17fdda1aa5fbea7"]
+    do: [git: "../../../open-api-client-ex", ref: "fd7822fc265964d4004435ef96174c02f1bac5e2"]
 end
