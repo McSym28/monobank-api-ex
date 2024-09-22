@@ -125,7 +125,11 @@ if Mix.env() == :dev do
         end)
         |> Enum.each(&File.rm!/1)
 
-        "test/monobank_api/acquiring/**/*.exs"
+        "test/support/monobank_api_web/**/acquiring/**/*.ex"
+        |> Path.wildcard()
+        |> Enum.each(&File.rm!/1)
+
+        "test/{monobank_api,monobank_api_web}/**/acquiring/**/*.exs"
         |> Path.wildcard()
         |> Enum.reject(fn
           "test/monobank_api/acquiring/webhook_test.exs" -> true
@@ -133,7 +137,7 @@ if Mix.env() == :dev do
         end)
         |> Enum.each(&File.rm!/1)
 
-        Mix.Task.run("api.gen", ["acquiring", @acquiring_fixture_path])
+        Mix.Task.run("api.gen.proxy", ["acquiring", @acquiring_fixture_path])
         Mix.Task.run("format")
       end
     end

@@ -74,7 +74,8 @@ config :open_api_client_ex,
               default: {Application, :get_env, [:monobank_api_ex, :cms_version]}
             ]}
          ]
-       ]}
-    ],
-    test_location: "test/monobank_api/acquiring"
+       ]},
+      {{~r/^\/__callbacks__\/.*[\?&]__name__=PaymentStatus(?:&|$)/, :post},
+       [response_serializers_opts: [serializers: [{:json, json_encoder: Jason}]]]}
+    ]
   ]
