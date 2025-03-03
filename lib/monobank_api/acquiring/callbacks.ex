@@ -18,9 +18,13 @@ defmodule MonobankAPI.Acquiring.Callbacks do
     * `body`
 
   """
-  @callback payment_status(String.t(), keyword) :: :ok | {:error, OpenAPIClient.Error.t()}
+  @callback payment_status(
+              String.t(),
+              MonobankAPI.Acquiring.Invoices.Status.Response.t(),
+              keyword
+            ) :: :ok | {:error, OpenAPIClient.Error.t()}
 
-  @optional_callbacks payment_status: 2
+  @optional_callbacks payment_status: 3
 
   @doc false
   @impl OpenAPIClient.Callback
@@ -29,6 +33,7 @@ defmodule MonobankAPI.Acquiring.Callbacks do
     [
       request_path_mask: "/{*request.body.webHookUrl*}",
       request_parameter_types: [{{:x_sign, :header}, {"X-Sign", {:string, :generic}}}],
+      request_types: [{"application/json", {MonobankAPI.Acquiring.Invoices.Status.Response, :t}}],
       response_types: [{200, :null}],
       request_parameter_args: [:x_sign],
       profile: :acquiring

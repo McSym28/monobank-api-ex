@@ -360,7 +360,13 @@ if Mix.env() == :dev do
                     }
                   ],
                   "requestBody" => %{
-                    "$ref" => "#/components/schemas/InvoiceStatusResponse"
+                    "content" => %{
+                      "application/json" => %{
+                        "schema" => %{
+                          "$ref" => "#/components/schemas/InvoiceStatusResponse"
+                        }
+                      }
+                    }
                   },
                   "responses" => %{
                     "200" => %{
