@@ -1,22 +1,10 @@
 defmodule MonobankAPI.Acquiring.WebhookTest do
   use ExUnit.Case, async: true
-  alias MonobankAPI.Acquiring.Webhook
+  alias MonobankAPI.Acquiring.{Webhook, WebhookHelpers}
 
   @public_key_file "test/fixtures/webhook_public_key.pem"
   @public_key_binary File.read!(@public_key_file)
   @public_key_base64 Base.encode64(@public_key_binary)
-  @private_key_file "test/fixtures/webhook_private_key.pem"
-  @private_key @private_key_file
-               |> File.read!()
-               |> :public_key.pem_decode()
-               |> (case do
-                     [key_entry] -> :public_key.pem_entry_decode(key_entry)
-                   end)
-               |> (case do
-                     {:ECPrivateKey, _version, private_key, {:namedCurve, ec_curve}, _public_key,
-                      _parameters} ->
-                       [private_key, :pubkey_cert_records.namedCurves(ec_curve)]
-                   end)
 
   describe "verify/3" do
     setup do
@@ -46,7 +34,7 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
       }\
       """
 
-      x_sign_base64 = sign_body(body, @private_key)
+      x_sign_base64 = WebhookHelpers.generate_x_sign(body)
 
       %{
         x_sign_base64: x_sign_base64,
@@ -88,7 +76,7 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
     } do
       ec_curve = :secp256r1
       {public_key, private_key} = :crypto.generate_key(:ecdh, ec_curve)
-      x_sign_base64 = sign_body(body, [private_key, ec_curve])
+      x_sign_base64 = WebhookHelpers.generate_x_sign(body, [private_key, ec_curve])
       assert :ok == Webhook.verify(body, x_sign_base64, public_key: [public_key, ec_curve])
     end
 
@@ -136,11 +124,5 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
       assert {:error, :verify_failed} ==
                Webhook.verify("abc", x_sign_base64, public_key: {:pem, @public_key_binary})
     end
-  end
-
-  defp sign_body(body, private_key) do
-    :ecdsa
-    |> :crypto.sign(:sha256, body, private_key)
-    |> Base.encode64()
   end
 end
