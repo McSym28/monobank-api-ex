@@ -17,7 +17,7 @@ config :phoenix,
 config :logger, level: :warning
 
 config :monobank_api_ex,
-  webhook_public_key: {:pem_file, "test/fixtures/monobank_acquiring_webhook_public_key.pem"}
+  webhook_public_key: {:pem_file, "test/fixtures/webhook_public_key.pem"}
 
 config :open_api_client_ex,
   "$base": [

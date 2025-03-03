@@ -2,14 +2,24 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
   use ExUnit.Case, async: true
   alias MonobankAPI.Acquiring.Webhook
 
+  @public_key_file "test/fixtures/webhook_public_key.pem"
+  @public_key_binary File.read!(@public_key_file)
+  @public_key_base64 Base.encode64(@public_key_binary)
+  @private_key_file "test/fixtures/webhook_private_key.pem"
+  @private_key @private_key_file
+               |> File.read!()
+               |> :public_key.pem_decode()
+               |> (case do
+                     [key_entry] -> :public_key.pem_entry_decode(key_entry)
+                   end)
+               |> (case do
+                     {:ECPrivateKey, _version, private_key, {:namedCurve, ec_curve}, _public_key,
+                      _parameters} ->
+                       [private_key, :pubkey_cert_records.namedCurves(ec_curve)]
+                   end)
+
   describe "verify/3" do
     setup do
-      public_key_file = "test/fixtures/monobank_acquiring_webhook_public_key.pem"
-      public_key_binary = File.read!(public_key_file)
-
-      x_sign_base64 =
-        "MEUCIQC/mVKhi8FKoayul2Mim3E2oaIOCNJk5dEXxTqbkeJSOQIgOM0hsW0qcP2H8iXy1aQYpmY0SJWEaWur7nQXlKDCFxA="
-
       body = """
       {
         "invoiceId": "p2_9ZgpZVsl3",
@@ -36,39 +46,34 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
       }\
       """
 
+      x_sign_base64 = sign_body(body, @private_key)
+
       %{
-        public_key_file: public_key_file,
-        public_key_binary: public_key_binary,
         x_sign_base64: x_sign_base64,
         body: body
       }
     end
 
     test "successful when public key is read from file", %{
-      public_key_file: public_key_file,
       x_sign_base64: x_sign_base64,
       body: body
     } do
-      assert :ok == Webhook.verify(body, x_sign_base64, public_key: {:pem_file, public_key_file})
+      assert :ok == Webhook.verify(body, x_sign_base64, public_key: {:pem_file, @public_key_file})
     end
 
     test "successful when public key is passed as a Base64-encoded string", %{
-      public_key_binary: public_key_binary,
       x_sign_base64: x_sign_base64,
       body: body
     } do
-      public_key_base64 = Base.encode64(public_key_binary)
-
       assert :ok ==
-               Webhook.verify(body, x_sign_base64, public_key: {:pem_base64, public_key_base64})
+               Webhook.verify(body, x_sign_base64, public_key: {:pem_base64, @public_key_base64})
     end
 
     test "successful when public key is passed as binary", %{
-      public_key_binary: public_key_binary,
       x_sign_base64: x_sign_base64,
       body: body
     } do
-      assert :ok == Webhook.verify(body, x_sign_base64, public_key: {:pem, public_key_binary})
+      assert :ok == Webhook.verify(body, x_sign_base64, public_key: {:pem, @public_key_binary})
     end
 
     test "successful when the default value for public key is used", %{
@@ -83,21 +88,28 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
     } do
       ec_curve = :secp256r1
       {public_key, private_key} = :crypto.generate_key(:ecdh, ec_curve)
-
-      x_sign_base64 =
-        :ecdsa
-        |> :crypto.sign(:sha256, body, [private_key, ec_curve])
-        |> Base.encode64()
-
+      x_sign_base64 = sign_body(body, [private_key, ec_curve])
       assert :ok == Webhook.verify(body, x_sign_base64, public_key: [public_key, ec_curve])
     end
 
+    test "successful when using public key from monobank's examples", %{
+      body: body
+    } do
+      public_key_base64 =
+        "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUZrd0V3WUhLb1pJemowQ0FRWUlLb1pJemowREFRY0RRZ0FFQUc1LzZ3NnZubGJZb0ZmRHlYWE4vS29CbVVjTgo3NWJSUWg4MFBhaEdldnJoanFCQnI3OXNSS0JSbnpHODFUZVQ5OEFOakU1c0R3RmZ5Znhub0ZJcmZBPT0KLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg=="
+
+      x_sign_base64 =
+        "MEUCIQC/mVKhi8FKoayul2Mim3E2oaIOCNJk5dEXxTqbkeJSOQIgOM0hsW0qcP2H8iXy1aQYpmY0SJWEaWur7nQXlKDCFxA="
+
+      assert :ok ==
+               Webhook.verify(body, x_sign_base64, public_key: {:pem_base64, public_key_base64})
+    end
+
     test "fails when an incorrecly Base64-encoded string is passed for X-Sign", %{
-      public_key_binary: public_key_binary,
       body: body
     } do
       assert {:error, :x_sign_base64_decode} ==
-               Webhook.verify(body, "abc", {:pem, public_key_binary})
+               Webhook.verify(body, "abc", {:pem, @public_key_binary})
     end
 
     test "fails when an incorrecly Base64-encoded string is passed for public key", %{
@@ -119,11 +131,16 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
     end
 
     test "fails signature verification", %{
-      public_key_binary: public_key_binary,
       x_sign_base64: x_sign_base64
     } do
       assert {:error, :verify_failed} ==
-               Webhook.verify("abc", x_sign_base64, public_key: {:pem, public_key_binary})
+               Webhook.verify("abc", x_sign_base64, public_key: {:pem, @public_key_binary})
     end
+  end
+
+  defp sign_body(body, private_key) do
+    :ecdsa
+    |> :crypto.sign(:sha256, body, private_key)
+    |> Base.encode64()
   end
 end
