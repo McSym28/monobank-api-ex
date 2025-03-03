@@ -1,6 +1,13 @@
 if Mix.env() == :dev do
   defmodule Mix.Tasks.Generate do
-    @moduledoc "Generates library's modules"
+    @moduledoc """
+    Generates library's modules
+
+    Switches:
+
+    * `fetch`/`f` - Fetch fresh spec from the Internet. When turned off (`--no-fetch`) existing spec will be used.
+    Turned on by default.
+    """
     use Mix.Task
 
     @acquiring_url "https://api.monobank.ua/docs/acquiring.html"
@@ -106,17 +113,10 @@ if Mix.env() == :dev do
 
     @requirements ["app.start"]
     @shortdoc "Generates library's modules"
-    def run(_) do
-      HTTPoison.start()
-
-      with {:ok, body} <- http_request(@acquiring_url),
-           {:ok, document} <- parse_document(body),
-           {:ok, spec} <- find_spec(document) do
-        spec
-        |> traverse_spec([])
-        |> Jason.encode!(pretty: true)
-        |> then(&File.write!(@acquiring_fixture_path, &1))
-
+    def run(args) do
+      with {parsed_args, _, _} =
+             OptionParser.parse(args, strict: [fetch: :boolean], aliases: [f: :fetch]),
+           {:ok, spec_file} <- do_fetch_spec(Keyword.get(parsed_args, :fetch, true)) do
         "lib/monobank_api/acquiring/**/*.ex"
         |> Path.wildcard()
         |> Enum.reject(fn
@@ -137,9 +137,28 @@ if Mix.env() == :dev do
         end)
         |> Enum.each(&File.rm!/1)
 
-        Mix.Task.run("api.gen.proxy", ["acquiring", @acquiring_fixture_path])
+        Mix.Task.run("api.gen.proxy", ["acquiring", spec_file])
         Mix.Task.run("format")
       end
+    end
+
+    defp do_fetch_spec(true) do
+      HTTPoison.start()
+
+      with {:ok, body} <- http_request(@acquiring_url),
+           {:ok, document} <- parse_document(body),
+           {:ok, spec} <- find_spec(document) do
+        spec
+        |> traverse_spec([])
+        |> Jason.encode!(pretty: true)
+        |> then(&File.write!(@acquiring_fixture_path, &1))
+
+        {:ok, @acquiring_fixture_path}
+      end
+    end
+
+    defp do_fetch_spec(false) do
+      {:ok, @acquiring_fixture_path}
     end
 
     defp http_request(url) do
