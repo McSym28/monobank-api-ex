@@ -12,8 +12,12 @@ defmodule MonobankAPI.Acquiring.Webhook do
           | {:pem_file, String.t() | Path.t()}
           | [:crypto.ecdsa_public() | :crypto.ecdsa_params()]
 
-  @spec verify(binary(), String.t()) :: verify_result()
-  @spec verify(binary(), String.t(), [{:public_key, public_key()}]) :: verify_result()
+  @spec verify(body :: binary(), x_sign_base64 :: String.t()) :: verify_result()
+  @spec verify(
+          body :: binary(),
+          x_sign_base64 :: String.t(),
+          opts :: [{:public_key, public_key()}]
+        ) :: verify_result()
   def verify(body, x_sign_base64, opts \\ []) do
     with {:ok, x_sign_binary} <- decode_x_sign(x_sign_base64),
          {:ok, public_key} <-
