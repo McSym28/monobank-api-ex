@@ -11,7 +11,7 @@ if Mix.env() == :dev do
     use Mix.Task
 
     @acquiring_url "https://api.monobank.ua/docs/acquiring.html"
-    @acquiring_fixture_path "test/fixtures/acquiring.json"
+    @acquiring_fixture_path "priv/fixtures/acquiring.json"
 
     @operation_changes [
       {"/api/merchant/details", "get", %{"tags" => ["merchants"], "operationId" => "getDetails"}},
