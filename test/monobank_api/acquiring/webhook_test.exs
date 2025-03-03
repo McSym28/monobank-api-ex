@@ -3,8 +3,6 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
   alias MonobankAPI.Acquiring.{Webhook, WebhookHelpers}
 
   @public_key_file "test/fixtures/webhook_public_key.pem"
-  @public_key_binary File.read!(@public_key_file)
-  @public_key_base64 Base.encode64(@public_key_binary)
 
   describe "verify/3" do
     setup do
@@ -53,15 +51,18 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
       x_sign_base64: x_sign_base64,
       body: body
     } do
+      public_key_base64 = @public_key_file |> File.read!() |> Base.encode64()
+
       assert :ok ==
-               Webhook.verify(body, x_sign_base64, public_key: {:pem_base64, @public_key_base64})
+               Webhook.verify(body, x_sign_base64, public_key: {:pem_base64, public_key_base64})
     end
 
     test "successful when public key is passed as binary", %{
       x_sign_base64: x_sign_base64,
       body: body
     } do
-      assert :ok == Webhook.verify(body, x_sign_base64, public_key: {:pem, @public_key_binary})
+      public_key_binary = File.read!(@public_key_file)
+      assert :ok == Webhook.verify(body, x_sign_base64, public_key: {:pem, public_key_binary})
     end
 
     test "successful when the default value for public key is used", %{
@@ -96,8 +97,10 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
     test "fails when an incorrecly Base64-encoded string is passed for X-Sign", %{
       body: body
     } do
+      public_key_binary = File.read!(@public_key_file)
+
       assert {:error, :x_sign_base64_decode} ==
-               Webhook.verify(body, "abc", {:pem, @public_key_binary})
+               Webhook.verify(body, "abc", {:pem, public_key_binary})
     end
 
     test "fails when an incorrecly Base64-encoded string is passed for public key", %{
@@ -121,8 +124,10 @@ defmodule MonobankAPI.Acquiring.WebhookTest do
     test "fails signature verification", %{
       x_sign_base64: x_sign_base64
     } do
+      public_key_binary = File.read!(@public_key_file)
+
       assert {:error, :verify_failed} ==
-               Webhook.verify("abc", x_sign_base64, public_key: {:pem, @public_key_binary})
+               Webhook.verify("abc", x_sign_base64, public_key: {:pem, public_key_binary})
     end
   end
 end
