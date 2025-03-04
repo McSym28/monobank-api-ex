@@ -8,6 +8,7 @@ defmodule MonobankAPIWeb.Acquiring.Callbacks.PaymentStatusController do
   )
 
   plug(OpenAPIClient.Plugs.RequestTypedDecoder)
+  plug(MonobankAPI.Plugs.Acquiring.WebhookSignatureChecker)
   plug(OpenAPIClient.Plugs.FunctionCallDecoder)
   plug(OpenAPIClient.Plugs.FunctionCall)
   plug(OpenAPIClient.Plugs.FunctionResultEncoder)

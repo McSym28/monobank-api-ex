@@ -14,14 +14,13 @@ defmodule MonobankAPI.Acquiring.Callbacks do
 
   ## Arguments
 
-    * `x_sign`: ["X-Sign"] Підпис тіла запиту вебхуку по стандарту ECDSA
     * `body`
 
   """
-  @callback payment_status(String.t(), MonobankAPI.Acquiring.Invoices.Status.Response.t()) ::
+  @callback payment_status(MonobankAPI.Acquiring.Invoices.Status.Response.t()) ::
               :ok | {:error, OpenAPIClient.Error.t()}
 
-  @optional_callbacks payment_status: 2
+  @optional_callbacks payment_status: 1
 
   @doc false
   @impl OpenAPIClient.Callback
@@ -29,10 +28,8 @@ defmodule MonobankAPI.Acquiring.Callbacks do
   def __functions__(:payment_status) do
     [
       request_path_mask: "/{*request.body.webHookUrl*}",
-      request_parameter_types: [{{:x_sign, :header}, {"X-Sign", {:string, :generic}}}],
       request_types: [{"application/json", {MonobankAPI.Acquiring.Invoices.Status.Response, :t}}],
       response_types: [{200, :null}],
-      request_parameter_args: [:x_sign],
       profile: :acquiring
     ]
   end

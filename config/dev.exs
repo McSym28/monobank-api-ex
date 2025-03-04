@@ -5,7 +5,7 @@ config :logger, :console, format: "[$level] $message\n"
 
 config :oapi_generator,
   acquiring: [
-    processor: OpenAPIClient.Generator.Processor,
+    processor: MonobankAPI.Generator.Processor,
     renderer: MonobankAPI.Generator.Renderer,
     naming: [
       rename: [
