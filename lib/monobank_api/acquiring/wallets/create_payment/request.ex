@@ -11,6 +11,7 @@ defmodule MonobankAPI.Acquiring.Wallets.CreatePayment.Request do
           ccy: integer,
           initiation_kind: :client | :merchant | String.t(),
           merchant_paym_info: MonobankAPI.Acquiring.Merchants.PaymentInfo.t() | nil,
+          payment_type: :debit | :hold | String.t() | nil,
           redirect_url: String.t() | nil,
           web_hook_url: String.t() | nil
         }
@@ -23,6 +24,7 @@ defmodule MonobankAPI.Acquiring.Wallets.CreatePayment.Request do
     :ccy,
     :initiation_kind,
     :merchant_paym_info,
+    :payment_type,
     :redirect_url,
     :web_hook_url
   ]
@@ -38,6 +40,7 @@ defmodule MonobankAPI.Acquiring.Wallets.CreatePayment.Request do
       initiation_kind:
         {"initiationKind", {:enum, [{:client, "client"}, {:merchant, "merchant"}, :not_strict]}},
       merchant_paym_info: {"merchantPaymInfo", {MonobankAPI.Acquiring.Merchants.PaymentInfo, :t}},
+      payment_type: {"paymentType", {:enum, [{:debit, "debit"}, {:hold, "hold"}, :not_strict]}},
       redirect_url: {"redirectUrl", {:string, :generic}},
       web_hook_url: {"webHookUrl", {:string, :generic}}
     ]

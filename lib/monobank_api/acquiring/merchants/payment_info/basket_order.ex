@@ -16,6 +16,7 @@ defmodule MonobankAPI.Acquiring.Merchants.PaymentInfo.BasketOrder do
           qty: number,
           sum: integer,
           tax: [integer] | nil,
+          total: integer | nil,
           uktzed: String.t() | nil,
           unit: String.t() | nil
         }
@@ -33,6 +34,7 @@ defmodule MonobankAPI.Acquiring.Merchants.PaymentInfo.BasketOrder do
     :qty,
     :sum,
     :tax,
+    :total,
     :uktzed,
     :unit
   ]
@@ -53,6 +55,7 @@ defmodule MonobankAPI.Acquiring.Merchants.PaymentInfo.BasketOrder do
       qty: {"qty", {:number, :float}},
       sum: {"sum", {:integer, :int64}},
       tax: {"tax", [:integer]},
+      total: {"total", {:integer, :int64}},
       uktzed: {"uktzed", {:string, :generic}},
       unit: {"unit", {:string, :generic}}
     ]

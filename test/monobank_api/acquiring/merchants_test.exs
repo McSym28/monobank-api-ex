@@ -638,6 +638,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                                       headers,
                                       options ->
         assert {"from", "1706750625"} == List.keyfind(options[:params], "from", 0)
+        assert {"code", "string"} == List.keyfind(options[:params], "code", 0)
         assert {"to", "1706750625"} == List.keyfind(options[:params], "to", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
@@ -711,6 +712,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 ]
               }} ==
                MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
+                 code: "string",
                  to: ~U[2024-02-01 01:23:45Z],
                  token: "string",
                  base_url: "https://example.com"
@@ -726,6 +728,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                                       headers,
                                       options ->
         assert {"from", "1706750625"} == List.keyfind(options[:params], "from", 0)
+        assert {"code", "string"} == List.keyfind(options[:params], "code", 0)
         assert {"to", "1706750625"} == List.keyfind(options[:params], "to", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
@@ -746,6 +749,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_text: "empty 'invoiceId'"
               }} ==
                MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
+                 code: "string",
                  to: ~U[2024-02-01 01:23:45Z],
                  token: "string",
                  base_url: "https://example.com"
@@ -761,6 +765,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                                       headers,
                                       options ->
         assert {"from", "1706750625"} == List.keyfind(options[:params], "from", 0)
+        assert {"code", "string"} == List.keyfind(options[:params], "code", 0)
         assert {"to", "1706750625"} == List.keyfind(options[:params], "to", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
@@ -781,6 +786,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_text: "forbidden"
               }} ==
                MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
+                 code: "string",
                  to: ~U[2024-02-01 01:23:45Z],
                  token: "string",
                  base_url: "https://example.com"
@@ -796,6 +802,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                                       headers,
                                       options ->
         assert {"from", "1706750625"} == List.keyfind(options[:params], "from", 0)
+        assert {"code", "string"} == List.keyfind(options[:params], "code", 0)
         assert {"to", "1706750625"} == List.keyfind(options[:params], "to", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
@@ -819,6 +826,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_text: "Method not allowed"
               }} ==
                MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
+                 code: "string",
                  to: ~U[2024-02-01 01:23:45Z],
                  token: "string",
                  base_url: "https://example.com"
@@ -834,6 +842,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                                       headers,
                                       options ->
         assert {"from", "1706750625"} == List.keyfind(options[:params], "from", 0)
+        assert {"code", "string"} == List.keyfind(options[:params], "code", 0)
         assert {"to", "1706750625"} == List.keyfind(options[:params], "to", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
@@ -854,6 +863,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_text: "too many requests"
               }} ==
                MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
+                 code: "string",
                  to: ~U[2024-02-01 01:23:45Z],
                  token: "string",
                  base_url: "https://example.com"
@@ -869,6 +879,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                                       headers,
                                       options ->
         assert {"from", "1706750625"} == List.keyfind(options[:params], "from", 0)
+        assert {"code", "string"} == List.keyfind(options[:params], "code", 0)
         assert {"to", "1706750625"} == List.keyfind(options[:params], "to", 0)
         assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
 
@@ -892,6 +903,7 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                 err_text: "internal server error"
               }} ==
                MonobankAPI.Acquiring.Merchants.list_statements(~U[2024-02-01 01:23:45Z],
+                 code: "string",
                  to: ~U[2024-02-01 01:23:45Z],
                  token: "string",
                  base_url: "https://example.com"
@@ -916,7 +928,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                      %{
                        "code" => "0a8637b3bccb42aa93fdeb791b8b58e9",
                        "edrpou" => "4242424242",
-                       "iban" => "UA213996220000026007233566001"
+                       "iban" => "UA213996220000026007233566001",
+                       "owner" => "ТОВ Ворона"
                      }
                    ]
                  })
@@ -935,7 +948,8 @@ defmodule MonobankAPI.Acquiring.MerchantsTest do
                   %MonobankAPI.Acquiring.Merchants.ListSubmerchants.Response.Item{
                     code: "0a8637b3bccb42aa93fdeb791b8b58e9",
                     edrpou: "4242424242",
-                    iban: "UA213996220000026007233566001"
+                    iban: "UA213996220000026007233566001",
+                    owner: "ТОВ Ворона"
                   }
                 ]
               }} ==

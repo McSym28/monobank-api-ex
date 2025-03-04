@@ -10,11 +10,12 @@ defmodule MonobankAPI.Acquiring.Merchants.PaymentInfo do
           comment: String.t() | nil,
           customer_emails: [String.t()] | nil,
           destination: String.t() | nil,
+          discounts: [MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts.t()] | nil,
           reference: String.t() | nil
         }
   @type types :: :t
 
-  defstruct [:basket_order, :comment, :customer_emails, :destination, :reference]
+  defstruct [:basket_order, :comment, :customer_emails, :destination, :discounts, :reference]
 
   @doc false
   @impl OpenAPIClient.Schema
@@ -26,6 +27,7 @@ defmodule MonobankAPI.Acquiring.Merchants.PaymentInfo do
       comment: {"comment", {:string, :generic}},
       customer_emails: {"customerEmails", string: :generic},
       destination: {"destination", {:string, :generic}},
+      discounts: {"discounts", [{MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts, :t}]},
       reference: {"reference", {:string, :generic}}
     ]
   end

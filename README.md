@@ -10,7 +10,7 @@ At this point only [Acquiring](https://api.monobank.ua/docs/acquiring.html) API 
 ## Supported API versions
 | `monobank-api-ex` | [Acquiring](https://api.monobank.ua/docs/acquiring.html) |
 | :-------------- | :---- |
-| 0.0.1 (current) | v2408 |
+| 0.0.1 (current) | v2410 |
 
 ## TODOs
 - [ ] Add documentation

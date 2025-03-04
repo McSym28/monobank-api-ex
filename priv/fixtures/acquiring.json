@@ -20,7 +20,7 @@
               "content": {
                 "application/json": {
                   "schema": {
-              "$ref": "#/components/schemas/InvoiceStatusResponse"
+                    "$ref": "#/components/schemas/InvoiceStatusResponse"
                   }
                 }
               }
@@ -206,7 +206,7 @@
             "type": "object"
           },
           "webHookUrl": {
-            "description": "Адреса для CallBack (POST) – на цю адресу буде надіслано дані про стан платежу при кожній зміні статусу. Зміст тіла запиту ідентичний відповіді запиту “Статус рахунку”. **Гарантії доставки повідомлень одне за одним не надається. Тобто, може бути ситуація, коли вебхук про успішну оплату (`status=success`) прийде пізніше за вебхук про обробку цієї оплати (`status=processing`). Краще орієнтуватись на поле `modifiedDate` при аналізі поточного статусу рахунку. Вебхук із більшим `modifiedDate` буде актуальним**",
+            "description": "Адреса для CallBack (POST) – на цю адресу буде надіслано дані про стан платежу при зміні статусу, окрім статусу `expired`. Зміст тіла запиту ідентичний відповіді запиту “Статус рахунку”. **Гарантії доставки повідомлень одне за одним не надається. Тобто, може бути ситуація, коли вебхук про успішну оплату (`status=success`) прийде раніше за вебхук про обробку цієї оплати (`status=processing`). Краще орієнтуватись на поле `modifiedDate` при аналізі поточного статусу рахунку. Вебхук із більшим `modifiedDate` буде актуальним**",
             "example": "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily",
             "type": "string"
           }
@@ -372,7 +372,7 @@
             "type": "integer"
           },
           "webHookUrl": {
-            "description": "Адреса для CallBack (POST) – на цю адресу буде надіслано дані про стан платежу при кожній зміні статусу. Зміст тіла запиту ідентичний відповіді запиту “Статус рахунку”. **Гарантії доставки повідомлень одне за одним не надається. Тобто, може бути ситуація, коли вебхук про успішну оплату (`status=success`) прийде пізніше за вебхук про обробку цієї оплати (`status=processing`). Краще орієнтуватись на поле `modifiedDate` при аналізі поточного статусу рахунку. Вебхук із більшим `modifiedDate` буде актуальним**.\n\nОкрім вебхуків при зміні статусу рахунку, вебхуки також будуть приходити при зміні статусу токенізоваї картки, якщо обʼєкт `saveCardData` було вказано при створенні рахунку",
+            "description": "Адреса для CallBack (POST) – на цю адресу буде надіслано дані про стан платежу при зміні статусу, окрім статусу `expired`. Зміст тіла запиту ідентичний відповіді запиту “Статус рахунку”. **Гарантії доставки повідомлень одне за одним не надається. Тобто, може бути ситуація, коли вебхук про успішну оплату (`status=success`) прийде раніше за вебхук про обробку цієї оплати (`status=processing`). Краще орієнтуватись на поле `modifiedDate` при аналізі поточного статусу рахунку. Вебхук із більшим `modifiedDate` буде актуальним**.\n\nОкрім вебхуків при зміні статусу рахунку, вебхуки також будуть приходити при зміні статусу токенізоваї картки, якщо обʼєкт `saveCardData` було вказано при створенні рахунку",
             "example": "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily",
             "type": "string"
           }
@@ -762,42 +762,6 @@
         ],
         "type": "object"
       },
-      "RecipientCardAddRequest": {
-        "properties": {
-          "exp": {
-            "description": "Термін дії картки у форматі `mmyy`",
-            "example": "0642",
-            "type": "string"
-          },
-          "pan": {
-            "description": "Номер картки",
-            "example": "4242424242424242",
-            "type": "string"
-          },
-          "recipientFirstName": {
-            "description": "Ім'я, кому належить картка",
-            "example": "Артур",
-            "type": "string"
-          },
-          "recipientLastName": {
-            "description": "Прізвище, кому належить картка",
-            "example": "Дент",
-            "type": "string"
-          },
-          "walletId": {
-            "description": "Ідентифікатор гаманця користувача",
-            "example": "69f780d841a0434aa535b08821f4822c",
-            "type": "string"
-          }
-        },
-        "required": [
-          "pan",
-          "exp",
-          "recipientFirstName",
-          "recipientLastName"
-        ],
-        "type": "object"
-      },
       "FiscalCheckListResponse": {
         "properties": {
           "checks": {
@@ -884,6 +848,11 @@
                 "iban": {
                   "description": "IBAN власника терміналу",
                   "example": "UA213996220000026007233566001",
+                  "type": "string"
+                },
+                "owner": {
+                  "description": "Назва власника терміналу",
+                  "example": "ТОВ Ворона",
                   "type": "string"
                 }
               },
@@ -1198,7 +1167,7 @@
         "description": "Інформаційні дані замовлення, яке буде оплачуватись. Обовʼязково вказувати при активній звʼязці з ПРРО (звʼязка створюється у веб-кабінеті https://web.monobank.ua)",
         "properties": {
           "basketOrder": {
-            "description": "Склад замовлення, використовується для відображення кошика замовлення, обовʼязково вказувати при активній звʼязці з ПРРО (звʼязка створюється у веб-кабінеті https://web.monobank.ua або через портал check by mono https://www.monobank.ua/check)",
+            "description": "Склад замовлення, використовується для відображення кошика замовлення, обовʼязково вказувати при активній звʼязці з ПРРО (звʼязка створюється у веб-кабінеті https://web.monobank.ua)",
             "items": {
               "description": "Перелік товарів та/або послуг",
               "properties": {
@@ -1212,7 +1181,7 @@
                   "type": "string"
                 },
                 "discounts": {
-                  "description": "Масив знижок або надбавок, які будуть передані в checkbox для фіскалізації, якщо звʼязку з checkbox активовано",
+                  "description": "Масив знижок або надбавок на цю позицію в корзині, які будуть передані в checkbox для фіскалізації, якщо звʼязку з checkbox активовано",
                   "items": {
                     "description": "Обʼєкт знижки або надбавки",
                     "properties": {
@@ -1272,7 +1241,7 @@
                   "type": "number"
                 },
                 "sum": {
-                  "description": "Сума у мінімальних одиницях валюти за одиницю товару; якщо ви торгуєте табуретками, ціна якої 21 гривня, і у вас замовлення на 2 табуретки, то qty=2, sum=2100, amount=4200",
+                  "description": "Сума у мінімальних одиницях валюти за одиницю товару; якщо ви торгуєте табуретками, ціна якої 21 гривня, і у вас замовлення на 2 табуретки, то qty=2, sum=2100, amount=4200, total=4200",
                   "example": 2100,
                   "format": "int64",
                   "type": "integer"
@@ -1284,6 +1253,12 @@
                     "type": "integer"
                   },
                   "type": "array"
+                },
+                "total": {
+                  "description": "Сума у мінімальних одиницях валюти за всю кількість товарів; якщо ви торгуєте табуретками, ціна якої 21 гривня, і у вас замовлення на 2 табуретки, то qty=2, sum=2100, amount=4200, total=4200",
+                  "example": 4200,
+                  "format": "int64",
+                  "type": "integer"
                 },
                 "uktzed": {
                   "description": "Код УКТ ЗЕД",
@@ -1325,6 +1300,43 @@
             "example": "Покупка щастя",
             "maxLength": 280,
             "type": "string"
+          },
+          "discounts": {
+            "description": "Масив знижок або надбавок на всю корзину, які будуть передані в checkbox для фіскалізації, якщо звʼязку з checkbox активовано",
+            "items": {
+              "description": "Обʼєкт знижки або надбавки",
+              "properties": {
+                "mode": {
+                  "description": "Режим знижки або надбавки\n\n`PERCENT` — відсоток від basketOrder.sum * basketOrder.qty\n\n`VALUE` — числове значення\n",
+                  "enum": [
+                    "PERCENT",
+                    "VALUE"
+                  ],
+                  "type": "string"
+                },
+                "type": {
+                  "description": "Тип знижки або надбавки\n\n`DISCOUNT` — знижка\n\n`EXTRA_CHARGE` — надбавка\n",
+                  "enum": [
+                    "DISCOUNT",
+                    "EXTRA_CHARGE"
+                  ],
+                  "type": "string"
+                },
+                "value": {
+                  "description": "Значення, яке буде фігурувати в розрахунках",
+                  "minimum": 0.01,
+                  "multipleOf": 0.01,
+                  "type": "number"
+                }
+              },
+              "required": [
+                "type",
+                "mode",
+                "value"
+              ],
+              "type": "object"
+            },
+            "type": "array"
           },
           "reference": {
             "description": "Номер чека, замовлення, тощо; визначається мерчантом",
@@ -1473,25 +1485,6 @@
         },
         "required": [
           "key"
-        ],
-        "type": "object"
-      },
-      "RecipientCardAddResponse": {
-        "properties": {
-          "cardToken": {
-            "description": "Токен картки",
-            "example": "67XZtXdR4NpKU3",
-            "type": "string"
-          },
-          "walletId": {
-            "description": "Ідентифікатор гаманця користувача",
-            "example": "69f780d841a0434aa535b08821f4822c",
-            "type": "string"
-          }
-        },
-        "required": [
-          "walletId",
-          "cardToken"
         ],
         "type": "object"
       },
@@ -1749,7 +1742,7 @@
             "type": "string"
           },
           "status": {
-            "description": "Статус операції:\n\n  `created` - рахунок створено успішно, очікується оплата\n\n  `processing` - платіж обробляється\n\n  `hold` - сума заблокована\n\n  `success` - успішна оплата\n\n  `failure` - неуспішна оплата\n\n  `reversed` - оплата повернена після успіху\n\n  `expired` - час дії вичерпано\n\n\nУ випадку вебхуків гарантії доставки повідомлень одне за одним не надається. Тобто, може бути ситуація, коли вебхук про успішну оплату (`success`) прийде пізніше за вебхук про обробку цієї оплати (`status=processing`).  Краще орієнтуватись на поле `modifiedDate` при аналізі поточного статусу рахунку. Вебхук із більшим `modifiedDate` буде актуальним\n",
+            "description": "Статус операції:\n\n  `created` - рахунок створено успішно, очікується оплата\n\n  `processing` - платіж обробляється\n\n  `hold` - сума заблокована\n\n  `success` - успішна оплата\n\n  `failure` - неуспішна оплата\n\n  `reversed` - оплата повернена після успіху\n\n  `expired` - час дії вичерпано\n\n\nУ випадку вебхуків гарантії доставки повідомлень одне за одним не надається. Тобто, може бути ситуація, коли вебхук про успішну оплату (`success`) прийде раніше за вебхук про обробку цієї оплати (`status=processing`).  Краще орієнтуватись на поле `modifiedDate` при аналізі поточного статусу рахунку. Вебхук із більшим `modifiedDate` буде актуальним\n",
             "enum": [
               "created",
               "processing",
@@ -1848,13 +1841,22 @@
           "merchantPaymInfo": {
             "$ref": "#/components/schemas/MerchantPaymInfoItem"
           },
+          "paymentType": {
+            "default": "debit",
+            "description": "Тип операції. Для значення `hold` термін складає 9 днів. Якщо через 9 днів холд не буде фіналізовано — він скасовується",
+            "enum": [
+              "debit",
+              "hold"
+            ],
+            "type": "string"
+          },
           "redirectUrl": {
             "description": "Адреса для повернення (GET) - на цю адресу буде переадресовано користувача за умови проведення 3DS",
             "example": "https://example.com/your/website/result/page",
             "type": "string"
           },
           "webHookUrl": {
-            "description": "Адреса для CallBack (POST) – на цю адресу буде надіслано дані про стан платежу при кожній зміні статусу. Зміст тіла запиту ідентичний відповіді запиту “Статус рахунку”. **Гарантії доставки повідомлень одне за одним не надається. Тобто, може бути ситуація, коли вебхук про успішну оплату (`status=success`) прийде пізніше за вебхук про обробку цієї оплати (`status=processing`). Краще орієнтуватись на поле `modifiedDate` при аналізі поточного статусу рахунку. Вебхук із більшим `modifiedDate` буде актуальним**",
+            "description": "Адреса для CallBack (POST) – на цю адресу буде надіслано дані про стан платежу при зміні статусу, окрім статусу `expired`. Зміст тіла запиту ідентичний відповіді запиту “Статус рахунку”. **Гарантії доставки повідомлень одне за одним не надається. Тобто, може бути ситуація, коли вебхук про успішну оплату (`status=success`) прийде раніше за вебхук про обробку цієї оплати (`status=processing`). Краще орієнтуватись на поле `modifiedDate` при аналізі поточного статусу рахунку. Вебхук із більшим `modifiedDate` буде актуальним**",
             "example": "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily",
             "type": "string"
           }
@@ -1872,7 +1874,7 @@
   "info": {
     "description": "На кожну зміну статусу рахунку бекенд еквайрингу виконає до 3-х спроб POST запиту,  поки у відповідь не отримує http-статус 200 OK. З параметром X-Sign у хідерах.  Параметр містить підпис тіла запиту вебхуку по стандарту ECDSA. Приклади верифікації підпису наведено нижче.\n\nAPI може працювати в режимі тестового середовища. Для цього потрібно використовувати токен із https://api.monobank.ua/\n\nДля тестування не потрібно мати термінал або дозвіл для тестування эквайрингу, тестове середовище доступне всім клієнтам банку. В тестовому середовищі для оплати можна використовувати будь-які номер, дату та cvv картки, навіть якщо вони не є дійсними. Єдина умова: номер картки повинен бути валідним за [алгоритмом Луна](https://uk.wikipedia.org/wiki/Алгоритм_Луна). При використанні даних реальної банківської картки, вона буде прийнята, але фінансова авторизація здійснюватись не буде.",
     "title": "Acquiring",
-    "version": "v2408",
+    "version": "v2410",
     "x-logo": {
       "altText": "logo",
       "url": "logo.png"
@@ -3425,6 +3427,15 @@
               "format": "timestamp-s",
               "type": "integer"
             }
+          },
+          {
+            "description": "Ідентифікатор терміналу субмерчанту (використовується, якщо мерчант має субмерчантів)",
+            "in": "query",
+            "name": "code",
+            "schema": {
+              "example": "0a8637b3bccb42aa93fdeb791b8b58e9",
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -3870,98 +3881,6 @@
           }
         },
         "summary": "Оплата по токену",
-        "tags": [
-          "wallets"
-        ]
-      }
-    },
-    "/api/merchant/wallet/recipient-card/add": {
-      "post": {
-        "description": "Апі для створення токену картки, який можна буде використовувати лише для виплат. Тобто, списання коштів за цим токеном зробити буде неможливо, а зарахувати кошти -- можливо.",
-        "operationId": "addRecipientCard/",
-        "parameters": [
-          {
-            "description": "Токен з особистого кабінету https://web.monobank.ua/",
-            "in": "header",
-            "name": "X-Token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RecipientCardAddRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecipientCardAddResponse"
-                }
-              }
-            },
-            "description": "Дані результату оплати"
-          },
-          "400": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BadRequestError"
-                }
-              }
-            },
-            "description": "Один із вхідних параметрів невалідний"
-          },
-          "403": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ForbiddenError"
-                }
-              }
-            },
-            "description": "Токен невалідний"
-          },
-          "405": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MethodNotAllowedError"
-                }
-              }
-            },
-            "description": "Http-метод невалідний"
-          },
-          "429": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TooManyRequestsError"
-                }
-              }
-            },
-            "description": "Занадто багато запитів"
-          },
-          "500": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/InternalServerError"
-                }
-              }
-            },
-            "description": "Під час виконання запиту виникла непередбачена помилка"
-          }
-        },
-        "summary": "Створення токену для виплат",
         "tags": [
           "wallets"
         ]

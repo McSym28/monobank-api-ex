@@ -219,6 +219,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
 
   ## Options
 
+    * `code`: Ідентифікатор терміналу субмерчанту (використовується, якщо мерчант має субмерчантів)
     * `to`: utc unix timestamp
     * `token`: ["X-Token"] Токен з особистого кабінету https://web.monobank.ua/ або тестовий токен з https://api.monobank.ua/. Default value obtained through a call to `Application.get_env(:monobank_api_ex, :token)`
     * `base_url`: Request's base URL. Default value is taken from `@base_url`
@@ -236,7 +237,8 @@ defmodule MonobankAPI.Acquiring.Merchants do
              | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
              | OpenAPIClient.Error.t()}
   @spec list_statements(DateTime.t(), [
-          {:to, DateTime.t()}
+          {:code, String.t()}
+          | {:to, DateTime.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
@@ -262,6 +264,7 @@ defmodule MonobankAPI.Acquiring.Merchants do
         method: :get,
         request_parameter_types: [
           {{:from, :query}, {"from", {:integer, "timestamp-s"}}},
+          {{:code, :query}, {"code", {:string, :generic}}},
           {{:to, :query}, {"to", {:integer, "timestamp-s"}}},
           {{:token, :header},
            {"X-Token", {:string, :generic},

@@ -552,6 +552,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -559,6 +560,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -618,6 +620,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -625,6 +628,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -680,6 +690,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -687,6 +698,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -743,6 +755,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -750,6 +763,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -805,6 +825,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -812,6 +833,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -868,6 +890,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -875,6 +898,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -930,6 +960,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -937,6 +968,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -993,6 +1025,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -1000,6 +1033,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -1055,6 +1095,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -1062,6 +1103,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -1121,6 +1163,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -1128,6 +1171,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -1183,6 +1233,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -1190,6 +1241,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -1246,6 +1298,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -1253,6 +1306,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -1308,6 +1368,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -1315,6 +1376,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -1374,6 +1436,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -1381,6 +1444,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -2186,6 +2256,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -2193,6 +2264,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -2266,6 +2338,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -2273,6 +2346,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -2326,6 +2406,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -2333,6 +2414,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -2391,6 +2473,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -2398,6 +2481,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -2451,6 +2541,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -2458,6 +2549,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -2516,6 +2608,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -2523,6 +2616,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -2576,6 +2676,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -2583,6 +2684,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -2644,6 +2746,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -2651,6 +2754,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -2704,6 +2814,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -2711,6 +2822,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -2769,6 +2881,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -2776,6 +2889,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,
@@ -2829,6 +2949,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -2836,6 +2957,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
                   "paymentType" => "debit",
@@ -2897,6 +3019,7 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -2904,6 +3027,13 @@ defmodule MonobankAPI.Acquiring.InvoicesTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
                    payment_type: :debit,

@@ -461,6 +461,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -468,8 +469,10 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
+                  "paymentType" => "debit",
                   "redirectUrl" => "https://example.com/your/website/result/page",
                   "webHookUrl" =>
                     "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -531,6 +534,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -538,8 +542,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
+                   payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -585,6 +597,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -592,8 +605,10 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
+                  "paymentType" => "debit",
                   "redirectUrl" => "https://example.com/your/website/result/page",
                   "webHookUrl" =>
                     "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -640,6 +655,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -647,8 +663,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
+                   payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -694,6 +718,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -701,8 +726,10 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
+                  "paymentType" => "debit",
                   "redirectUrl" => "https://example.com/your/website/result/page",
                   "webHookUrl" =>
                     "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -749,6 +776,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -756,8 +784,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
+                   payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -803,6 +839,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -810,8 +847,10 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
+                  "paymentType" => "debit",
                   "redirectUrl" => "https://example.com/your/website/result/page",
                   "webHookUrl" =>
                     "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -861,6 +900,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -868,8 +908,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
+                   payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -915,6 +963,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -922,8 +971,10 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
+                  "paymentType" => "debit",
                   "redirectUrl" => "https://example.com/your/website/result/page",
                   "webHookUrl" =>
                     "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -970,6 +1021,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -977,8 +1029,16 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
+                   payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -1024,6 +1084,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                         "qty" => 2,
                         "sum" => 2100,
                         "tax" => [],
+                        "total" => 4200,
                         "uktzed" => "string",
                         "unit" => "шт."
                       }
@@ -1031,8 +1092,10 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                     "comment" => "Покупка щастя",
                     "customerEmails" => [],
                     "destination" => "Покупка щастя",
+                    "discounts" => [%{"mode" => "PERCENT", "type" => "DISCOUNT", "value" => 1.0}],
                     "reference" => "84d0070ee4e44667b31371d8f8813947"
                   },
+                  "paymentType" => "debit",
                   "redirectUrl" => "https://example.com/your/website/result/page",
                   "webHookUrl" =>
                     "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
@@ -1082,6 +1145,7 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                          qty: 2,
                          sum: 2100,
                          tax: [],
+                         total: 4200,
                          uktzed: "string",
                          unit: "шт."
                        }
@@ -1089,319 +1153,22 @@ defmodule MonobankAPI.Acquiring.WalletsTest do
                      comment: "Покупка щастя",
                      customer_emails: [],
                      destination: "Покупка щастя",
+                     discounts: [
+                       %MonobankAPI.Acquiring.Merchants.PaymentInfo.Discounts{
+                         mode: :percent,
+                         type: :discount,
+                         value: 1.0
+                       }
+                     ],
                      reference: "84d0070ee4e44667b31371d8f8813947"
                    },
+                   payment_type: :debit,
                    redirect_url: "https://example.com/your/website/result/page",
                    web_hook_url:
                      "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily"
                  },
                  cms: "string",
                  cms_version: "string",
-                 token: "string",
-                 base_url: "https://example.com"
-               )
-    end
-  end
-
-  describe "add_recipient_card/2" do
-    test "[200] performs a request, encodes AddRecipientCard.Request from request's body and decodes AddRecipientCard.Response from response's body" do
-      expect(@client, :operation, &OpenAPIClient.operation/2)
-
-      expect(@httpoison, :request, fn :post,
-                                      "https://example.com/api/merchant/wallet/recipient-card/add",
-                                      body,
-                                      headers,
-                                      _ ->
-        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
-        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
-
-        assert {:ok,
-                %{
-                  "exp" => "0642",
-                  "pan" => "4242424242424242",
-                  "recipientFirstName" => "Артур",
-                  "recipientLastName" => "Дент",
-                  "walletId" => "69f780d841a0434aa535b08821f4822c"
-                }} == Jason.decode(body)
-
-        assert {:ok, body_encoded} =
-                 Jason.encode(%{
-                   "cardToken" => "67XZtXdR4NpKU3",
-                   "walletId" => "69f780d841a0434aa535b08821f4822c"
-                 })
-
-        {:ok,
-         %HTTPoison.Response{
-           status_code: 200,
-           headers: [{"Content-Type", "application/json"}],
-           body: body_encoded
-         }}
-      end)
-
-      assert {:ok,
-              %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Response{
-                card_token: "67XZtXdR4NpKU3",
-                wallet_id: "69f780d841a0434aa535b08821f4822c"
-              }} ==
-               MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
-                   exp: "0642",
-                   pan: "4242424242424242",
-                   recipient_first_name: "Артур",
-                   recipient_last_name: "Дент",
-                   wallet_id: "69f780d841a0434aa535b08821f4822c"
-                 },
-                 token: "string",
-                 base_url: "https://example.com"
-               )
-    end
-
-    test "[400] performs a request, encodes AddRecipientCard.Request from request's body and decodes Errors.BadRequest from response's body" do
-      expect(@client, :operation, &OpenAPIClient.operation/2)
-
-      expect(@httpoison, :request, fn :post,
-                                      "https://example.com/api/merchant/wallet/recipient-card/add",
-                                      body,
-                                      headers,
-                                      _ ->
-        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
-        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
-
-        assert {:ok,
-                %{
-                  "exp" => "0642",
-                  "pan" => "4242424242424242",
-                  "recipientFirstName" => "Артур",
-                  "recipientLastName" => "Дент",
-                  "walletId" => "69f780d841a0434aa535b08821f4822c"
-                }} == Jason.decode(body)
-
-        assert {:ok, body_encoded} =
-                 Jason.encode(%{"errCode" => "BAD_REQUEST", "errText" => "empty 'invoiceId'"})
-
-        {:ok,
-         %HTTPoison.Response{
-           status_code: 400,
-           headers: [{"Content-Type", "application/json"}],
-           body: body_encoded
-         }}
-      end)
-
-      assert {:error,
-              %MonobankAPI.Acquiring.Errors.BadRequest{
-                err_code: "BAD_REQUEST",
-                err_text: "empty 'invoiceId'"
-              }} ==
-               MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
-                   exp: "0642",
-                   pan: "4242424242424242",
-                   recipient_first_name: "Артур",
-                   recipient_last_name: "Дент",
-                   wallet_id: "69f780d841a0434aa535b08821f4822c"
-                 },
-                 token: "string",
-                 base_url: "https://example.com"
-               )
-    end
-
-    test "[403] performs a request, encodes AddRecipientCard.Request from request's body and decodes Errors.Forbidden from response's body" do
-      expect(@client, :operation, &OpenAPIClient.operation/2)
-
-      expect(@httpoison, :request, fn :post,
-                                      "https://example.com/api/merchant/wallet/recipient-card/add",
-                                      body,
-                                      headers,
-                                      _ ->
-        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
-        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
-
-        assert {:ok,
-                %{
-                  "exp" => "0642",
-                  "pan" => "4242424242424242",
-                  "recipientFirstName" => "Артур",
-                  "recipientLastName" => "Дент",
-                  "walletId" => "69f780d841a0434aa535b08821f4822c"
-                }} == Jason.decode(body)
-
-        assert {:ok, body_encoded} =
-                 Jason.encode(%{"errCode" => "FORBIDDEN", "errText" => "forbidden"})
-
-        {:ok,
-         %HTTPoison.Response{
-           status_code: 403,
-           headers: [{"Content-Type", "application/json"}],
-           body: body_encoded
-         }}
-      end)
-
-      assert {:error,
-              %MonobankAPI.Acquiring.Errors.Forbidden{
-                err_code: "FORBIDDEN",
-                err_text: "forbidden"
-              }} ==
-               MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
-                   exp: "0642",
-                   pan: "4242424242424242",
-                   recipient_first_name: "Артур",
-                   recipient_last_name: "Дент",
-                   wallet_id: "69f780d841a0434aa535b08821f4822c"
-                 },
-                 token: "string",
-                 base_url: "https://example.com"
-               )
-    end
-
-    test "[405] performs a request, encodes AddRecipientCard.Request from request's body and decodes Errors.MethodNotAllowed from response's body" do
-      expect(@client, :operation, &OpenAPIClient.operation/2)
-
-      expect(@httpoison, :request, fn :post,
-                                      "https://example.com/api/merchant/wallet/recipient-card/add",
-                                      body,
-                                      headers,
-                                      _ ->
-        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
-        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
-
-        assert {:ok,
-                %{
-                  "exp" => "0642",
-                  "pan" => "4242424242424242",
-                  "recipientFirstName" => "Артур",
-                  "recipientLastName" => "Дент",
-                  "walletId" => "69f780d841a0434aa535b08821f4822c"
-                }} == Jason.decode(body)
-
-        assert {:ok, body_encoded} =
-                 Jason.encode(%{
-                   "errCode" => "METHOD_NOT_ALLOWED",
-                   "errText" => "Method not allowed"
-                 })
-
-        {:ok,
-         %HTTPoison.Response{
-           status_code: 405,
-           headers: [{"Content-Type", "application/json"}],
-           body: body_encoded
-         }}
-      end)
-
-      assert {:error,
-              %MonobankAPI.Acquiring.Errors.MethodNotAllowed{
-                err_code: "METHOD_NOT_ALLOWED",
-                err_text: "Method not allowed"
-              }} ==
-               MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
-                   exp: "0642",
-                   pan: "4242424242424242",
-                   recipient_first_name: "Артур",
-                   recipient_last_name: "Дент",
-                   wallet_id: "69f780d841a0434aa535b08821f4822c"
-                 },
-                 token: "string",
-                 base_url: "https://example.com"
-               )
-    end
-
-    test "[429] performs a request, encodes AddRecipientCard.Request from request's body and decodes Errors.TooManyRequests from response's body" do
-      expect(@client, :operation, &OpenAPIClient.operation/2)
-
-      expect(@httpoison, :request, fn :post,
-                                      "https://example.com/api/merchant/wallet/recipient-card/add",
-                                      body,
-                                      headers,
-                                      _ ->
-        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
-        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
-
-        assert {:ok,
-                %{
-                  "exp" => "0642",
-                  "pan" => "4242424242424242",
-                  "recipientFirstName" => "Артур",
-                  "recipientLastName" => "Дент",
-                  "walletId" => "69f780d841a0434aa535b08821f4822c"
-                }} == Jason.decode(body)
-
-        assert {:ok, body_encoded} =
-                 Jason.encode(%{"errCode" => "TMR", "errText" => "too many requests"})
-
-        {:ok,
-         %HTTPoison.Response{
-           status_code: 429,
-           headers: [{"Content-Type", "application/json"}],
-           body: body_encoded
-         }}
-      end)
-
-      assert {:error,
-              %MonobankAPI.Acquiring.Errors.TooManyRequests{
-                err_code: "TMR",
-                err_text: "too many requests"
-              }} ==
-               MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
-                   exp: "0642",
-                   pan: "4242424242424242",
-                   recipient_first_name: "Артур",
-                   recipient_last_name: "Дент",
-                   wallet_id: "69f780d841a0434aa535b08821f4822c"
-                 },
-                 token: "string",
-                 base_url: "https://example.com"
-               )
-    end
-
-    test "[500] performs a request, encodes AddRecipientCard.Request from request's body and decodes Errors.InternalServer from response's body" do
-      expect(@client, :operation, &OpenAPIClient.operation/2)
-
-      expect(@httpoison, :request, fn :post,
-                                      "https://example.com/api/merchant/wallet/recipient-card/add",
-                                      body,
-                                      headers,
-                                      _ ->
-        assert {"x-token", "string"} == List.keyfind(headers, "x-token", 0)
-        assert {:ok, "application/json"} == OpenAPIClient.Utils.get_content_type(headers)
-
-        assert {:ok,
-                %{
-                  "exp" => "0642",
-                  "pan" => "4242424242424242",
-                  "recipientFirstName" => "Артур",
-                  "recipientLastName" => "Дент",
-                  "walletId" => "69f780d841a0434aa535b08821f4822c"
-                }} == Jason.decode(body)
-
-        assert {:ok, body_encoded} =
-                 Jason.encode(%{
-                   "errCode" => "INTERNAL_ERROR",
-                   "errText" => "internal server error"
-                 })
-
-        {:ok,
-         %HTTPoison.Response{
-           status_code: 500,
-           headers: [{"Content-Type", "application/json"}],
-           body: body_encoded
-         }}
-      end)
-
-      assert {:error,
-              %MonobankAPI.Acquiring.Errors.InternalServer{
-                err_code: "INTERNAL_ERROR",
-                err_text: "internal server error"
-              }} ==
-               MonobankAPI.Acquiring.Wallets.add_recipient_card(
-                 %MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request{
-                   exp: "0642",
-                   pan: "4242424242424242",
-                   recipient_first_name: "Артур",
-                   recipient_last_name: "Дент",
-                   wallet_id: "69f780d841a0434aa535b08821f4822c"
-                 },
                  token: "string",
                  base_url: "https://example.com"
                )
