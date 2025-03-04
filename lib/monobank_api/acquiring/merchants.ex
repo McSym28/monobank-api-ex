@@ -16,10 +16,20 @@ defmodule MonobankAPI.Acquiring.Merchants do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec get_details() ::
+          {:ok, MonobankAPI.Acquiring.Merchants.Details.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec get_details([
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Merchants.Details.Response.t()}
           | {:error,
@@ -74,10 +84,20 @@ defmodule MonobankAPI.Acquiring.Merchants do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec get_pubkey() ::
+          {:ok, MonobankAPI.Acquiring.Merchants.Pubkey.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec get_pubkey([
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Merchants.Pubkey.Response.t()}
           | {:error,
@@ -134,10 +154,20 @@ defmodule MonobankAPI.Acquiring.Merchants do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec list_employees() ::
+          {:ok, MonobankAPI.Acquiring.Merchants.ListEmployees.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec list_employees([
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Merchants.ListEmployees.Response.t()}
           | {:error,
@@ -196,11 +226,21 @@ defmodule MonobankAPI.Acquiring.Merchants do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec list_statements(DateTime.t()) ::
+          {:ok, MonobankAPI.Acquiring.Merchants.ListStatements.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec list_statements(DateTime.t(), [
           {:to, DateTime.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Merchants.ListStatements.Response.t()}
           | {:error,
@@ -258,10 +298,20 @@ defmodule MonobankAPI.Acquiring.Merchants do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec list_submerchants() ::
+          {:ok, MonobankAPI.Acquiring.Merchants.ListSubmerchants.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec list_submerchants([
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Merchants.ListSubmerchants.Response.t()}
           | {:error,

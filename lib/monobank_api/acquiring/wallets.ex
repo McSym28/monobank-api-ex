@@ -22,10 +22,20 @@ defmodule MonobankAPI.Acquiring.Wallets do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec add_recipient_card(MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request.t()) ::
+          {:ok, MonobankAPI.Acquiring.Wallets.AddRecipientCard.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec add_recipient_card(MonobankAPI.Acquiring.Wallets.AddRecipientCard.Request.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Wallets.AddRecipientCard.Response.t()}
           | {:error,
@@ -90,12 +100,22 @@ defmodule MonobankAPI.Acquiring.Wallets do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec create_payment(MonobankAPI.Acquiring.Wallets.CreatePayment.Request.t()) ::
+          {:ok, MonobankAPI.Acquiring.Wallets.CreatePayment.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec create_payment(MonobankAPI.Acquiring.Wallets.CreatePayment.Request.t(), [
           {:cms, String.t()}
           | {:cms_version, String.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Wallets.CreatePayment.Response.t()}
           | {:error,
@@ -161,10 +181,20 @@ defmodule MonobankAPI.Acquiring.Wallets do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec delete_card(String.t()) ::
+          {:ok, map}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec delete_card(String.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, map}
           | {:error,
@@ -222,10 +252,20 @@ defmodule MonobankAPI.Acquiring.Wallets do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec get(String.t()) ::
+          {:ok, MonobankAPI.Acquiring.Wallets.Get.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec get(String.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Wallets.Get.Response.t()}
           | {:error,

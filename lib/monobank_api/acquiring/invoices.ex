@@ -22,10 +22,21 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec cancel(MonobankAPI.Acquiring.Invoices.Cancel.Request.t()) ::
+          {:ok, MonobankAPI.Acquiring.Invoices.Cancel.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.NotFound.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec cancel(MonobankAPI.Acquiring.Invoices.Cancel.Request.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.Cancel.Response.t()}
           | {:error,
@@ -89,12 +100,23 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec create(MonobankAPI.Acquiring.Invoices.Create.Request.t()) ::
+          {:ok, MonobankAPI.Acquiring.Invoices.Create.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.NotFound.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec create(MonobankAPI.Acquiring.Invoices.Create.Request.t(), [
           {:cms, String.t()}
           | {:cms_version, String.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.Create.Response.t()}
           | {:error,
@@ -163,12 +185,22 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec create_direct_payment(MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.t()) ::
+          {:ok, MonobankAPI.Acquiring.Wallets.CreatePayment.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec create_direct_payment(MonobankAPI.Acquiring.Invoices.CreateDirectPayment.Request.t(), [
           {:cms, String.t()}
           | {:cms_version, String.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Wallets.CreatePayment.Response.t()}
           | {:error,
@@ -238,12 +270,23 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec create_sync_payment(MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.t()) ::
+          {:ok, MonobankAPI.Acquiring.Invoices.Status.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.NotFound.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec create_sync_payment(MonobankAPI.Acquiring.Invoices.CreateSyncPayment.Request.t(), [
           {:cms, String.t()}
           | {:cms_version, String.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.Status.Response.t()}
           | {:error,
@@ -310,10 +353,21 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec finalize(MonobankAPI.Acquiring.Invoices.Finalize.Request.t()) ::
+          {:ok, MonobankAPI.Acquiring.Invoices.Finalize.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.NotFound.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec finalize(MonobankAPI.Acquiring.Invoices.Finalize.Request.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.Finalize.Response.t()}
           | {:error,
@@ -378,11 +432,22 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec get_receipts(String.t()) ::
+          {:ok, MonobankAPI.Acquiring.Invoices.Receipt.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.NotFound.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec get_receipts(String.t(), [
           {:email, String.t()}
           | {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.Receipt.Response.t()}
           | {:error,
@@ -445,10 +510,21 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec get_status(String.t()) ::
+          {:ok, MonobankAPI.Acquiring.Invoices.Status.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.NotFound.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec get_status(String.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.Status.Response.t()}
           | {:error,
@@ -510,10 +586,21 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec list_fiscal_checks(String.t()) ::
+          {:ok, MonobankAPI.Acquiring.Invoices.ListFiscalChecks.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.NotFound.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec list_fiscal_checks(String.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.Invoices.ListFiscalChecks.Response.t()}
           | {:error,
@@ -576,10 +663,21 @@ defmodule MonobankAPI.Acquiring.Invoices do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec remove(MonobankAPI.Acquiring.Invoices.Remove.Request.t()) ::
+          {:ok, map}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.NotFound.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec remove(MonobankAPI.Acquiring.Invoices.Remove.Request.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, map}
           | {:error,

@@ -22,10 +22,21 @@ defmodule MonobankAPI.Acquiring.QR do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec get_details(String.t()) ::
+          {:ok, MonobankAPI.Acquiring.QR.Details.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.NotFound.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec get_details(String.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.QR.Details.Response.t()}
           | {:error,
@@ -81,10 +92,20 @@ defmodule MonobankAPI.Acquiring.QR do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec list() ::
+          {:ok, MonobankAPI.Acquiring.QR.List.Response.t()}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec list([
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, MonobankAPI.Acquiring.QR.List.Response.t()}
           | {:error,
@@ -141,10 +162,21 @@ defmodule MonobankAPI.Acquiring.QR do
     * `client`: Module that implements `OpenAPIClient` behaviour. Default value obtained through a call to `OpenAPIClient.Utils.get_config(:acquiring, :client, OpenAPIClient)`
 
   """
+  @spec reset_amount(MonobankAPI.Acquiring.QR.ResetAmount.Request.t()) ::
+          {:ok, map}
+          | {:error,
+             MonobankAPI.Acquiring.Errors.BadRequest.t()
+             | MonobankAPI.Acquiring.Errors.Forbidden.t()
+             | MonobankAPI.Acquiring.Errors.InternalServer.t()
+             | MonobankAPI.Acquiring.Errors.MethodNotAllowed.t()
+             | MonobankAPI.Acquiring.Errors.NotFound.t()
+             | MonobankAPI.Acquiring.Errors.TooManyRequests.t()
+             | OpenAPIClient.Error.t()}
   @spec reset_amount(MonobankAPI.Acquiring.QR.ResetAmount.Request.t(), [
           {:token, String.t()}
           | {:base_url, String.t() | URI.t()}
           | {:pipeline, OpenAPIClient.pipeline()}
+          | {:client, module()}
         ]) ::
           {:ok, map}
           | {:error,

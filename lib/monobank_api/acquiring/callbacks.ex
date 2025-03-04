@@ -18,13 +18,10 @@ defmodule MonobankAPI.Acquiring.Callbacks do
     * `body`
 
   """
-  @callback payment_status(
-              String.t(),
-              MonobankAPI.Acquiring.Invoices.Status.Response.t(),
-              keyword
-            ) :: :ok | {:error, OpenAPIClient.Error.t()}
+  @callback payment_status(String.t(), MonobankAPI.Acquiring.Invoices.Status.Response.t()) ::
+              :ok | {:error, OpenAPIClient.Error.t()}
 
-  @optional_callbacks payment_status: 3
+  @optional_callbacks payment_status: 2
 
   @doc false
   @impl OpenAPIClient.Callback
