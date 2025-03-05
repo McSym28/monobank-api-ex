@@ -115,7 +115,7 @@ if Mix.env() == :dev do
     @shortdoc "Generates library's modules"
     def run(args) do
       with {parsed_args, _, _} =
-             OptionParser.parse(args, strict: [fetch: :boolean], aliases: [f: :fetch]),
+             OptionParser.parse(args, switches: [fetch: :boolean], aliases: [f: :fetch]),
            {:ok, spec_file} <- do_fetch_spec(Keyword.get(parsed_args, :fetch, true)) do
         "lib/monobank_api/acquiring/**/*.ex"
         |> Path.wildcard()
