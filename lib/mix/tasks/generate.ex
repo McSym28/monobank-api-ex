@@ -117,22 +117,32 @@ if Mix.env() == :dev do
       with {parsed_args, _, _} =
              OptionParser.parse(args, switches: [fetch: :boolean], aliases: [f: :fetch]),
            {:ok, spec_file} <- do_fetch_spec(Keyword.get(parsed_args, :fetch, true)) do
-        "lib/monobank_api/acquiring/**/*.ex"
+        "lib/monobank_api/**/*.ex"
         |> Path.wildcard()
         |> Enum.reject(fn
           "lib/monobank_api/acquiring/webhook.ex" -> true
+          "lib/monobank_api/client/" <> _rest -> true
+          "lib/monobank_api/generator/" <> _rest -> true
+          "lib/monobank_api/plugs/" <> _rest -> true
           _file -> false
         end)
         |> Enum.each(&File.rm!/1)
 
-        "test/support/monobank_api_web/**/acquiring/**/*.ex"
+        "test/support/monobank_api_web/**/*.ex"
         |> Path.wildcard()
+        |> Enum.reject(fn
+          "test/support/monobank_api_web/endpoint.ex" -> true
+          "test/support/monobank_api_web/router.ex" -> true
+          _file -> false
+        end)
         |> Enum.each(&File.rm!/1)
 
-        "test/{monobank_api,monobank_api_web}/**/acquiring/**/*.exs"
+        "test/{monobank_api,monobank_api_web}/**/*.exs"
         |> Path.wildcard()
         |> Enum.reject(fn
           "test/monobank_api/acquiring/webhook_test.exs" -> true
+          "test/monobank_api/client/" <> _rest -> true
+          "test/monobank_api/plugs/" <> _rest -> true
           _file -> false
         end)
         |> Enum.each(&File.rm!/1)
